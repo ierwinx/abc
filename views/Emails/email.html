@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Autorización ABC</title>
+    <style>
+        div {
+            text-align: center;
+            margin: 1em;
+        }
+        
+        #header {
+            text-align: center;
+            background-color: darkgreen;
+            color: azure;
+            padding: 0.01em;
+            margin: 0px;
+        }
+        
+        a {
+            padding: 1em;
+            padding-left: 3em;
+            padding-right: 3em;
+            text-decoration: none;
+            color: black;
+            margin: 1em;
+        }
+        
+        .si {
+            background-color: royalblue;
+            color: azure;
+        }
+        
+        .no {
+            background-color: red;
+            color: azure;
+        }
+        
+        table {
+            text-align: center;
+            margin: 0 auto;
+            width: auto;
+            margin-bottom: 2em;
+            margin-top: 2em;
+            text-align: center;
+            border-collapse: collapse;
+            width: 75%;
+        }
+        
+        tr {
+            border: gray 1px solid;
+            border-radius: 64px 64px 64px 64px;
+            margin: 1em;
+        }
+        
+        #footer {
+            text-align: center;
+            background-color: darkgreen;
+            color: azure;
+            padding: 1em;
+            margin-top: 2em;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+        
+        img {
+            width: 40%;
+        }
+        
+        table tbody tr td table thead tr th {
+            background-color: grey;
+            color: aliceblue;
+            padding: 1em;
+            padding-left: 3em;
+            padding-right: 3em;
+        }
+        
+        table tbody tr td table tbody tr td {
+            background-color: lavender;
+            color: black;
+            padding: 1em;
+            padding-left: 3em;
+            padding-right: 3em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <h1>Petición de ingreso al sistema ABC</h1>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="padding: 1em; " colspan="2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU05PPCaZw2J2YyG3scWnNzHlGQZC0BfKNRc-GPGFklsK4RBA6SQ"></th>
+                    <th style="padding: 1em; text-align: left; padding-left: 5em;" colspan="2">
+                        Proyecto: Sistema Ambientación Base de Clientes
+                        <br> Desarrollador: DevSecOps
+                        <br> Ambiente: {{ambiente}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" style="padding: 1em; text-align: center;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Correo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{usuario}}</td>
+                                    <td>{{correo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" style="padding: 1em; text-align: center;">
+                        <a class="si" href="{{dominio}}/auth/v1/acepta/usuario/{{id}}">Autorizar</a>
+                        <a class="no" href="{{dominio}}/auth/v1/declina/usuario/{{id}}">No Autorizar</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div id="footer">
+        Este correo se generó automáticamente por el sistema ABC, favor de no responder
+    </div>
+</body>
+
+</html>

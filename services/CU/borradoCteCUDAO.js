@@ -1,0 +1,45 @@
+var logger = require('log4js').getLogger("BorradoCTECUDAO");
+var querystring = require('querystring');
+var http = require('http');
+
+
+var borrarCteCU = (bean) => {
+    logger.info(" ::: se consulta servicio rest para borrado de CU :::");
+
+    let cadenaPost = `nombre=${bean.nombre}&apellidoPaterno=${bean.apellidoP}&apellidoMaterno=${bean.apellidoM}&fechaNacimiento=${bean.fechaNac}&ipAutenticacion=127.0.0.1`;
+
+    logger.info('POST ' + cadenaPost);
+
+    var servicio = new Promise((resolve, reject) => {
+        var reques = http.request({
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            hostname: '10.50.109.33',
+            port: 8080,
+            path: '/WSClienteUnico/Baja/clienteDesarrollo',
+            method: 'POST'
+        }, resp => {
+            resp.on("data", datos => {
+                var resp = JSON.parse(datos);
+                if (resp && resp.objResponse && resp.objResponse.status === 0) {
+                    resolve(bean);
+                } else {
+                    logger.error('Ocurrio un error con el servicio borrado de CU ')
+                    reject(new Error(`Ocurrio un error con el servicio borrado de CU`));
+                }
+            });
+        }).on("error", err => {
+            logger.error("Ocurrio un error con el servicio borrado de CU");
+            reject(new Error("Ocurrio un error con el servicio borrado de CU ", err));
+        });
+        reques.write(cadenaPost);
+        reques.end();
+    });
+
+    return servicio;
+}
+
+module.exports = {
+    borrarCteCU
+}
