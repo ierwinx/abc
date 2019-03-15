@@ -120,7 +120,9 @@ var cliente = new Schema({
     claveElector: String,
     vigencia: String,
     descFlujo: String,
-    cuentaCliente: String
+    cuentaCliente: String,
+    alias: String,
+    passTemp: String
 }, {
     toObject: {
         transform: (doc, ret, game) => {

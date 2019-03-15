@@ -12,6 +12,7 @@ var Consultado360 = require("../services/360/Consultado");
 var Extendidos360 = require("../services/360/Extendidos");
 var Borrar360 = require("../services/360/Borrar");
 var Ine360 = require("../services/360/Ine");
+var Desbloqueo = require("../services/360/Desbloqueo");
 
 var FlujoINE = require("./FlujoINE");
 
@@ -95,7 +96,7 @@ var procesa = async(objeto, servicio) => {
             break;
         case 2.5:
             logger.info(" ::: Activacion por sucursal ::: ");
-            objeto = await Ine360.activacionXsuc(objeto).then().catch(err => {
+            objeto = await ActivacionXSuc.activacionXsuc(objeto).then().catch(err => {
                 throw err;
             });
             break;
@@ -120,7 +121,10 @@ var procesa = async(objeto, servicio) => {
             logger.info(" ::: Listas Negras 360 ::: ");
             break;
         case 2.9:
-            logger.info(" ::: Preactivacion ::: ");
+            logger.info(" ::: Desbloqueo ::: ");
+            objeto = Desbloqueo.desbloquea(objeto).then().catch(err => {
+                throw err;
+            });
             break;
         case 3.1:
             logger.info(" ::: Listas negras alnova ::: ");

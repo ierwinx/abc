@@ -5,7 +5,17 @@ var http = require('http');
 var altaRenapoCU = async(bean) => {
     logger.info(" ::: se consulta servicio rest de CU para alta renapo CU :::");
 
-    let objeto = `nombre=${bean.nombre}&apellidoPaterno=${bean.apellidoP}&apellidoMaterno=${bean.apellidoM}&fechaNacimiento=${bean.fechaNac}&curp=${bean.curp}&rfc=${bean.rfc}&sexo=${bean.genero}&cveEntidadNacimiento=${bean.idEntidadFederativa}&ipAutenticacion=127.0.0.1`;
+    let objeto = querystring.stringify({
+        nombre: bean.nombre,
+        apellidoPaterno: bean.apellidoP,
+        apellidoMaterno: bean.apellidoM,
+        fechaNacimiento: bean.fechaNac,
+        curp: bean.curp,
+        rfc: bean.rfc,
+        sexo: bean.genero,
+        cveEntidadNacimiento: bean.idEntidadFederativa,
+        ipAutenticacion: "127.0.0.1"
+    }, null, null, { encodeURIComponent: querystring.unescape });
 
     logger.info("POST: " + objeto);
 

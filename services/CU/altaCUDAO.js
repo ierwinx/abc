@@ -62,10 +62,12 @@ var altaClienteCU = (beanAltaCU) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
-                if (respuesta && respuesta.lstResponse && respuesta.issue.issue == false && respuesta.lstResponse[0].noClienteAlnova && respuesta.lstResponse[0].icu) {
+                if (respuesta && respuesta.lstResponse && respuesta.issue.issue == false && respuesta.lstResponse[0].noClienteAlnova && respuesta.lstResponse[0].icu && respuesta.lstResponse[0].sucursal && respuesta.lstResponse[0].idCliente) {
                     if (respuesta.lstResponse[0].noClienteAlnova != '' && respuesta.lstResponse[0].icu != '') {
                         beanAltaCU.idAlnova = respuesta.lstResponse[0].noClienteAlnova;
                         beanAltaCU.icu = respuesta.lstResponse[0].icu;
+                        beanAltaCU.sucursalCu = respuesta.lstResponse[0].sucursal;
+                        beanAltaCU.idCliente = respuesta.lstResponse[0].idCliente;
                         resolve(beanAltaCU);
                     } else {
                         logger.error("Ocurrio un error con el servicio de Alta CU ");

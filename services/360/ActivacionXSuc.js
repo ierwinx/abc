@@ -1,8 +1,17 @@
 var logger = require('log4js').getLogger("ActivacionXSuc");
 var https = require("https");
 
-var activacionXsuc = (objRequest) => {
+var activacionXsuc = (objeto) => {
     logger.info(" ::: se consulta servicio rest 360 para activacion X sucursal :::");
+
+    var objeto2 = JSON.stringify({
+        alnova: objeto.idAlnova,
+        email: objeto.correo,
+        sucursal: objeto.sucursalCu,
+        empleado: objeto.idCliente
+    })
+
+    logger.info('POST ' + objeto2);
 
     var servicio = new Promise((resolve, reject) => {
         var reques = https.request({
@@ -17,17 +26,30 @@ var activacionXsuc = (objRequest) => {
             method: 'POST'
         }, resp => {
             resp.on("data", datos => {
-                resolve(JSON.parse(datos).data);
+                var respuesta = JSON.parse(datos);
+                if (respuesta.estatus == 0) {
+                    if (respuesta.respuesta.activacion.datos.alias && respuesta.respuesta.password_temporal) {
+                        objeto.alias = respuesta.respuesta.activacion.datos.alias;
+                        objeto.passTemp = respuesta.respuesta.password_temporal;
+                        resolve(objeto);
+                    } else {
+                        logger.error("Ocurrio un error con el consumo del servicio activacion X sucursal 360");
+                        reject(new Error("Ocurrio un error con el consumo del servicio de 360 activacion X sucursal"));
+                    }
+                } else {
+                    logger.error("Ocurrio un error con el consumo del servicio activacion X sucursal 360");
+                    reject(new Error("Ocurrio un error con el consumo del servicio de 360 activacion X sucursal"));
+                }
             });
         }).on("error", err => {
             logger.error("Ocurrio un error con el consumo del servicio activacion X sucursal 360");
-            if (err.response.data) {
-                resolve(err.response.data);
+            if (err.response) {
+                resolve(err.response);
             } else {
                 reject(new Error("Ocurrio un error con el consumo del servicio de 360 activacion X sucursal"));
             }
         });
-        reques.write(objRequest);
+        reques.write(objeto2);
         reques.end();
     });
     return servicio;

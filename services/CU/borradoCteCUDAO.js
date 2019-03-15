@@ -6,7 +6,13 @@ var http = require('http');
 var borrarCteCU = (bean) => {
     logger.info(" ::: se consulta servicio rest para borrado de CU :::");
 
-    let cadenaPost = `nombre=${bean.nombre}&apellidoPaterno=${bean.apellidoP}&apellidoMaterno=${bean.apellidoM}&fechaNacimiento=${bean.fechaNac}&ipAutenticacion=127.0.0.1`;
+    let cadenaPost = querystring.stringify({
+        nombre: bean.nombre,
+        apellidoPaterno: bean.apellidoP,
+        apellidoMaterno: bean.apellidoM,
+        fechaNacimiento: bean.fechaNac,
+        ipAutenticacion: "127.0.0.1"
+    }, null, null, { encodeURIComponent: querystring.unescape });
 
     logger.info('POST ' + cadenaPost);
 

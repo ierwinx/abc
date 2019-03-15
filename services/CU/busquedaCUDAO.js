@@ -54,8 +54,15 @@ var consultaXnombreSoloBusca = async(bean) => {
     var arrayFecha = bean.fechaNac.split("/");
     var fecha = arrayFecha[0] + "-" + arrayFecha[1] + "-" + arrayFecha[2];
 
-    let objeto = `nombre=${bean.nombre}&apPaterno=${bean.apellidoP}&apMaterno=${bean.apellidoM}&fechaNac=${fecha}&ipAutenticacion=127.0.0.1&usuarioAutenticacion=USRPRUEBAS`;
-
+    let objeto = querystring.stringify({
+        nombre: bean.nombre,
+        apPaterno: bean.apellidoP,
+        apMaterno: bean.apellidoM,
+        fechaNac: fecha,
+        ipAutenticacion: "127.0.0.1",
+        usuarioAutenticacion: "USRPRUEBAS"
+    }, null, null, { encodeURIComponent: querystring.unescape });
+    
     logger.info("POST : "+objeto);
     
     var servicio = new Promise((resolve, reject) => {

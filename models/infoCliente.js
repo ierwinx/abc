@@ -14,7 +14,7 @@ let v = new Validator({
         number: "El campo '{field}' debe ser de tipo Numerico",
         array: "El campo '{field}' debe ser de tipo Array",
         string: "El campo '{field}' debe ser de tipo String",
-        enum: "El campo '{field}' solo permite F o M ",
+        enum: "El campo '{field}' solo permite F o M "
     }
 });
 
@@ -166,6 +166,15 @@ const smartphone = {
 
 }
 
+const icus = {
+    icu: {
+        type: "string",
+        min: 32,
+        max: 32,
+        pattern: /^([0-9]+)?$/
+    }
+}
+
 var principales = (datos) => {
     logger.info(" ::: Se valida Datos princiales :::");
     var check = v.compile(general);
@@ -220,83 +229,118 @@ var telefono = (datos) => {
     }
 }
 
+var desbloqueo = (datos) => {
+    logger.info(" ::: Se valida datos de ICU :::");
+    var check = v.compile(icus);
+    var respuesta = check(datos);
+    if (respuesta.length > 0) {
+        throw respuesta;
+    }
+}
+
 var validaFlujo = (datos, flujo) => {
-    principales(datos);
 
     switch(flujo) {
         case 1:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.1:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.2:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.3:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.4:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.5:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.6:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.7:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.8:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.9:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.10:
+            principales(datos);
             direcciones(datos);
             break;
         case 1.11:
+            principales(datos);
             direcciones(datos);
             break;
         case 2:
+            principales(datos);
             ife(datos);
             break;
         case 2.1:
+            principales(datos);
             ife(datos);
             break;
         case 2.3:
+            principales(datos);
             break;
         case 2.4:
+            principales(datos);
             ife(datos);
             break;
         case 3:
+            principales(datos);
             telefono(datos);
             direcciones(datos);
             break;
         case 3.1:
+            principales(datos);
             telefono(datos);
             direcciones(datos);
             break;
         case 3.4:
+            principales(datos);
             telefono(datos);
             direcciones(datos);
             break;
         case 3.4:
+            principales(datos);
             telefono(datos);
             direcciones(datos);
             break;
         case 4:
+            principales(datos);
             direcciones(datos);
             break;
         case 5:
+            principales(datos);
             direcciones(datos);
             break;
         case 6:
+            principales(datos);
             direcciones(datos);
             break;
         case 7:
+            principales(datos);
+            break;
+        case 7.1:
+            desbloqueo(datos);
             break;
     }
 }
@@ -306,5 +350,6 @@ module.exports = {
     direcciones,
     ife,
     telefono,
-    validaFlujo
+    validaFlujo,
+    desbloqueo
 }

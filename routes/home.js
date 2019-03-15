@@ -1,6 +1,7 @@
-var logger = require('log4js').getLogger("Home");
-var express = require('express');
-var router = express.Router();
+const logger = require('log4js').getLogger("Home");
+const express = require('express');
+const router = express.Router();
+const desbloqueo = require('../services/360/Desbloqueo')
 
 router.get('/', function(req, res, next) {
     logger.info(" ::: Peticion inicio para aceptar certificado ::: ");
@@ -24,6 +25,14 @@ router.get('/testHandlebars', function(req, res, next) {
     }
 
     res.render('home2', obj);
+});
+
+router.get('/test', (req, res, next) => {
+    desbloqueo.desbloquea({icu:"4529323a48cb2f4c32fc5a912b866110"}).then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json({error:err.message});
+    });
 });
 
 module.exports = router;

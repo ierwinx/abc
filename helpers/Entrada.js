@@ -53,7 +53,9 @@ var procesa = async(datos) => {
                 infoClientes.validaFlujo(element, datos.flujo);
             });
         } else {
-            datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente);
+            if (datos.flujo < 7) {
+                datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente);
+            }
             datos.infoCliente.forEach(element => {
                 infoClientes.validaFlujo(element, datos.flujo);
             });
@@ -62,7 +64,9 @@ var procesa = async(datos) => {
         datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null);
     }
 
-    datos.infoCliente = DatosPersonales.cambiaMayusculas(datos.infoCliente);
+    if (datos.flujo < 7) {
+        datos.infoCliente = DatosPersonales.cambiaMayusculas(datos.infoCliente);
+    }
 
     var respuesta = new Array();
     for (var i = 0; i < datos.infoCliente.length; i++) {

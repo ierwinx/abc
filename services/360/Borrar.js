@@ -30,8 +30,8 @@ const borrar = (objeto) => {
             });
         }).on("error", err => {
             logger.error("Ocurrio un error con el consumo del servicio de extendidos de 360");
-            if (err.response.data) {
-                resolve(err.response.data);
+            if (err.response) {
+                resolve(err.response);
             } else {
                 reject(new Error("Ocurrio un error con el alta del servicio actualizaExt de 360"));
             }
