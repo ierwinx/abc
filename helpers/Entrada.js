@@ -11,7 +11,8 @@ var DatosPersonales = require("../helpers/datosPersonales");
 var procesa = async(datos) => {
     logger.info(" ::: Inicia proceso de ambientacion usuarios :::");
     peticion.valida(datos);
-    
+    console.log(datos);
+
     var eventosEjecutar = new Array();
     var flujo = await flujosDAO.buscar(datos.flujo).then().catch(error => {
         throw error;
@@ -34,7 +35,11 @@ var procesa = async(datos) => {
                 noCompatibles += element + ", ";
             }
             if (element != datos.flujo) {
-                eventosEjecutar.push(element);
+                if (0.1 === element) {
+                    eventosEjecutar.unshift(element);
+                } else {
+                    eventosEjecutar.push(element);
+                }
             }
         });
         if (noCompatibles.length > 0) {
@@ -43,7 +48,7 @@ var procesa = async(datos) => {
     }
 
     if (datos.infoCliente.length > 0) {
-        if (datos.infoCliente[0].nombre && datos.infoCliente[0].apellidoP && datos.infoCliente[0].apellidoM) {
+        if (datos.infoCliente[0].nombre != undefined && datos.infoCliente[0].apellidoP != undefined && datos.infoCliente[0].apellidoM != undefined) {
             datos.infoCliente.forEach(element => {
                 infoClientes.validaFlujo(element, datos.flujo);
             });

@@ -17,12 +17,15 @@ var FlujoINE = require("./FlujoINE");
 
 var Cuentas = require("../services/Alnova/Cuentas");
 
+var datosPersonales = require("../helpers/datosPersonales");
+
 var procesa = async(objeto, servicio) => {
     logger.info(` ::: Ejectuta el servicio ${servicio} ::: `);
 
     switch (servicio) {
         case 0.1:
             logger.info(" ::: Hacer menor ::: ");
+            objeto = datosPersonales.generaMenorEdad(objeto);
             break;
         case 1.1:
             logger.info(" ::: Borrar CU ::: ");

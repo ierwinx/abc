@@ -7,7 +7,6 @@ var handlebars = require('express-handlebars');
 var https = require('https');
 var fs = require('fs');
 var cors = require('cors');
-var Firewall = require('./config/firewall');
 
 var homeRouter = require('./routes/home');
 var ambientes = require('./routes/ambientes');
@@ -39,9 +38,8 @@ app.use(cors());
 app.options('*', cors());
 
 https.createServer({
-  key: fs.readFileSync(path.join(__dirname, './cert/server.key')),
-  cert: fs.readFileSync(path.join(__dirname, './cert/server.crt')),
-  passphrase: process.env.passphrase
-}, app).listen(8080);
+  key: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.key')),
+  cert: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.crt'))
+}, app).listen(process.env.PORT);
 
 module.exports = app;

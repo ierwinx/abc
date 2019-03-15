@@ -11,7 +11,7 @@ process.env.backend = 'https://10.51.58.240'
 /****************************
  *      Puerto escucha      *
  ****************************/
-process.env.PORT = 444;
+process.env.PORT = 8080;
 
 /****************************
  *      ubicacion Mongo     *
@@ -65,9 +65,15 @@ process.env.secret = "4mbi3nt4Usu4ri0s";
 process.env.secret2 = "secret";
 
 /****************************
- *    Passphrase SSL     *
+ *    Passphrase SSL        *
  ****************************/
 process.env.passphrase = "1Qaz2wsx";
+
+/****************************
+ *    ambiente sistema      *
+ ****************************/
+process.env.NODE_ENV === "production"
+
 /****************************
  *    Obtiene token 360     *
  ****************************/

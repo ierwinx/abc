@@ -18,12 +18,16 @@ var validaToken = (bearer) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
-                resolve(respuesta);
+                if (respuesta.error) {
+                    reject(new Error("Token invalido"));
+                } else {
+                    resolve(respuesta);
+                }
             });
         }).on("error", err => {
             logger.error("Ocurrio un error con el servicio de oauth");
             reject(new Error("Ocurrio un error al validar token con oauth "));
-        });
+        }).end();
     });
     return promesa;
 }

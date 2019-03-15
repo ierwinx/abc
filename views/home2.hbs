@@ -1,0 +1,23 @@
+<div id="header">
+    <h1>Sistema ABC</h1>
+</div>
+<div>
+    <h1>NOMBRE: {{nombre}}</h1>
+    <h1>NUMEROS: {{numeros}}</h1>
+    {{#each numeros}}
+    <ul>
+        <li>{{this}}</li>
+    </ul>
+    {{/each}}
+    {{#if perro}}
+        <h1>{{perro}}</h1>
+    {{else}}
+        <h1>No hay perro</h1>
+    {{/if}}
+
+    {{#each personas}}
+    <ul>
+        <li>{{this.nombre}} || {{this.edad}}</li>
+    </ul>
+    {{/each}}
+</div>
