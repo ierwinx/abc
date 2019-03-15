@@ -68,6 +68,7 @@ var altaClienteCU = (beanAltaCU) => {
                         beanAltaCU.icu = respuesta.lstResponse[0].icu;
                         beanAltaCU.sucursalCu = respuesta.lstResponse[0].sucursal;
                         beanAltaCU.idCliente = respuesta.lstResponse[0].idCliente;
+                        beanAltaCU.idCanal = respuesta.lstResponse[0].idCanal
                         resolve(beanAltaCU);
                     } else {
                         logger.error("Ocurrio un error con el servicio de Alta CU ");

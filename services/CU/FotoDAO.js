@@ -31,7 +31,7 @@ var actualizaFoto = async(bean) => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
                 if (respuesta && respuesta.lstResponse && respuesta.issue && respuesta.issue.issue === false && respuesta.lstResponse[0] && respuesta.lstResponse[0].path) {
-                    resolve("Foto actualizada correctamente");
+                    resolve(bean);
                 } else {
                     logger.error("Ocurrio un error con el servicio actualizar foto de CU ", respuesta.issue.fieldIssues);
                     reject(new Error("Ocurrio un error con el servicio actualizar foto de CU ", respuesta.issue.fieldIssues));
