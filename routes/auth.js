@@ -26,12 +26,19 @@ router.post('/login', async(req, res, next) => {
     }
 
     dsi.validaToken(bearer).then(decoded => {
-        dsi.verificaInformacion(decoded.user_id).then(resp => {
+        dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
+            
+            var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then().catch(err => {
+                return utils.printJson(res, 500, "Usuario no encontrado", null);
+            });
+
             var obj = {
                 nEmpleado: resp.usuario.No_empleado,
                 nombre: resp.usuario.Nombre
             }
+            
             utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
+            
         }).catch(err => {
             utils.printJson(res, 500, err.message, null);
         });

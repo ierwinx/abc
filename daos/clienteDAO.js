@@ -48,16 +48,8 @@ var listar = async() => {
 
 var buscar = async(id) => {
     logger.info(" ::: Consulta un Cliente por ID :::");
-    var respuesta = await Cliente.findOne({ _id: id });
-    if (respuesta) {
-        if (respuesta.status === true) {
-            return respuesta;
-        } else {
-            throw new Error(`El Cliente ${id} actualmente no se encuentra disponible`);
-        }
-    } else {
-        throw new Error(`No se encontraron resultados para el Cliente ${id}`);
-    }
+    var respuesta = await Cliente.find({ usuarioLogin: id });
+    return respuesta;
 }
 
 var total = async() => {

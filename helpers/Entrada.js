@@ -54,14 +54,18 @@ var procesa = async(datos) => {
             });
         } else {
             if (datos.flujo < 7) {
-                datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente);
+                datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
+                    throw err;
+                });
             }
             datos.infoCliente.forEach(element => {
                 infoClientes.validaFlujo(element, datos.flujo);
             });
         }
     } else {
-        datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null);
+        datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null).catch(err => {
+            throw err;
+        });
     }
 
     if (datos.flujo < 7) {
@@ -81,6 +85,8 @@ var procesa = async(datos) => {
         } else {
             cliente.usuarioLogin = datos.usuarioLogin;
         }
+        cliente.descFlujo = flujo.nombreFlujo;
+        cliente.estatusCliente = true;
         cliente.flujo = datos.flujo;
         respuesta.push(cliente);
     }

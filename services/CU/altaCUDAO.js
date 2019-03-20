@@ -63,7 +63,7 @@ var altaClienteCU = (beanAltaCU) => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
                 if (respuesta && respuesta.lstResponse && respuesta.issue.issue == false && respuesta.lstResponse[0].noClienteAlnova && respuesta.lstResponse[0].icu && respuesta.lstResponse[0].sucursal && respuesta.lstResponse[0].idCliente) {
-                    if (respuesta.lstResponse[0].noClienteAlnova != '' && respuesta.lstResponse[0].icu != '') {
+                    if (respuesta.lstResponse[0].noClienteAlnova != '' && respuesta.lstResponse[0].icu != '' && respuesta.lstResponse[0].icu != null) {
                         beanAltaCU.idAlnova = respuesta.lstResponse[0].noClienteAlnova;
                         beanAltaCU.icu = respuesta.lstResponse[0].icu;
                         beanAltaCU.sucursalCu = respuesta.lstResponse[0].sucursal;

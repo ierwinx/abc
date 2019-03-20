@@ -63,13 +63,13 @@ var buscar = async(id) => {
 }
 
 var buscarNumeroUsuario = async(numero) => {
-    logger.info(" ::: Elimina un usuario por ID :::");
+    logger.info(" ::: Buscar un usuario por ID :::");
     var respuesta = await Usuario.findOne({ usuario: numero }, function(err, user) {
         if (err) {
             throw new Error("Ocurrio un problema al buscar el usuario");
         } else {
             if (!user) {
-                throw new Error("El usuario no existe en el sistema");
+                return undefined;
             } else {
                 return user;
             }

@@ -1,6 +1,6 @@
 var logger = require('log4js').getLogger("personaDAO");
 var Persona = require('../models/persona');
-var DatosPersonales = require('../helpers/datosPersonales');
+var GeneraCurp = require("../services/CU/Curp");
 
 var guardar = async(objeto) => {
     logger.info(" ::: Guarda Informacion de una Persona :::");
@@ -141,8 +141,12 @@ var creaPersona = async(cantidad, complemento) => {
             vigencia: valida(vigenciaValor)
         }
 
-        nueva.curp = DatosPersonales.generaCurp(nueva);
-        nueva.rfc = nueva.curp.substr(0, 10) + '000';
+        var curpRFC = await GeneraCurp.obtiene(nueva).catch(err=> {
+            throw err;
+        });
+
+        nueva.curp = curpRFC.curp;
+        nueva.rfc = curpRFC.rfc;
 
         if (complemento) {
             // INE

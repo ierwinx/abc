@@ -61,8 +61,9 @@ const general = {
         max: 10
     },
     idEntidadFederativa: {
-        type: "string",
-        pattern: /^[0-9]{1,2}$/
+        type: "number",
+        min: 0,
+        max: 33
     }
 };
 

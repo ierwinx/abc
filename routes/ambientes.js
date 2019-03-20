@@ -5,6 +5,7 @@ var utils = require('../helpers/utils');
 var caracteristicasDAO = require('../daos/caracteristicaDAO');
 var flujosDAO = require('../daos/flujoDAO');
 var clientesDAO = require("../daos/clienteDAO");
+var entidadDAO = require("../daos/entidadDAO");
 var Entrada = require("../helpers/Entrada");
 
 router.post('/usuarios', function(req, res, next) {
@@ -33,21 +34,30 @@ router.put('/usuarios', function(req, res, next) {
     });
 });
 
-router.get('/flujos', utils.verifyToken, function(req, res, next) {
+router.get('/flujos', function(req, res, next) {
     logger.info("Entra peticion consulta flujos");
     flujosDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Flujos", objeto: data});
     }).catch(err => {
-        utils.printJson(res, 500, error.message, null);
+        utils.printJson(res, 500, err.message, null);
     });
 });
 
-router.get('/caracteristicas', utils.verifyToken, function(req, res, next) {
+router.get('/caracteristicas', function(req, res, next) {
     logger.info("Entra peticion consulta caracteristicas");
     caracteristicasDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Caracteristicas", objeto: data});
     }).catch(err => {
-        utils.printJson(res, 500, error.message, null);
+        utils.printJson(res, 500, err.message, null);
+    });
+});
+
+router.get('/entidades', function(req, res, next) {
+    logger.info("Entra peticion consulta entidades");
+    entidadDAO.listar().then(data => {
+        utils.printJson(res, 200, process.env.e200, {titulo: "Entidades", objeto: data});
+    }).catch(err => {
+        utils.printJson(res, 500, err.message, null);
     });
 });
 
