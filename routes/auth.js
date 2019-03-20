@@ -50,7 +50,7 @@ router.post('/registro', function(req, res, next) {
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
     UsuarioDAO.guardar(user).then(data => {
-        fs.readFile("./views/Emails/email.html", 'utf8', function(err, html) {
+        fs.readFile("./views/Emails/email.hbs", 'utf8', function(err, html) {
             var template = Handlebars.compile(html);
             var datos = {
                 usuario: user.usuario,
@@ -78,7 +78,7 @@ router.get('/acepta/usuario/:id', function(req, res, next) {
         id: id,
         status: true
     }).then(resp => {
-        fs.readFile("./views/Emails/aceptado.html", 'utf8', function(err, html) {
+        fs.readFile("./views/Emails/aceptado.hbs", 'utf8', function(err, html) {
             var template = Handlebars.compile(html);
             var datos = {
                 contenido: 'A partir de ahora ya tendras acceso al sistema',
@@ -99,7 +99,7 @@ router.get('/declina/usuario/:id', function(req, res, next) {
         id: id,
         status: false
     }).then(resp => {
-        fs.readFile("./views/Emails/aceptado.html", 'utf8', function(err, html) {
+        fs.readFile("./views/Emails/aceptado.hbs", 'utf8', function(err, html) {
             var template = Handlebars.compile(html);
             var datos = {
                 contenido: 'Se denego el acceso al sistema',
