@@ -45,10 +45,24 @@ const schema = {
     }
 };
 
-var check = v.compile(schema);
+const schema2 = {
+    id: {
+        type: "string"
+    }
+}
 
 var valida = (datos) => {
     logger.info(" ::: Se valida JSON entrada :::");
+    var check = v.compile(schema);
+    var respuesta = check(datos);
+    if (respuesta.length > 0) {
+        throw respuesta;
+    }
+}
+
+var valida2 = (datos) => {
+    logger.info(" ::: Se valida JSON entrada :::");
+    var check = v.compile(schema2);
     var respuesta = check(datos);
     if (respuesta.length > 0) {
         throw respuesta;
@@ -56,5 +70,6 @@ var valida = (datos) => {
 }
 
 module.exports = {
-    valida
+    valida,
+    valida2
 }

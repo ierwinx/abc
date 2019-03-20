@@ -100,6 +100,9 @@ var procesa = async(datos) => {
 var reProcesa = async(datos) => {
     logger.info(" ::: Inicia proceso de re ambientacion usuarios :::");
 
+    peticion.valida2(datos);
+
+    var id = datos.id;
     var respuesta = new Object();
 
     var activa = await clienteDAO.activar(id).then().catch(err => {
