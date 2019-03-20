@@ -58,11 +58,31 @@ var total = async() => {
     return respuesta;
 }
 
+//Para reambientar
+var activar = async(id) => {
+    logger.info(" ::: Activa cliente para reambientar :::")
+    var respuesta = await Cliente.updateOne({ _id: id }, { estatusCliente: true }).exec();
+    return respuesta;
+}
+var get = async(id) => {
+    logger.info(" ::: Consulta Informacion del cliente por ID :::")
+    var respuesta = await Cliente.findById(id);
+    return respuesta;
+}
+var eliminaCliente = async(id) => {
+    logger.info(" ::: Activa cliente para reambientar :::")
+    var respuesta = await DatosCliente.findOneAndDelete({ _id: id }).exec();
+    return respuesta;
+}
+
 module.exports = {
     guardar,
     eliminar,
     actualizar,
     listar,
     buscar,
-    total
+    total,
+    activar,
+    get,
+    eliminaCliente
 }

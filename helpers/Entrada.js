@@ -99,7 +99,42 @@ var procesa = async(datos) => {
 
 var reProcesa = async(datos) => {
     logger.info(" ::: Inicia proceso de re ambientacion usuarios :::");
-    procesa(datos);
+
+    var respuesta = new Object();
+
+    var activa = await clienteDAO.activar(id).then().catch(err => {
+        throw err;
+    });
+
+    if (activa.ok == 1) {
+        var encuentra = await clienteDAO.get(id).then().catch(error => {
+            throw error;
+        });
+
+        if (encuentra == null) {
+            throw new Error("Cliente a re ambientar no encontrado");
+        }
+
+        var jsonEnviar = {
+            "flujo": encuentra.flujo,
+            "numUsuarios": 1,
+            "caracteristicas": [],
+            "infoCliente": [encuentra]
+        }
+
+        respuesta = await procesa(jsonEnviar).then().catch(err => {
+            throw err;
+        });
+
+        borrado = await clienteDAO.eliminaCliente(id).then().catch(err => {
+            throw err;
+        });
+        
+    } else {
+        throw new Error('Error al activar cliente');
+    }
+
+    return respuesta;
 }
 
 module.exports = {
