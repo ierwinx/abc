@@ -9,30 +9,22 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/testHandlebars', function(req, res, next) {
+    var val = [true, false];
     var obj = {
         numeros: [1,2,3],
         nombre:"erwin",
         personas: [
             {nombre:"juan", edad:13},
             {nombre:"Pepe", edad:25}
-        ]
+        ],
+        valida: val[Math.floor(Math.random() * 2)],
+        perro: "cachorro"
     };
-    
-    var val = [true, false];
-
-    if (val[Math.floor(Math.random() * 2)]) {
-        obj.perro = "cachorro";
-    }
-
     res.render('home2', obj);
 });
 
 router.get('/test', (req, res, next) => {
-    desbloqueo.desbloquea({icu:"4529323a48cb2f4c32fc5a912b866110"}).then(data => {
-        res.json(data);
-    }).catch(err => {
-        res.json({error:err.message});
-    });
+    res.json({});
 });
 
 module.exports = router;
