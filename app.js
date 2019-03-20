@@ -12,9 +12,12 @@ var homeRouter = require('./routes/home');
 var ambientes = require('./routes/ambientes');
 var auth = require('./routes/auth');
 
-// view engine setup handlebars
+// view engine handlebars
 app.engine('hbs', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'hbs');
+
+// Habilita cors
+app.use(cors());
 
 app.use(require('./config/log4js'));
 app.use(express.json());
@@ -25,17 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', homeRouter);
 app.use('/ambientes/v1', ambientes);
 app.use('/auth/v1', auth);
-
-// Habilita cors
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
-app.use(cors());
-app.options('*', cors());
 
 https.createServer({
   key: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.key')),

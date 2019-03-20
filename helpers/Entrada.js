@@ -48,7 +48,7 @@ var procesa = async(datos) => {
     }
 
     if (datos.infoCliente.length > 0) {
-        if (datos.infoCliente[0].nombre != undefined && datos.infoCliente[0].apellidoP != undefined && datos.infoCliente[0].apellidoM != undefined) {
+        if (infoClientes.CrearUsuario(datos.infoCliente[0])) {
             datos.infoCliente.forEach(element => {
                 infoClientes.validaFlujo(element, datos.flujo);
             });

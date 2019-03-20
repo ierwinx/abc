@@ -14,21 +14,24 @@ let v = new Validator({
         number: "El campo '{field}' debe ser de tipo Numerico",
         array: "El campo '{field}' debe ser de tipo Array",
         string: "El campo '{field}' debe ser de tipo String",
-        enum: "El campo '{field}' solo permite F o M "
+        enumValue: "El campo '{field}' no permite ese valor "
     }
 });
 
 const general = {
     nombre: { 
         type: "string",
+        min: 1,
         max: 30
     },
     apellidoP : { 
         type: "string",
+        min: 1,
         max: 50
     },
     apellidoM: {
         type: "string",
+        optional: true,
         max: 50
     },
     genero: { 
@@ -172,6 +175,24 @@ const icus = {
         min: 32,
         max: 32,
         pattern: /^([0-9]+)?$/
+    }
+}
+
+const crear = {
+    nombre: { 
+        type: "string",
+        min: 1,
+        max: 30
+    },
+    apellidoP : { 
+        type: "string",
+        min: 1,
+        max: 50
+    },
+    apellidoM: {
+        type: "string",
+        optional: true,
+        max: 50
     }
 }
 
@@ -345,11 +366,24 @@ var validaFlujo = (datos, flujo) => {
     }
 }
 
+
+var CrearUsuario = function(datos) {
+    logger.info(" ::: Se verifica se se crea un cliente desde base de datos con datos reales o no :::");
+    var resp = false;
+    var check = v.compile(crear);
+    var respuesta = check(datos);
+    if (respuesta.length > 0) {
+        resp = true;
+    }
+    return resp;
+}
+
 module.exports = {
     principales,
     direcciones,
     ife,
     telefono,
     validaFlujo,
-    desbloqueo
+    desbloqueo,
+    CrearUsuario
 }
