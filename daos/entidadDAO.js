@@ -3,7 +3,7 @@ var Entidad = require('../models/entidad');
 
 var listar = async(objeto) => {
     logger.info(" ::: Consulta entidades en BD :::");
-    var respuesta = await Entidad.find().sort({nombre: 'ascending'});
+    var respuesta = await Entidad.find().sort({id: 'ascending'});
     return respuesta;
 }
 

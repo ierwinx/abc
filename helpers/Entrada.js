@@ -91,7 +91,7 @@ var procesa = async(datos) => {
         respuesta.push(cliente);
     }
     respuesta.forEach(element => {
-        clienteDAO.guardar(cliente);
+        clienteDAO.guardar(element);
     });
 
     return respuesta;
