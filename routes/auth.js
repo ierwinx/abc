@@ -5,45 +5,44 @@ var utils = require('../helpers/utils');
 var UsuarioDAO = require('../daos/usuarioDAO');
 var fs = require('fs');
 var mail = require('../config/mail');
-var jwt = require('jsonwebtoken');
+var cryptoJs = require('crypto-js');
 var dsi = require("../services/OAUTH/dsi");
+var Handlebars = require("Handlebars");
 
 router.post('/login', async(req, res, next) => {
     logger.info("::: Entra peticion Login :::");
-    /*var token = jwt.sign({
-        _username: req.body.usuario
-    }, process.env.secret, {
-        expiresIn: parseInt(process.env.tiempojwt)
-    });*/
-
     var header = req.headers['authorization'];
     if (!header) {
         logger.error("::: "+process.env.e400+" :::");
         return utils.printJson(res, 400, process.env.e400, null);
     }
     var bearer = "";
-    /*try {
+    try {
         var bytes = cryptoJs.AES.decrypt(header, process.env.secret2);
         bearer = bytes.toString(cryptoJs.enc.Utf8);
     } catch(err) {
         logger.error("::: "+process.env.e403+" :::");
         return utils.printJson(res, 403, process.env.e403, null);
-    }*/
+    }
 
-    dsi.validaToken(header).then(decoded => {
+    dsi.validaToken(bearer).then(decoded => {
         dsi.verificaInformacion(decoded.user_id).then(resp => {
-            utils.printJson(res, 200, process.env.e200, { titulo: "Token", objeto: resp });
+            var obj = {
+                nEmpleado: resp.usuario.No_empleado,
+                nombre: resp.usuario.Nombre
+            }
+            utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
         }).catch(err => {
             utils.printJson(res, 500, err.message, null);
         })
     }).catch(err => {
-        utils.printJson(res, 500, err.message, null);
+        utils.printJson(res, 400, err.message, null);
     });
 
 });
 
 router.post('/registro', function(req, res, next) {
-    logger.info("Entra peticion registro");
+    logger.info(" ::: Entra peticion registro ::: ");
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
     var user = {
         usuario: req.body.usuario,
@@ -52,15 +51,15 @@ router.post('/registro', function(req, res, next) {
     };
     UsuarioDAO.guardar(user).then(data => {
         fs.readFile("./views/Emails/email.html", 'utf8', function(err, html) {
-            html = utils.procesaPlantilla(html, [
-                { usuario: user.usuario },
-                { correo: user.correo },
-                { ambiente: process.env.ambiente },
-                { dominio: process.env.backend + ':' + process.env.PORT },
-                { id: data.id },
-                { dominio: process.env.backend + ':' + process.env.PORT },
-                { id: data.id }
-            ]);
+            var template = Handlebars.compile(html);
+            var datos = {
+                usuario: user.usuario,
+                correo: user.correo,
+                ambiente: process.env.ambiente,
+                dominio: process.env.backend + ':' + process.env.PORT,
+                id: data.id
+            }
+            html = template(datos);
             mail.enviar(mail.informacion(html, process.env.MAIL)).then(resp2 => {
                 utils.printJson(res, 200, process.env.e200, null);
             }).catch(error => {
@@ -73,19 +72,20 @@ router.post('/registro', function(req, res, next) {
 });
 
 router.get('/acepta/usuario/:id', function(req, res, next) {
-    logger.info("Entra peticion acepta usuario");
+    logger.info(" ::: Entra peticion acepta usuario :::");
     var id = req.params.id;
     UsuarioDAO.activar({
         id: id,
         status: true
     }).then(resp => {
         fs.readFile("./views/Emails/aceptado.html", 'utf8', function(err, html) {
-            html = utils.procesaPlantilla(html, [
-                { contenido: 'A partir de ahora ya tendras acceso al sistema' },
-                { ambiente: process.env.ambiente },
-                { color : 'green'},
-                { color : 'green'}
-            ]);
+            var template = Handlebars.compile(html);
+            var datos = {
+                contenido: 'A partir de ahora ya tendras acceso al sistema',
+                ambiente: process.env.ambiente,
+                color : 'green'
+            }
+            html = template(datos);
             mail.enviar(mail.informacion(html, resp.correo));
         });
     });
@@ -93,19 +93,20 @@ router.get('/acepta/usuario/:id', function(req, res, next) {
 });
 
 router.get('/declina/usuario/:id', function(req, res, next) {
-    logger.info("Entra peticion declina usuario");
+    logger.info(" ::: Entra peticion declina usuario :::");
     var id = req.params.id;
     UsuarioDAO.activar({
         id: id,
         status: false
     }).then(resp => {
         fs.readFile("./views/Emails/aceptado.html", 'utf8', function(err, html) {
-            html = utils.procesaPlantilla(html, [
-                { contenido: 'Se denego el acceso al sistema' },
-                { ambiente: process.env.ambiente },
-                { color : 'red'},
-                { color : 'red'}
-            ]);
+            var template = Handlebars.compile(html);
+            var datos = {
+                contenido: 'Se denego el acceso al sistema',
+                ambiente: process.env.ambiente,
+                color : 'red'
+            } 
+            html = template(datos);
             mail.enviar(mail.informacion(html, resp.correo));
         });
     });
@@ -113,11 +114,11 @@ router.get('/declina/usuario/:id', function(req, res, next) {
 });
 
 router.use(function(req, res) {
-    logger.info("URL no encontrada");
+    logger.info(" ::: URL no encontrada ::: ");
     utils.printJson(res, 404, process.env.e404, null);
 });
 router.use(function(req, res) {
-    logger.info("Error de servidor no conrolado");
+    logger.info(" ::: Error de servidor no conrolado ::: ");
     utils.printJson(res, 500, process.env.e500, null);
 });
 

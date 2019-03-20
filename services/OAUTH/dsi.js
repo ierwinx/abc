@@ -44,7 +44,7 @@ var verificaInformacion = (usuario) => {
         soap.createClient(url, function(err, client) {
             client.DatosAuxiliares(args, function(err2, result) {
                 if (err2 == null) {
-                    resolve(creaObjeto(result.DatosAuxiliaresResult));
+                    resolve(parser.parse(result.DatosAuxiliaresResult));
                 } else {
                     reject(new Error("Ocurrio un error al valida token con oauth "));
                 }
@@ -52,11 +52,6 @@ var verificaInformacion = (usuario) => {
         });
     });
     return servicio;
-}
-
-var creaObjeto = function(xml) {
-    var objeto = parser.parse(xml);
-    return objeto;
 }
 
 module.exports = {

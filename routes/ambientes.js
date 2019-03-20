@@ -33,7 +33,7 @@ router.put('/usuarios', function(req, res, next) {
     });
 });
 
-router.get('/flujos', function(req, res, next) {
+router.get('/flujos', utils.verifyToken, function(req, res, next) {
     logger.info("Entra peticion consulta flujos");
     flujosDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Flujos", objeto: data});
@@ -42,7 +42,7 @@ router.get('/flujos', function(req, res, next) {
     });
 });
 
-router.get('/caracteristicas', function(req, res, next) {
+router.get('/caracteristicas', utils.verifyToken, function(req, res, next) {
     logger.info("Entra peticion consulta caracteristicas");
     caracteristicasDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Caracteristicas", objeto: data});
