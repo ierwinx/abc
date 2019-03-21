@@ -32,7 +32,7 @@ var actualizaExt = (objeto) => {
                 resolve(JSON.parse(datos));
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el consumo del servicio de actualizaExt de 360");
+            logger.error(" ::: Ocurrio un error con el consumo del servicio de actualizaExt de 360 ::: ");
             if (err.response.data) {
                 resolve(err.response.data);
             } else {

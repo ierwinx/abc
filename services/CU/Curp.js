@@ -37,12 +37,12 @@ var obtiene = (datos) => {
                     datos.rfc = respuesta.lstResponse[0].rfc
                     resolve(datos);
                 } else {
-                    logger.error("Ocurrio un error con el servicio genera curp de CU");
+                    logger.error(" ::: Ocurrio un error con el servicio genera curp de CU ::: ");
                     reject(new Error("Ocurrio un error con el servicio genera curp de CU "));
                 }
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el servicio genera curp de CU");
+            logger.error(" ::: Ocurrio un error con el servicio genera curp de CU ::: ");
             reject(new Error("Ocurrio un error con el servicio genera curp de CU "));
         });
         reques.write(objeto);

@@ -79,12 +79,12 @@ router.delete('/borra/usuario/:id', function(req, res, next) {
     });
 });
 
-router.use(function(req, res, next){
-    logger.error("Url no encontrada");
+router.use(function(req, res) {
+    logger.info(" ::: URL no encontrada ::: ");
     utils.printJson(res, 404, process.env.e404, null);
 });
-router.use(function(req, res, next){
-    logger.error("Error servidor no controlado");
+router.use(function(req, res) {
+    logger.info(" ::: Error de servidor no conrolado ::: ");
     utils.printJson(res, 500, process.env.e500, null);
 });
 

@@ -11,6 +11,7 @@ var transporter = nodemailer.createTransport({
 
 const enviar = async(datos) => {
     var respuesta = await transporter.sendMail(datos).catch(err => {
+        logger.error(" ::: Ocurrio un Error al enviar Email :::");
         throw new Error("Error al enviar el correo");
     });
     return respuesta;

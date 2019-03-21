@@ -6,7 +6,7 @@ var guardar = async(objeto) => {
     var user = new Usuario(objeto);
     var errores = user.validateSync();
     if (errores) {
-        logger.error(" ::: La informacion no pasa las validaciones :::");
+        logger.error(" ::: Ocurrio un Error el las validaciones al guarda un usuario :::");
         throw new Error(errores.message.replace('usuario validation failed: ','ValidationError: '));
     } else {
         var resp = await user.save().then().catch(err => {
@@ -26,7 +26,7 @@ var actualizar = async(objeto) => {
     var user = new Usuario(objeto);
     var errores = user.validateSync();
     if (errores) {
-        logger.error(" ::: Error al actualizar Informacion del Usuario :::");
+        logger.error(" ::: Ocurrio un Error el las validaciones al actualizar un usuario :::");
         throw new Error(errores.message.replace('usuario validation failed: ','ValidationError: '));
     } else {
         return await Usuario.findOneAndUpdate({_id: objeto.id}, objeto).exec();
@@ -49,6 +49,7 @@ var buscar = async(id) => {
     logger.info(" ::: Elimina un usuario por ID :::");
     var respuesta = await Usuario.findOne({ _id: id }, function(err, user) {
         if (err) {
+            logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
             throw new Error("Ocurrio un problema con el servicio de Login");
         } else {
             if (!user) {
@@ -66,6 +67,7 @@ var buscarNumeroUsuario = async(numero) => {
     logger.info(" ::: Buscar un usuario por ID :::");
     var respuesta = await Usuario.findOne({ usuario: numero }, function(err, user) {
         if (err) {
+            logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
             throw new Error("Ocurrio un problema al buscar el usuario");
         } else {
             if (!user) {

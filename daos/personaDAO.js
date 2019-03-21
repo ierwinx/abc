@@ -7,6 +7,7 @@ var guardar = async(objeto) => {
     var persona = new Persona(objeto);
     var errores = persona.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al guarda una persona :::");
         throw new Error(errores.message.replace('persona validation failed: ','ValidationError: '));
     } else {
         return await persona.save();
@@ -18,6 +19,7 @@ var actualizar = async(objeto) => {
     var persona = new Persona(objeto);
     var errores = persona.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al actualizar una persona :::");
         throw new Error(errores.message.replace('persona validation failed: ','ValidationError: '));
     } else {
         return await persona.findOneAndUpdate({ _id: objeto._id}, objeto).exec();

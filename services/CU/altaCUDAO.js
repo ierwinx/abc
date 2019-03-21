@@ -71,16 +71,16 @@ var altaClienteCU = (beanAltaCU) => {
                         beanAltaCU.idCanal = respuesta.lstResponse[0].idCanal
                         resolve(beanAltaCU);
                     } else {
-                        logger.error("Ocurrio un error con el servicio de Alta CU ");
+                        logger.error(" ::: Ocurrio un error con el servicio de Alta CU ::: ");
                         reject(new Error("Ocurrio un error con el servicio de Alta CU"));
                     }
                 } else {
-                    logger.error("Ocurrio un error con el servicio de Alta CU ");
+                    logger.error(" ::: Ocurrio un error con el servicio de Alta CU ::: ");
                     reject(new Error("Ocurrio un error con el servicio de Alta CU"));
                 }
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el servicio alta de cliente de CU");
+            logger.error(" ::: Ocurrio un error con el servicio alta de cliente de CU ::: ");
             reject(new Error("Ocurrio un error con el servicio alta de cliente de CU "));
         });
         reques.write(objeto);

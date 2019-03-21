@@ -34,12 +34,12 @@ const ligarCuentaCU = async(bean) => {
                 if (resp.data && resp.data.objResponse && resp.data.issue && resp.data.issue.issue === false) {
                     resolve(bean);
                 } else {
-                    logger.error("Ocurrio un error con el servicio ligarCuentaCU de CU");
+                    logger.error(" ::: Ocurrio un error con el servicio ligarCuentaCU de CU ::: ");
                     reject(new error("Ocurrio un error con el servicio ligarCuentaCU de CU"));
                 }
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el servicio ligar cuenta  de CU");
+            logger.error(" ::: Ocurrio un error con el servicio ligar cuenta  de CU ::: ");
             reject(new Error("Ocurrio un error con el servicio ligar cuenta de CU ", err));
         });
         reques.write(objeto);

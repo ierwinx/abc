@@ -6,6 +6,7 @@ var guardar = async(objeto) => {
     var cliente = new Cliente(objeto);
     var errores = cliente.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al guarda un cliente :::");
         throw new Error(errores.message.replace('cliente validation failed: ','ValidationError: '));
     } else {
         return await cliente.save();
@@ -17,6 +18,7 @@ var actualizar = async(objeto) => {
     var flujo = new Cliente(objeto);
     var errores = flujo.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al actualizar un cliente :::");
         throw new Error(errores.message.replace('cliente validation failed: ','ValidationError: '));
     } else {
         return await Cliente.findOneAndUpdate({ _id: objeto._id}, objeto).exec();
@@ -28,6 +30,7 @@ var eliminar = async(id) => {
     var respuesta = "";
     await Cliente.deleteOne({ _id: id }, function(error, resp) {
         if (error) {
+            logger.error(" ::: Ocurrio un Error al eliminar un cliente :::");
             throw new Error("Ocurrio un error con el sistema de borrado");
         } else {
             if (resp.ok == 1) {

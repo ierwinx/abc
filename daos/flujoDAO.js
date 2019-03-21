@@ -6,6 +6,7 @@ var guardar = async(objeto) => {
     var flujo = new Flujo(objeto);
     var errores = flujo.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al guarda un flujo :::");
         throw new Error(errores.message.replace('flujo validation failed: ','ValidationError: '));
     } else {
         return await flujo.save();
@@ -17,6 +18,7 @@ var actualizar = async(objeto) => {
     var flujo = new Flujo(objeto);
     var errores = flujo.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al actualizar un flujo :::");
         throw new Error(errores.message.replace('flujo validation failed: ','ValidationError: '));
     } else {
         return await Flujo.findOneAndUpdate({ idFlujo: objeto.idFlujo}, objeto).exec();

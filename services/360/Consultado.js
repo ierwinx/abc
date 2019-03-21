@@ -26,7 +26,7 @@ var consultado360 = (objeto) => {
                 resolve(JSON.parse(datos));
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el consumo del servicio de consultado 360");
+            logger.error(" ::: Ocurrio un error con el consumo del servicio de consultado 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {

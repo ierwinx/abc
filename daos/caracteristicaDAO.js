@@ -6,6 +6,7 @@ var guardar = async(objeto) => {
     var caracteristica = new Caracteristica(objeto);
     var errores = caracteristica.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al guarda una Caracteristica :::");
         throw new Error(errores.message.replace('caracteristica validation failed: ','ValidationError: '));
     } else {
         return await caracteristica.save();
@@ -17,6 +18,7 @@ var actualizar = async(objeto) => {
     var caracteristica = new Caracteristica(objeto);
     var errores = caracteristica.validateSync();
     if (errores) {
+        logger.error(" ::: Ocurrio un Error el las validaciones al actualizar una Caracteristica :::");
         throw new Error(errores.message.replace('caracteristica validation failed: ','ValidationError: '));
     } else {
         return await caracteristica.findOneAndUpdate({ id: objeto.id}, objeto).exec();

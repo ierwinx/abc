@@ -1,4 +1,5 @@
 var logger = require('log4js').getLogger("datosPersonales");
+var GeneraCurpWS = require("../services/CU/Curp");
 
 var generaRFC = (datos) => {
     logger.info("::: Genera una rfc aleatorio :::");
@@ -206,8 +207,10 @@ var generaMenorEdad = function(datos) {
         
         datos.fechaNac = (dia.length == 2 ? dia : "0" + dia) + "/" + (mes.length == 2 ? mes : "0" + mes) + "/" + nuevoAnio;
     
-        datos.curp = generaCurp(datos);
-        datos.rfc = datos.curp.substr(0, 10) + '000';
+        var curpRFC = GeneraCurpWS.obtiene(datos);
+
+        datos.curp = curpRFC.curp;
+        datos.rfc = curpRFC.rfc;
 
     } catch(error) {
         logger.error("::: Error al generar un menor de edad :::");

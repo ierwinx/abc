@@ -33,12 +33,12 @@ var consultaXnombreCU = async(bean) => {
                     bean.folioCu = resp.lstResponse[0].folio;
                     resolve(bean);
                 } else {
-                    logger.error("Hay un error en los datos de entrada de consulta por nombre de CU " +resp)
+                    logger.error(" ::: Hay un error en los datos de entrada de consulta por nombre de CU ::: ");
                     reject(new Error("Hay un error en los datos de entrada de consulta por nombre de CU"));
                 }
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el servicio consulta por nombre de CU");
+            logger.error(" ::: Ocurrio un error con el servicio consulta por nombre de CU ::: ");
             reject(new Error("Ocurrio un error con el servicio consulta por nombre de CU ", err));
         });
         reques.write(objeto);
@@ -84,7 +84,7 @@ var consultaXnombreSoloBusca = async(bean) => {
                 }
             });
         }).on("error", err => {
-            logger.error("Ocurrio un error con el servicio consulta por nombre de CU");
+            logger.error(" ::: Ocurrio un error con el servicio consulta por nombre de CU ::: ");
             reject(new Error("Ocurrio un error con el servicio consulta por nombre de CU ", err));
         });
         reques.write(objeto);
