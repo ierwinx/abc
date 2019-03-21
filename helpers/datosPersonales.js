@@ -156,7 +156,7 @@ var cambiaMayusculas = (arreglo) => {
     arreglo.forEach(element => {
         element.nombre = element.nombre.toUpperCase();
         element.apellidoP = element.apellidoP.toUpperCase();
-        element.apellidoM = element.apellidoM.toUpperCase();
+        element.apellidoM = element.apellidoM ? element.apellidoM.toUpperCase() : "";
 
         if (element.calle) {
             element.calle = element.calle.toUpperCase();

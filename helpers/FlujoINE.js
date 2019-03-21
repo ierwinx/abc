@@ -51,8 +51,8 @@ var iniciar = async(body) => {
             curp: body.curp,
             anio_emision: body.anioEmision == undefined ? '' : body.anioEmision,
             anio_registro: body.anioRegistro == undefined ? '' : body.anioRegistro,
-            huella_derecha: '',
-            huella_izquierda: '',
+            huella_derecha: body.huella1 == undefined ? '' : body.huella1,
+            huella_izquierda: body.huella2 == undefined ? '' : body.huella2,
             situacion_registral: body.situacionRegistral == undefined ? '' : body.situacionRegistral,
             tipo_reporte: body.tipoReporte == undefined ? '' : body.tipoReporte,
             vigencia: body.vigencia
@@ -70,8 +70,8 @@ var iniciar = async(body) => {
             curp: body.curp,
             anio_emision: body.anioEmision == undefined ? '' : body.anioEmision,
             anio_registro: body.anioRegistro == undefined ? '' : body.anioRegistro,
-            huella_derecha: '',
-            huella_izquierda: '',
+            huella_derecha: body.huella1 == undefined ? '' : body.huella1,
+            huella_izquierda: body.huella2 == undefined ? '' : body.huella2,
             situacion_registral: body.situacionRegistral == undefined ? '' : body.situacionRegistral,
             tipo_reporte: body.tipoReporte == undefined ? '' : body.tipoReporte,
             vigencia: body.vigencia

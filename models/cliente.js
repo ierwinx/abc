@@ -25,9 +25,9 @@ var cliente = new Schema({
     },
     apellidoM: {
         type: String,
-        required: [true, process.env.requerido],
+        required: [false, process.env.requerido],
         match: [/^[a-zA-Z0-9 ]+/, process.env.expReg],
-        minlength: [1, process.env.minLongitud + '1'],
+        minlength: [0, process.env.minLongitud + '0'],
         maxlength: [50, process.env.maxlength + '50']
     },
     genero: {
@@ -72,7 +72,10 @@ var cliente = new Schema({
         type: String,
         required: [true, process.env.requerido]
     },
-    numInt: String,
+    numInt: {
+        type: String,
+        required: [false, process.env.requerido]
+    },
     cp: {
         type: String,
         required: [true, process.env.requerido],

@@ -18,6 +18,10 @@ var flujo = new Schema({
         required:[true, process.env.requerido],
         maxlength: [100, process.env.maxLongitud + '100']
     },
+    flujo: {
+        type: Number,
+        required:[true, process.env.requerido]
+    },
     servicios: [Number],
     status: {
         type: Boolean,

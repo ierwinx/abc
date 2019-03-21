@@ -88,7 +88,8 @@ const direccion = {
         max: 70
     },
     estado: {
-        type: "string"
+        type: "string",
+        max: 30
     },
     cp: {
         type: "string",
@@ -110,16 +111,26 @@ const ine = {
         pattern: /^(\d{4})?$/
     },
     situacionRegistral: { 
-        type: "string",
+        type: "enum",
         optional: true,
+        values: ["NO_ENCONTRADO", "VIGENTE", "NO_VIGENTE", "REPORTADO", "OTRO"]
     },
-    tipoReporte: { 
-        type: "string",
+    tipoReporte: {
+        type: "enum",
         optional: true,
+        values: ["NINGUNO", "EXTRAVIO", "ROBO", "EXTRAVIO_TEMPORAL", "ROBO_TEMPORAL", "OTRO"]
     },
     vigencia: {
         type: "string",
         pattern: /^(\d{4})$/
+    },
+    huella1: {
+        type: "string",
+        optional: true
+    },
+    huella2: {
+        type: "string",
+        optional: true
     }
 }
 
