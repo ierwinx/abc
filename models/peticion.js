@@ -55,7 +55,7 @@ var valida = (datos) => {
     logger.info(" ::: Se valida JSON entrada :::");
     var check = v.compile(schema);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         throw respuesta;
     }
 }
@@ -64,7 +64,7 @@ var valida2 = (datos) => {
     logger.info(" ::: Se valida JSON entrada :::");
     var check = v.compile(schema2);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         throw respuesta;
     }
 }

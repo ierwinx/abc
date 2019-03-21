@@ -11,10 +11,10 @@ let v = new Validator({
         stringMin: "El campo '{field}' debe ser mayor o igual a {expected} ",
         stringMax: "El campo '{field}' debe ser menor o igual a {expected}",
         object: "El campo '{field}' debe ser de tipo Objeto",
-        number: "El campo '{field}' debe ser de tipo Numerico",
         array: "El campo '{field}' debe ser de tipo Array",
         string: "El campo '{field}' debe ser de tipo String",
-        enumValue: "El campo '{field}' no permite ese valor "
+        enumValue: "El campo '{field}' no permite ese valor ",
+        email: "El campo '{field}' no contiene un formato permitido"
     }
 });
 
@@ -51,8 +51,7 @@ const general = {
         pattern: /^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/
     },
     correo: {
-        type: "string",
-        pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        type: "email"
     },
     numCel: {
         type: "string",
@@ -62,8 +61,8 @@ const general = {
     },
     idEntidadFederativa: {
         type: "number",
-        min: 0,
-        max: 33
+        min:0,
+        max:33
     }
 };
 
@@ -201,7 +200,7 @@ var principales = (datos) => {
     logger.info(" ::: Se valida Datos princiales :::");
     var check = v.compile(general);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         throw respuesta;
     }
 }
@@ -210,7 +209,7 @@ var direcciones = (datos) => {
     logger.info(" ::: Se valida la direccion :::");
     var check = v.compile(direccion);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         throw respuesta;
     }
 }
@@ -231,10 +230,10 @@ var ife = (datos) => {
     var respuesta = check(datos);
     var respuesta2 = check2(datos);
     var respuesta3 = new Array();
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         respuesta3 = respuesta;
     }
-    if (respuesta2.length > 0) {
+    if (typeof(respuesta2) != 'object') {
         respuesta3.push(respuesta3);
     }
     if (respuesta3.length > 0) {
@@ -246,7 +245,7 @@ var telefono = (datos) => {
     logger.info(" ::: Se valida datos de smartphones :::");
     var check = v.compile(smartphone);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         throw respuesta;
     }
 }
@@ -255,7 +254,7 @@ var desbloqueo = (datos) => {
     logger.info(" ::: Se valida datos de ICU :::");
     var check = v.compile(icus);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) == 'object') {
         throw respuesta;
     }
 }
@@ -373,7 +372,7 @@ var CrearUsuario = function(datos) {
     var resp = false;
     var check = v.compile(crear);
     var respuesta = check(datos);
-    if (respuesta.length > 0) {
+    if (typeof(respuesta) != 'object') {
         resp = true;
     }
     return resp;
