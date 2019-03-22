@@ -51,6 +51,16 @@ const schema2 = {
     }
 }
 
+const usuarios = {
+    usuario: {
+        type: "string",
+        pattern: /^[0-9]+$/
+    },
+    correo: {
+        type: "email"
+    }
+}
+
 var valida = (datos) => {
     logger.info(" ::: Se valida JSON entrada :::");
     var check = v.compile(schema);
@@ -69,7 +79,17 @@ var valida2 = (datos) => {
     }
 }
 
+var valida3 = (datos) => {
+    logger.info(" ::: Se valida JSON entrada :::");
+    var check = v.compile(usuarios);
+    var respuesta = check(datos);
+    if (typeof(respuesta) == 'object') {
+        throw respuesta;
+    }
+}
+
 module.exports = {
     valida,
-    valida2
+    valida2,
+    valida3
 }

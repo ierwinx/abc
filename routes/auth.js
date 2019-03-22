@@ -8,6 +8,7 @@ var mail = require('../config/mail');
 var cryptoJs = require('crypto-js');
 var dsi = require("../services/OAUTH/dsi");
 var Handlebars = require("Handlebars");
+var peticion = require("../models/peticion");
 
 router.post('/login', async(req, res, next) => {
     logger.info("::: Entra peticion Login :::");
@@ -56,6 +57,10 @@ router.post('/registro', function(req, res, next) {
         correo: req.body.correo,
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
+    peticion.valida3(user).then().catch(err => {
+        utils.printJson(res, 500, error.message, { titulo: "Errores", objeto: err.message});
+    });
+
     UsuarioDAO.guardar(user).then(data => {
         fs.readFile("./views/Emails/email.hbs", 'utf8', function(err, html) {
             var template = Handlebars.compile(html);
