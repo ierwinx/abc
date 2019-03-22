@@ -1,11 +1,10 @@
 const logger = require('log4js').getLogger("Home");
 const express = require('express');
 const router = express.Router();
-const desbloqueo = require('../services/360/Desbloqueo')
 
 router.get('/', function(req, res, next) {
     logger.info(" ::: Peticion inicio para aceptar certificado ::: ");
-    res.render('home', {numeros:[1,2,3], nombre:"erwin",  personas: [{nombre:"juan", edad:13},{nombre:"Pepe", edad:25}]});
+    res.render('home', { url:process.env.frontend });
 });
 
 router.get('/testHandlebars', function(req, res, next) {

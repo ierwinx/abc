@@ -184,8 +184,13 @@ const icus = {
     icu: {
         type: "string",
         min: 32,
-        max: 32,
-        pattern: /^([0-9]+)?$/
+        max: 32
+    }
+}
+
+const alias = {
+    alias: {
+        type: "string"
     }
 }
 
@@ -262,8 +267,13 @@ var telefono = (datos) => {
 }
 
 var desbloqueo = (datos) => {
-    logger.info(" ::: Se valida datos de ICU :::");
-    var check = v.compile(icus);
+    logger.info(" ::: Se valida datos de ICU o ALIAS:::");
+    var check;
+    if (datos.icu) {
+        check = v.compile(icus);
+    } else {
+        check = v.compile(alias);
+    }
     var respuesta = check(datos);
     if (typeof(respuesta) == 'object') {
         throw respuesta;

@@ -127,7 +127,10 @@ var procesa = async(objeto, servicio) => {
             });
             break;
         case 3.1:
-            logger.info(" ::: Listas negras alnova ::: ");
+            logger.info(" ::: Consulta 360 ::: ");
+            objeto = Consultado360.consultado360(objeto).then().catch(err => {
+                throw err;
+            });
             break;
         case 3.2:
             logger.info(" ::: Apertura cuenta digital MB80 ::: ");

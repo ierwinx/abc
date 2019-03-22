@@ -5,7 +5,7 @@ var logger = require('log4js').getLogger("config");
  *         Ambiente         *
  ****************************/
 process.env.ambiente = 'Desarrollo';
-process.env.frontend = 'https://10.51.58.238:4200'
+process.env.frontend = 'https://10.51.58.238:8443/abc'
 process.env.backend = 'https://10.51.58.240'
 
 /****************************

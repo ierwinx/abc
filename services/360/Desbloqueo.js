@@ -21,7 +21,7 @@ var desbloquea = (objeto) => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
                 if (respuesta.estatus == 0) {
-                    resolve(objeto);
+                    resolve(process.env.e200);
                 } else if (respuesta.estatus == 3) {
                     logger.info(respuesta.error.mensaje);
                     reject(new Error(respuesta.error.mensaje));

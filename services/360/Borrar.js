@@ -9,7 +9,7 @@ const borrar = (objeto) => {
         alnova : objeto.idAlnova
     });
 
-    logger.info("POST: " + alnova);
+    logger.info("GET: " + alnova);
 
     let servicio = new Promise((resolve, reject) => {
 
