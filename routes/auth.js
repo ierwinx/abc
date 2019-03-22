@@ -51,15 +51,17 @@ router.post('/login', async(req, res, next) => {
 
 router.post('/registro', function(req, res, next) {
     logger.info(" ::: Entra peticion registro ::: ");
+    try {
+        peticion.valida3(req.body)
+    } catch(err) {
+        return utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
+    };
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
     var user = {
         usuario: req.body.usuario,
         correo: req.body.correo,
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
-    peticion.valida3(user).then().catch(err => {
-        utils.printJson(res, 500, error.message, { titulo: "Errores", objeto: err.message});
-    });
 
     UsuarioDAO.guardar(user).then(data => {
         fs.readFile("./views/Emails/email.hbs", 'utf8', function(err, html) {

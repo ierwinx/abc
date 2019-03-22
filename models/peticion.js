@@ -11,7 +11,8 @@ let v = new Validator({
         object: "El campo '{field}' debe ser de tipo Objeto",
         number: "El campo '{field}' debe ser de tipo Numerico",
         array: "El campo '{field}' debe ser de tipo Array",
-        string: "El campo '{field}' debe ser de tipo String"
+        string: "El campo '{field}' debe ser de tipo String",
+        email: "El campo '{field} no cumple con un formato correcto'"
     }
 });
 

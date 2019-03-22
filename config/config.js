@@ -79,7 +79,7 @@ process.env.NODE_ENV === "production"
  ****************************/
 token360.autenticar().then(res => {
     process.env.token = res;
-    logger.info("Inicia App ABC correctamente");
+    logger.info(" ::: Inicia App ABC correctamente ::: ");
 }).catch(error => {
-    logger.error("Error al obtener token 360");
+    logger.error(" ::: Error al obtener token 360 ::: ");
 });
