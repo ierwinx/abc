@@ -4,11 +4,11 @@ var router = express.Router();
 var utils = require('../helpers/utils');
 var UsuarioDAO = require('../daos/usuarioDAO');
 var fs = require('fs');
-var mail = require('../config/mail');
-var cryptoJs = require('crypto-js');
-var dsi = require("../services/OAUTH/dsi");
-var Handlebars = require("Handlebars");
-var peticion = require("../models/peticion");
+const mail = require('../config/mail');
+const cryptoJs = require('crypto-js');
+const dsi = require("../services/OAUTH/dsi");
+const Handlebars = require("Handlebars");
+const peticion = require("../models/peticion");
 
 router.post('/login', async(req, res, next) => {
     logger.info("::: Entra peticion Login :::");

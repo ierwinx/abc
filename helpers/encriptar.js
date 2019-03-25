@@ -1,7 +1,7 @@
-var logger = require('log4js').getLogger("encripta");
-var base = require('base-64');
-var utf8 = require('utf8');
-var crypto = require('crypto');
+const logger = require('log4js').getLogger("encripta");
+const base = require('base-64');
+const utf8 = require('utf8');
+const crypto = require('crypto');
 
 var base64 = function(datos) {
     logger.info(" ::: Encripta un string a base64 ::: ");

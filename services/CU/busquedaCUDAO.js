@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("BusquedaCUDAO");
-var querystring = require('querystring');
-var http = require('http');
+const logger = require('log4js').getLogger("BusquedaCUDAO");
+const querystring = require('querystring');
+const http = require('http');
 
 var consultaXnombreCU = async(bean) => {
     logger.info(" ::: se consulta servicio rest para consulta por nombre de CU :::");

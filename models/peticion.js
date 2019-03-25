@@ -1,5 +1,5 @@
-let Validator = require("fastest-validator");
-var logger = require('log4js').getLogger("Entrada");
+const Validator = require("fastest-validator");
+const logger = require('log4js').getLogger("Entrada");
 
 let v = new Validator({
     messages: {

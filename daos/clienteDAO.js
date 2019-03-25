@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("flujoDAO");
-var Cliente = require('../models/cliente');
+const logger = require('log4js').getLogger("flujoDAO");
+const Cliente = require('../models/cliente');
 
 var guardar = async(objeto) => {
     logger.info(" ::: Guarda Informacion de un Cliente :::");

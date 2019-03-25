@@ -1,16 +1,16 @@
 require('./config/config');
-var express = require('express');
-var app = express();
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var handlebars = require('express-handlebars');
-var https = require('https');
-var fs = require('fs');
-var cors = require('cors');
+const express = require('express');
+const app = express();
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const handlebars = require('express-handlebars');
+const https = require('https');
+const fs = require('fs');
+const cors = require('cors');
 
-var homeRouter = require('./routes/home');
-var ambientes = require('./routes/ambientes');
-var auth = require('./routes/auth');
+const homeRouter = require('./routes/home');
+const ambientes = require('./routes/ambientes');
+const auth = require('./routes/auth');
 
 // view engine handlebars
 app.engine('hbs', handlebars({defaultLayout: 'main'}));

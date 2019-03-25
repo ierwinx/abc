@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("Ine");
-var querystring = require('querystring');
-var https = require("https");
+const logger = require('log4js').getLogger("Ine");
+const querystring = require('querystring');
+const https = require("https");
 
 var alta = (ine) => {
     logger.info(" ::: se consulta servicio rest 360 para alta de ine :::");

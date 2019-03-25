@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("desencripta");
-var base = require('base-64');
-var utf8 = require('utf8');
+const logger = require('log4js').getLogger("desencripta");
+const base = require('base-64');
+const utf8 = require('utf8');
 
 var base64 = function(datos) {
     logger.info(" ::: Desencripta un string base64 ::: ");

@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("renapoCUDAO");
-var querystring = require('querystring');
-var http = require('http');
+const logger = require('log4js').getLogger("renapoCUDAO");
+const querystring = require('querystring');
+const http = require('http');
 
 var altaRenapoCU = async(bean) => {
     logger.info(" ::: se consulta servicio rest de CU para alta renapo CU :::");

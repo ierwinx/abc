@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("Consultado");
-var querystring = require('querystring');
-var https = require("https");
+const logger = require('log4js').getLogger("Consultado");
+const querystring = require('querystring');
+const https = require("https");
 
 var consultado360 = (objeto) => {
     logger.info(" ::: Inicia consulta cliente CONSULTADO 360 :::");

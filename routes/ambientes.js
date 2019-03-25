@@ -1,12 +1,12 @@
-var logger = require('log4js').getLogger("Ambientes");
-var express = require('express');
-var router = express.Router();
-var utils = require('../helpers/utils');
-var caracteristicasDAO = require('../daos/caracteristicaDAO');
-var flujosDAO = require('../daos/flujoDAO');
-var clientesDAO = require("../daos/clienteDAO");
-var entidadDAO = require("../daos/entidadDAO");
-var Entrada = require("../helpers/Entrada");
+const logger = require('log4js').getLogger("Ambientes");
+const express = require('express');
+const router = express.Router();
+const utils = require('../helpers/utils');
+const caracteristicasDAO = require('../daos/caracteristicaDAO');
+const flujosDAO = require('../daos/flujoDAO');
+const clientesDAO = require("../daos/clienteDAO");
+const entidadDAO = require("../daos/entidadDAO");
+const Entrada = require("../helpers/Entrada");
 
 router.post('/usuarios', function(req, res, next) {
     logger.info("Entra peticion ambientar usuarios");

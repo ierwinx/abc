@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("caracteristicaDAO");
-var Caracteristica = require('../models/caracteristica');
+const logger = require('log4js').getLogger("caracteristicaDAO");
+const Caracteristica = require('../models/caracteristica');
 
 var guardar = async(objeto) => {
     logger.info(" ::: Guarda Informacion de una Caracteristica :::");

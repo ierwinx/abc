@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("Cuentas");
-var soap = require('soap');
+const soap = require('soap');
 
 var MB80 = (objeto) => {
 

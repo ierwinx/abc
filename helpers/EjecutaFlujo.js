@@ -1,24 +1,24 @@
-var logger = require('log4js').getLogger("EjecutaFlujo");
-var borradoCteCUDAO = require("../services/CU/borradoCteCUDAO");
-var FotoDAO = require("../services/CU/FotoDAO");
-var HuellasCUDAO = require("../services/CU/HuellasCUDAO");
-var altaCUDAO = require("../services/CU/altaCUDAO");
-var busquedaCUDAO = require("../services/CU/busquedaCUDAO");
-var ligueCUCADAO = require("../services/CU/ligueCUCADAO");
-var renapoCUDAO = require("../services/CU/renapoCUDAO");
+const logger = require('log4js').getLogger("EjecutaFlujo");
+const borradoCteCUDAO = require("../services/CU/borradoCteCUDAO");
+const FotoDAO = require("../services/CU/FotoDAO");
+const HuellasCUDAO = require("../services/CU/HuellasCUDAO");
+const altaCUDAO = require("../services/CU/altaCUDAO");
+const busquedaCUDAO = require("../services/CU/busquedaCUDAO");
+const ligueCUCADAO = require("../services/CU/ligueCUCADAO");
+const renapoCUDAO = require("../services/CU/renapoCUDAO");
 
-var ActivacionXSuc = require("../services/360/ActivacionXSuc");
-var Consultado360 = require("../services/360/Consultado");
-var Extendidos360 = require("../services/360/Extendidos");
-var Borrar360 = require("../services/360/Borrar");
-var Ine360 = require("../services/360/Ine");
-var Desbloqueo = require("../services/360/Desbloqueo");
+const ActivacionXSuc = require("../services/360/ActivacionXSuc");
+const Consultado360 = require("../services/360/Consultado");
+const Extendidos360 = require("../services/360/Extendidos");
+const Borrar360 = require("../services/360/Borrar");
+const Ine360 = require("../services/360/Ine");
+const Desbloqueo = require("../services/360/Desbloqueo");
 
-var FlujoINE = require("./FlujoINE");
+const FlujoINE = require("./FlujoINE");
 
-var Cuentas = require("../services/Alnova/Cuentas");
+const Cuentas = require("../services/Alnova/Cuentas");
 
-var datosPersonales = require("../helpers/datosPersonales");
+const datosPersonales = require("../helpers/datosPersonales");
 
 var procesa = async(objeto, servicio) => {
     logger.info(` ::: Ejectuta el servicio ${servicio} ::: `);

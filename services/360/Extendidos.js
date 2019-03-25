@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("Extendidos");
-var querystring = require('querystring');
-var https = require("https");
+const logger = require('log4js').getLogger("Extendidos");
+const querystring = require('querystring');
+const https = require("https");
 
 var actualizaExt = (objeto) => {
     logger.info(" ::: Inicia actualiza extendidos de 360 :::");

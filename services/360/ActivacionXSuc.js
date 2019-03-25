@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("ActivacionXSuc");
-var https = require("https");
+const logger = require('log4js').getLogger("ActivacionXSuc");
+const https = require("https");
 
 var activacionXsuc = (objeto) => {
     logger.info(" ::: se consulta servicio rest 360 para activacion X sucursal :::");

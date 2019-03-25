@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("entidadDAO");
-var Entidad = require('../models/entidad');
+const logger = require('log4js').getLogger("entidadDAO");
+const Entidad = require('../models/entidad');
 
 var listar = async(objeto) => {
     logger.info(" ::: Consulta entidades en BD :::");

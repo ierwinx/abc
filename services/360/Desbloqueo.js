@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("Desbloqueo");
-var https = require("https");
+const logger = require('log4js').getLogger("Desbloqueo");
+const https = require("https");
 
 var desbloquea = (objeto) => {
     logger.info(" ::: Inicia desbloqueo cliente 360 :::");

@@ -1,7 +1,7 @@
-var logger = require('log4js').getLogger("DSI");
-var https = require('https');
-var soap = require("soap");
-var parser = require('fast-xml-parser');
+const logger = require('log4js').getLogger("DSI");
+const https = require('https');
+const soap = require("soap");
+const parser = require('fast-xml-parser');
 
 var validaToken = (bearer) => {
     logger.info(" ::: se consume servicio para validar sesion frontend con oauth DSI :::");

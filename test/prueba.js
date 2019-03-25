@@ -1,5 +1,5 @@
-var assert = require('chai').assert;
-var dsi = require("../services/OAUTH/dsi");
+const assert = require('chai').assert;
+const dsi = require("../services/OAUTH/dsi");
 
 describe('Array', function() {
     describe('#indexOf()', function() {

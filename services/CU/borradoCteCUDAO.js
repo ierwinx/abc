@@ -1,7 +1,6 @@
-var logger = require('log4js').getLogger("BorradoCTECUDAO");
-var querystring = require('querystring');
-var http = require('http');
-
+const logger = require('log4js').getLogger("BorradoCTECUDAO");
+const querystring = require('querystring');
+const http = require('http');
 
 var borrarCteCU = (bean) => {
     logger.info(" ::: se consulta servicio rest para borrado de CU :::");

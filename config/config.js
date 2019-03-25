@@ -1,5 +1,5 @@
-var token360 = require('../services/360/Auth');
-var logger = require('log4js').getLogger("config");
+const token360 = require('../services/360/Auth');
+const logger = require('log4js').getLogger("config");
 
 /****************************
  *         Ambiente         *

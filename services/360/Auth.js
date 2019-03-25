@@ -1,8 +1,8 @@
-var logger = require('log4js').getLogger("Auth");
-var datosPeronales = require('../../helpers/datosPersonales');
-var encriptar = require('../../helpers/encriptar');
-var querystring = require('querystring');
-var https = require("https");
+const logger = require('log4js').getLogger("Auth");
+const datosPeronales = require('../../helpers/datosPersonales');
+const encriptar = require('../../helpers/encriptar');
+const querystring = require('querystring');
+const https = require("https");
 
 var autenticar = () => {
     logger.info(" ::: se consulta servicio rest 360 para autenticacion :::");

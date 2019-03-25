@@ -1,8 +1,8 @@
-var logger = require('log4js').getLogger("respuestas");
-var uuidv1 = require('uuid/v1');
-var UsuarioDAO = require('../daos/usuarioDAO');
-var cryptoJs = require('crypto-js');
-var dsi = require("../services/OAUTH/dsi");
+const logger = require('log4js').getLogger("respuestas");
+const uuidv1 = require('uuid/v1');
+const UsuarioDAO = require('../daos/usuarioDAO');
+const cryptoJs = require('crypto-js');
+const dsi = require("../services/OAUTH/dsi");
 
 var printJson = function(res, status, mensaje, object) {
     var aleatorio = Math.floor(Math.random() * 99);

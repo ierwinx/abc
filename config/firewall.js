@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("respuestas");
-var respuestas = require('../helpers/utils');
-var usuarioDAO = require("../daos/usuarioDAO");
+const logger = require('log4js').getLogger("respuestas");
+const respuestas = require('../helpers/utils');
+const usuarioDAO = require("../daos/usuarioDAO");
 
 var filtra = async(req, res) => {
     var token = req.headers['authorization'];

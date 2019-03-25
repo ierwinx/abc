@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("FlujoINE");
-var Ine = require("../services/360/Ine");
+const logger = require('log4js').getLogger("FlujoINE");
+const Ine = require("../services/360/Ine");
 
 var iniciar = async(body) => {
     logger.info(" ::: se incia Flujo ine en APP:::");

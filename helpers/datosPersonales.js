@@ -1,5 +1,5 @@
-var logger = require('log4js').getLogger("datosPersonales");
-var GeneraCurpWS = require("../services/CU/Curp");
+const logger = require('log4js').getLogger("datosPersonales");
+const GeneraCurpWS = require("../services/CU/Curp");
 
 var generaRFC = (datos) => {
     logger.info("::: Genera una rfc aleatorio :::");

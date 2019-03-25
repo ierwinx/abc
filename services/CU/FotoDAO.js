@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("FotoDAO");
-var querystring = require('querystring');
+const querystring = require('querystring');
 const http = require('http');
 
 var actualizaFoto = async(bean) => {

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const log4js = require('log4js');
 
-var logger = log4js.getLogger("app");
+const logger = log4js.getLogger("app");
 
 let typeAndPatter = {
     type: 'pattern',

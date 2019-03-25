@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
     host: 'smtpaz.aztecaservicios.com',
@@ -9,7 +9,7 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-const enviar = async(datos) => {
+var enviar = async(datos) => {
     var respuesta = await transporter.sendMail(datos).catch(err => {
         logger.error(" ::: Ocurrio un Error al enviar Email :::");
         throw new Error("Error al enviar el correo");

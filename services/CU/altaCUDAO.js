@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("AltaCUDAO");
-var querystring = require('querystring');
-var http = require('http');
+const logger = require('log4js').getLogger("AltaCUDAO");
+const querystring = require('querystring');
+const http = require('http');
 
 var altaClienteCU = (beanAltaCU) => {
     logger.info(" ::: se consulta servicio rest de CU para alta de cliente :::");

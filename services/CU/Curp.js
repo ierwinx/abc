@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("Curp");
-var querystring = require('querystring');
-var http = require('http');
+const logger = require('log4js').getLogger("Curp");
+const querystring = require('querystring');
+const http = require('http');
 
 var obtiene = (datos) => {
     logger.info(" ::: Inicia consumo servicio generacion de curp ::: ");

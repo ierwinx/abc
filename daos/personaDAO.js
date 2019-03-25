@@ -1,6 +1,6 @@
-var logger = require('log4js').getLogger("personaDAO");
-var Persona = require('../models/persona');
-var GeneraCurp = require("../services/CU/Curp");
+const logger = require('log4js').getLogger("personaDAO");
+const Persona = require('../models/persona');
+const GeneraCurp = require("../services/CU/Curp");
 
 var guardar = async(objeto) => {
     logger.info(" ::: Guarda Informacion de una Persona :::");

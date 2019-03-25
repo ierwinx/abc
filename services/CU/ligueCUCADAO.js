@@ -1,8 +1,8 @@
-var logger = require('log4js').getLogger("BusquedaCUDAO");
-var querystring = require('querystring');
-var http = require('http');
+const logger = require('log4js').getLogger("BusquedaCUDAO");
+const querystring = require('querystring');
+const http = require('http');
 
-const ligarCuentaCU = async(bean) => {
+var ligarCuentaCU = async(bean) => {
     logger.info(" ::: se consulta servicio rest de CU para ligar cuenta CU :::");
 
     var objeto = querystring.stringify({

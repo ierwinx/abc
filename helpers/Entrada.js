@@ -1,12 +1,12 @@
-var logger = require('log4js').getLogger("Entrada");
-var peticion = require('../models/peticion');
-var flujosDAO = require("../daos/flujoDAO");
-var caracteristicaDAO = require("../daos/caracteristicaDAO");
-var infoClientes = require("../models/infoCliente");
-var personaDAO = require("../daos/personaDAO");
-var clienteDAO = require("../daos/clienteDAO");
-var EjecutaFlujo = require("../helpers/EjecutaFlujo");
-var DatosPersonales = require("../helpers/datosPersonales");
+const logger = require('log4js').getLogger("Entrada");
+const peticion = require('../models/peticion');
+const flujosDAO = require("../daos/flujoDAO");
+const caracteristicaDAO = require("../daos/caracteristicaDAO");
+const infoClientes = require("../models/infoCliente");
+const personaDAO = require("../daos/personaDAO");
+const clienteDAO = require("../daos/clienteDAO");
+const EjecutaFlujo = require("../helpers/EjecutaFlujo");
+const DatosPersonales = require("../helpers/datosPersonales");
 
 var procesa = async(datos) => {
     logger.info(" ::: Inicia proceso de ambientacion usuarios :::");

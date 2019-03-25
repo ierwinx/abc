@@ -1,6 +1,6 @@
-var https = require("https");
-var logger = require('log4js').getLogger("Borrar");
-var querystring = require('querystring');
+const https = require("https");
+const logger = require('log4js').getLogger("Borrar");
+const querystring = require('querystring');
 
 const borrar = (objeto) => {
     logger.info(" ::: Inicia consulta 360 para borrado de isengard y Morrannon :::");
