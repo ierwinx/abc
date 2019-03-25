@@ -15,7 +15,7 @@ router.post('/login', async(req, res, next) => {
     var header = req.headers['authorization'];
     if (!header) {
         logger.error("::: "+process.env.e400+" :::");
-        return utils.printJson(res, 400, process.env.e400, null);
+        return utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [] });
     }
     var bearer = "";
     try {
@@ -23,14 +23,14 @@ router.post('/login', async(req, res, next) => {
         bearer = bytes.toString(cryptoJs.enc.Utf8);
     } catch(err) {
         logger.error("::: "+process.env.e403+" :::");
-        return utils.printJson(res, 403, process.env.e403, null);
+        return utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: [] });
     }
 
     dsi.validaToken(bearer).then(decoded => {
         dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
             
             var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then().catch(err => {
-                return utils.printJson(res, 500, "Usuario no encontrado", null);
+                return utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [] });
             });
 
             var obj = {
@@ -41,10 +41,10 @@ router.post('/login', async(req, res, next) => {
             utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
             
         }).catch(err => {
-            utils.printJson(res, 500, err.message, null);
+            utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [] });
         });
     }).catch(err => {
-        utils.printJson(res, 400, err.message, null);
+        utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [] });
     });
 
 });
@@ -77,11 +77,11 @@ router.post('/registro', function(req, res, next) {
             mail.enviar(mail.informacion(html, process.env.MAIL)).then(resp2 => {
                 utils.printJson(res, 200, process.env.e200, null);
             }).catch(error => {
-                utils.printJson(res, 500, error.message, null);
+                utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
             });
         });
     }).catch(error => {
-        utils.printJson(res, 500, error.message, null);
+        utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
     });
 });
 
@@ -129,11 +129,11 @@ router.get('/declina/usuario/:id', function(req, res, next) {
 
 router.use(function(req, res) {
     logger.info(" ::: URL no encontrada ::: ");
-    utils.printJson(res, 404, process.env.e404, null);
+    utils.printJson(res, 404, process.env.e404, { titulo: 'Errores', objeto: [] });
 });
 router.use(function(req, res) {
     logger.info(" ::: Error de servidor no conrolado ::: ");
-    utils.printJson(res, 500, process.env.e500, null);
+    utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [] });
 });
 
 module.exports = router;

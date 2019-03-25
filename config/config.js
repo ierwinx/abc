@@ -16,7 +16,7 @@ process.env.PORT = 8080;
 /****************************
  *      ubicacion Mongo     *
  ****************************/
-process.env.mongolocal = 'localhost:27017/ABC2'
+process.env.mongolocal = 'localhost:27017/ABC'
 process.env.mongoExt = 'devopsuser:devopspwd@10.51.58.241:27017/admin'
 
 /****************************

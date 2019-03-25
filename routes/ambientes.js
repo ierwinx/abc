@@ -16,7 +16,7 @@ router.post('/usuarios', function(req, res, next) {
         if (error.length > 0) {
             utils.printJson(res, 500, "Error al validar petición", { titulo: 'Errores', objeto: error });
         } else {
-            utils.printJson(res, 500, error.message, null);
+            utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
         }
     });
 });
@@ -29,7 +29,7 @@ router.put('/usuarios', function(req, res, next) {
         if (error.length > 0) {
             utils.printJson(res, 500, "Error al validar petición", { titulo: 'Errores', objeto: error });
         } else {
-            utils.printJson(res, 500, error.message, null);
+            utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
         }
     });
 });
@@ -39,7 +39,7 @@ router.get('/flujos', function(req, res, next) {
     flujosDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Flujos", objeto: data});
     }).catch(err => {
-        utils.printJson(res, 500, err.message, null);
+        utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [] });
     });
 });
 
@@ -48,7 +48,7 @@ router.get('/caracteristicas', function(req, res, next) {
     caracteristicasDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Caracteristicas", objeto: data});
     }).catch(err => {
-        utils.printJson(res, 500, err.message, null);
+        utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [] });
     });
 });
 
@@ -57,7 +57,7 @@ router.get('/entidades', function(req, res, next) {
     entidadDAO.listar().then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "Entidades", objeto: data});
     }).catch(err => {
-        utils.printJson(res, 500, err.message, null);
+        utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [] });
     });
 });
 
@@ -66,7 +66,7 @@ router.get('/consulta/usuario/:id', function(req, res, next) {
     clientesDAO.buscar(req.params.id).then(data => {
         utils.printJson(res, 200, process.env.e200, {titulo: "infoClientes", objeto: data});
     }).catch(error => {
-        utils.printJson(res, 500, error.message, null);
+        utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
     });
 });
 
@@ -75,17 +75,17 @@ router.delete('/borra/usuario/:id', function(req, res, next) {
     clientesDAO.eliminar(req.params.id).then(data => {
         utils.printJson(res, 200, process.env.e200, null);
     }).catch(error => {
-        utils.printJson(res, 500, error.message, null);
+        utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
     });
 });
 
 router.use(function(req, res) {
     logger.info(" ::: URL no encontrada ::: ");
-    utils.printJson(res, 404, process.env.e404, null);
+    utils.printJson(res, 404, process.env.e404, { titulo: 'Errores', objeto: [] });
 });
 router.use(function(req, res) {
     logger.info(" ::: Error de servidor no conrolado ::: ");
-    utils.printJson(res, 500, process.env.e500, null);
+    utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [] });
 });
 
 module.exports = router;
