@@ -194,6 +194,14 @@ const alias = {
     }
 }
 
+const contras = {
+    contra: {
+        type: "string",
+        min: 8,
+        max: 49
+    }
+}
+
 const crear = {
     nombre: { 
         type: "string",
@@ -266,7 +274,7 @@ var telefono = (datos) => {
     }
 }
 
-var desbloqueo = (datos) => {
+var consulta = (datos) => {
     logger.info(" ::: Se valida datos de ICU o ALIAS:::");
     var check;
     if (datos.icu) {
@@ -274,6 +282,15 @@ var desbloqueo = (datos) => {
     } else {
         check = v.compile(alias);
     }
+    var respuesta = check(datos);
+    if (typeof(respuesta) == 'object') {
+        throw respuesta;
+    }
+}
+
+var validContra = (datos) => {
+    logger.info(" ::: Se valida que venga una contra :::");
+    var check = v.compile(contras);
     var respuesta = check(datos);
     if (typeof(respuesta) == 'object') {
         throw respuesta;
@@ -382,7 +399,11 @@ var validaFlujo = (datos, flujo) => {
             principales(datos);
             break;
         case 7.1:
-            desbloqueo(datos);
+            consulta(datos);
+            break;
+        case 7.2:
+            consulta(datos);
+            validContra(datos);
             break;
     }
 }
@@ -405,6 +426,6 @@ module.exports = {
     ife,
     telefono,
     validaFlujo,
-    desbloqueo,
+    consulta,
     CrearUsuario
 }

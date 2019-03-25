@@ -90,9 +90,11 @@ var procesa = async(datos) => {
         cliente.flujo = datos.flujo;
         respuesta.push(cliente);
     }
-    respuesta.forEach(element => {
-        clienteDAO.guardar(element);
-    });
+    if (datos.flujo < 7) {
+        respuesta.forEach(element => {
+            clienteDAO.guardar(element);
+        });
+    }
 
     return respuesta;
 }

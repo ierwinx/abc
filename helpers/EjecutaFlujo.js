@@ -6,18 +6,15 @@ const altaCUDAO = require("../services/CU/altaCUDAO");
 const busquedaCUDAO = require("../services/CU/busquedaCUDAO");
 const ligueCUCADAO = require("../services/CU/ligueCUCADAO");
 const renapoCUDAO = require("../services/CU/renapoCUDAO");
-
 const ActivacionXSuc = require("../services/360/ActivacionXSuc");
 const Consultado360 = require("../services/360/Consultado");
 const Extendidos360 = require("../services/360/Extendidos");
 const Borrar360 = require("../services/360/Borrar");
 const Ine360 = require("../services/360/Ine");
 const Desbloqueo = require("../services/360/Desbloqueo");
-
+const ActualizaPsw = require("../services/360/ActualizaPsw");
 const FlujoINE = require("./FlujoINE");
-
 const Cuentas = require("../services/Alnova/Cuentas");
-
 const datosPersonales = require("../helpers/datosPersonales");
 
 var procesa = async(objeto, servicio) => {
@@ -122,13 +119,19 @@ var procesa = async(objeto, servicio) => {
             break;
         case 2.9:
             logger.info(" ::: Desbloqueo ::: ");
-            objeto = Desbloqueo.desbloquea(objeto).then().catch(err => {
+            objeto = await Desbloqueo.desbloquea(objeto).then().catch(err => {
+                throw err;
+            });
+            break;
+        case 3.0:
+            logger.info(" ::: Actualiza contra 360 ::: ");
+            objeto = await ActualizaPsw.actualizaPwd(objeto).then().catch(err => {
                 throw err;
             });
             break;
         case 3.1:
             logger.info(" ::: Consulta 360 ::: ");
-            objeto = Consultado360.consultado360(objeto).then().catch(err => {
+            objeto = await Consultado360.consultado360(objeto).then().catch(err => {
                 throw err;
             });
             break;
