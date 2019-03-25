@@ -60,6 +60,7 @@ router.post('/registro', function(req, res, next) {
     var user = {
         usuario: req.body.usuario,
         correo: req.body.correo,
+        rol: req.body.rol,
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
 

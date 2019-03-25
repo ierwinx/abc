@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:ierwinx/ambientacionbaseclientes.git"
+    "url": "git@10.50.109.50:364088/abc-back.git"
   },
   "dependencies": {
     "base-64": "^0.1.0",
