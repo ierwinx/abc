@@ -22,11 +22,11 @@ var alta = (ine) => {
                 resolve(JSON.parse(datos));
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio de alta ine 360 ::: ");
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio de alta ine 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject("Ocurrio un error con el consumo del servicio de alta ine 360");
+                reject("Ocurrio un Error con el consumo del servicio de alta ine 360");
             }
         });
         reques.write(JSON.stringify(ine));
@@ -58,11 +58,11 @@ var consulta = (ine) => {
                 resolve(JSON.parse(datos));
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio de consulta ine 360 ::: ");
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio de consulta ine 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servicio de consulta ine 360"));
+                reject(new Error("Ocurrio un Error con el consumo del servicio de consulta ine 360"));
             }
         }).end();
     });
@@ -89,11 +89,11 @@ var borrar = (ine) => {
                 resolve(JSON.parse(datos));
             });
         }).on("error", err => {
-            logger.err(" ::: Ocurrio un error con el consumo del servico de borrado de 360 ::: ");
+            logger.err(" ::: Ocurrio un Error con el consumo del servico de borrado de 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servico de borrado de 360"));
+                reject(new Error("Ocurrio un Error con el consumo del servico de borrado de 360"));
             }
         });
         reques.write(JSON.stringify(ine));
@@ -122,11 +122,11 @@ var actualizaIne = (ine) => {
                 resolve(JSON.parse(datos));
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio de actualizacion ine 360 ::: ");
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio de actualizacion ine 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servicio de actualizacion ine 360"));
+                reject(new Error("Ocurrio un Error con el consumo del servicio de actualizacion ine 360"));
             }
         });
         reques.write(ine);

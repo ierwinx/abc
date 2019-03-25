@@ -33,13 +33,13 @@ var actualizaFoto = async(bean) => {
                 if (respuesta && respuesta.lstResponse && respuesta.issue && respuesta.issue.issue === false && respuesta.lstResponse[0] && respuesta.lstResponse[0].path) {
                     resolve(bean);
                 } else {
-                    logger.error(" ::: Ocurrio un error con el servicio actualizar foto de CU :::");
-                    reject(new Error("Ocurrio un error con el servicio actualizar foto de CU ", respuesta.issue.fieldIssues));
+                    logger.error(" ::: Ocurrio un Error con el servicio actualizar foto de CU :::");
+                    reject(new Error("Ocurrio un Error con el servicio actualizar foto de CU ", respuesta.issue.fieldIssues));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio actualizar foto de CU ::: ");
-            reject(new Error("Ocurrio un error con el servicio actualizar foto de CU ", err));
+            logger.error(" ::: Ocurrio un Error con el servicio actualizar foto de CU ::: ");
+            reject(new Error("Ocurrio un Error con el servicio actualizar foto de CU ", err));
         });
         reques.write(objeto);
         reques.end();

@@ -43,16 +43,16 @@ var consultado360 = (objeto) => {
                         reject("Usuario no encontrado");
                     }
                 } else {
-                    logger.info(" ::: Ocurrio un error con el consumo del servicio de consultado 360  ::: ");
-                    reject("Ocurrio un error con el consumo del servicio de consultado 360")
+                    logger.info(" ::: Ocurrio un Error con el consumo del servicio de consultado 360  ::: ");
+                    reject("Ocurrio un Error con el consumo del servicio de consultado 360")
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio de consultado 360 ::: ");
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio de consultado 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servicio de consultado 360"));
+                reject(new Error("Ocurrio un Error con el consumo del servicio de consultado 360"));
             }
         }).end();
     });

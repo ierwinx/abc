@@ -8,7 +8,14 @@ var consultaXnombreCU = async(bean) => {
     var arrayFecha = bean.fechaNac.split("/");
     var fecha = arrayFecha[0] + "-" + arrayFecha[1] + "-" + arrayFecha[2];
 
-    let objeto = `nombre=${bean.nombre}&apPaterno=${bean.apellidoP}&apMaterno=${bean.apellidoM}&fechaNac=${fecha}&ipAutenticacion=127.0.0.1&usuarioAutenticacion=USRPRUEBAS`;
+    let objeto =  querystring.stringify({
+        nombre: bean.nombre,
+        apPaterno: bean.apellidoP,
+        apMaterno: bean.apellidoM,
+        fechaNac: fecha,
+        ipAutenticacion: "127.0.0.1",
+        usuarioAutenticacion: "USRPRUEBAS"
+    }, null, null, { encodeURIComponent: querystring.unescape });
 
     logger.info("POST : "+objeto);
     
@@ -33,13 +40,13 @@ var consultaXnombreCU = async(bean) => {
                     bean.folioCu = resp.lstResponse[0].folio;
                     resolve(bean);
                 } else {
-                    logger.error(" ::: Hay un error en los datos de entrada de consulta por nombre de CU ::: ");
-                    reject(new Error("Hay un error en los datos de entrada de consulta por nombre de CU"));
+                    logger.error(" ::: Ocurrio un Error en los datos de entrada de consulta por nombre de CU ::: ");
+                    reject(new Error("Ocurrio un Error en los datos de entrada de consulta por nombre de CU"));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio consulta por nombre de CU ::: ");
-            reject(new Error("Ocurrio un error con el servicio consulta por nombre de CU ", err));
+            logger.error(" ::: Ocurrio un Error con el servicio consulta por nombre de CU ::: ");
+            reject(new Error("Ocurrio un Error con el servicio consulta por nombre de CU ", err));
         });
         reques.write(objeto);
         reques.end();
@@ -84,8 +91,8 @@ var consultaXnombreSoloBusca = async(bean) => {
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio consulta por nombre de CU ::: ");
-            reject(new Error("Ocurrio un error con el servicio consulta por nombre de CU ", err));
+            logger.error(" ::: Ocurrio un Error con el servicio consulta por nombre de CU ::: ");
+            reject(new Error("Ocurrio un Error con el servicio consulta por nombre de CU ", err));
         });
         reques.write(objeto);
         reques.end();

@@ -30,13 +30,13 @@ var borrarCteCU = (bean) => {
                 if (resp && resp.objResponse && resp.objResponse.status === 0) {
                     resolve(bean);
                 } else {
-                    logger.error(' ::: Ocurrio un error con el servicio borrado de CU ::: ')
-                    reject(new Error(`Ocurrio un error con el servicio borrado de CU`));
+                    logger.error(' ::: Ocurrio un Error con el servicio borrado de CU ::: ')
+                    reject(new Error(`Ocurrio un Error con el servicio borrado de CU`));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio borrado de CU ::: ");
-            reject(new Error("Ocurrio un error con el servicio borrado de CU ", err));
+            logger.error(" ::: Ocurrio un Error con el servicio borrado de CU ::: ");
+            reject(new Error("Ocurrio un Error con el servicio borrado de CU ", err));
         });
         reques.write(cadenaPost);
         reques.end();

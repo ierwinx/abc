@@ -26,16 +26,16 @@ var desbloquea = (objeto) => {
                     logger.info(respuesta.error.mensaje);
                     reject(new Error(respuesta.error.mensaje));
                 } else {
-                    logger.error(" ::: Ocurrio un error con el consumo del servicio de desbloqueo 360 ::: ");
-                    reject(new Error("Ocurrio un error con el consumo del servicio de desbloqueo 360"));
+                    logger.error(" ::: Ocurrio un Error con el consumo del servicio de desbloqueo 360 ::: ");
+                    reject(new Error("Ocurrio un Error con el consumo del servicio de desbloqueo 360"));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio de desbloqueo 360 ::: ");
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio de desbloqueo 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servicio de desbloqueo 360"));
+                reject(new Error("Ocurrio un Error con el consumo del servicio de desbloqueo 360"));
             }
         });
         reques.write(JSON.stringify(objeto));

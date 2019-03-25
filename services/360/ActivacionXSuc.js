@@ -33,20 +33,20 @@ var activacionXsuc = (objeto) => {
                         objeto.passTemp = respuesta.respuesta.password_temporal;
                         resolve(objeto);
                     } else {
-                        logger.error(" ::: Ocurrio un error con el consumo del servicio activacion X sucursal 360 ::: ");
-                        reject(new Error("Ocurrio un error con el consumo del servicio de 360 activacion X sucursal"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio activacion X sucursal 360 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de 360 activacion X sucursal"));
                     }
                 } else {
-                    logger.error(" ::: Ocurrio un error con el consumo del servicio activacion X sucursal 360 ::: ");
-                    reject(new Error("Ocurrio un error con el consumo del servicio de 360 activacion X sucursal"));
+                    logger.error(" ::: Ocurrio un Error con el consumo del servicio activacion X sucursal 360 ::: ");
+                    reject(new Error("Ocurrio un Error con el consumo del servicio de 360 activacion X sucursal"));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio activacion X sucursal 360 ::: ");
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio activacion X sucursal 360 ::: ");
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servicio de 360 activacion X sucursal"));
+                reject(new Error("Ocurrio un Error con el consumo del servicio de 360 activacion X sucursal"));
             }
         });
         reques.write(objeto2);

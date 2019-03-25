@@ -34,13 +34,13 @@ var altaRenapoCU = async(bean) => {
                 if (respuesta && respuesta.objResponse && respuesta.issue && respuesta.issue.issue === false && respuesta.objResponse.status === 0) {
                     resolve(bean);
                 } else {
-                    logger.error(" ::: Ocurrio un error con el servicio de Alta RENAPO CU ::: ");
-                    reject(new Error("Ocurrio un error con el servicio de Alta RENAPO CU"));
+                    logger.error(" ::: Ocurrio un Error con el servicio de Alta RENAPO CU ::: ");
+                    reject(new Error("Ocurrio un Error con el servicio de Alta RENAPO CU"));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio alta renapo CU ::: ");
-            reject(new Error("Ocurrio un error con el servicio alta renapo CU ", err));
+            logger.error(" ::: Ocurrio un Error con el servicio alta renapo CU ::: ");
+            reject(new Error("Ocurrio un Error con el servicio alta renapo CU ", err));
         });
         reques.write(objeto);
         reques.end();
@@ -70,11 +70,11 @@ var consultaRenapoCU = async(requestRenapo) => {
                 resolve(respuesta.data);
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio alta renapo CU ::: ");
+            logger.error(" ::: Ocurrio un Error con el servicio alta renapo CU ::: ");
             if (err.response.data) {
                 resolve(err.response.data);
             } else {
-                reject(new Error("Ocurrio un error con el consumo del servicio de consultaRenapoCU 360 "));
+                reject(new Error("Ocurrio un Error con el consumo del servicio de consultaRenapoCU 360 "));
             }
         });
         reques.write(objeto);

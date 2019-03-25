@@ -28,8 +28,8 @@ var autenticar = () => {
                 resolve(JSON.parse(datos).access_token);
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio de alta ine 360 ::: ");
-            reject(new Error("Ocurrio un error con el consumo del servicio de 360 ", err));
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio de alta ine 360 ::: ");
+            reject(new Error("Ocurrio un Error con el consumo del servicio de 360 ", err));
         });
         reques.write(query);
         reques.end();

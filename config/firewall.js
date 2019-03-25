@@ -10,7 +10,7 @@ var filtra = async(req, res) => {
     if (ipCompleta != "::1") {
         if (ipv4 != usuario.ip) {
             var error = new Error();
-            error.name = "Se esta accediendo a una ip no valida";
+            error.name = " ::: Se esta accediendo a una ip no valida ::: ";
             error.message = "";
             logger.error(error);
             respuestas.printJson(res, 505, process.env.e505, null);

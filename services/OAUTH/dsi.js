@@ -25,8 +25,8 @@ var validaToken = (bearer) => {
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el servicio de oauth ::: ");
-            reject(new Error("Ocurrio un error al validar token con oauth "));
+            logger.error(" ::: Ocurrio un Error con el servicio de oauth ::: ");
+            reject(new Error("Ocurrio un Error al validar token con oauth "));
         }).end();
     });
     return promesa;
@@ -46,8 +46,8 @@ var verificaInformacion = (usuario) => {
                 if (err2 == null) {
                     resolve(parser.parse(result.DatosAuxiliaresResult));
                 } else {
-                    logger.error(" ::: Error al validar informacion frontend con oauth DSI :::")
-                    reject(new Error("Ocurrio un error al valida token con oauth "));
+                    logger.error(" ::: Ocurrio un Error al validar informacion frontend con oauth DSI :::")
+                    reject(new Error("Ocurrio un Error al valida token con oauth "));
                 }
             });
         });

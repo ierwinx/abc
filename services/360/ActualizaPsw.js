@@ -30,19 +30,19 @@ var actualizaPwd = (objeto) => {
                         objeto.respuesta= "Registro actualizado";
                         resolve(objeto);
                     } else {
-                        logger.error(" ::: Ocurrio un error con el consumo del servicio actualizacion de pws X sucursal 360 ::: ");
-                        reject(new Error("Ocurrio un error con el consumo del servicio de 360 actualizacion pws X usuario"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion de pws X sucursal 360 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));
                     }
                 } else if (respuesta.estatus == 1) {
                     reject("La nueva contraseña no puede ser igual a la anterior");
                 } else {
-                    logger.error(" ::: Ocurrio un error con el consumo del servicio actualizacion pws de X usuario 360 ::: ");
-                    reject(new Error("Ocurrio un error con el consumo del servicio de 360 actualizacion pws X usuario"));
+                    logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion pws de X usuario 360 ::: ");
+                    reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));
                 }
             });
         }).on("error", err => {
-            logger.error(" ::: Ocurrio un error con el consumo del servicio actualizacion pws X usuario 360 ::: ");
-            reject(new Error("Ocurrio un error con el consumo del servicio de 360 actualizacion pws X usuario"));
+            logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion pws X usuario 360 ::: ");
+            reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));
 
         });
         req.write(objetoEn);

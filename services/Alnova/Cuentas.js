@@ -34,20 +34,20 @@ var MB80 = (objeto) => {
             client.MTEjecutaTransaccion(args, function(err2, result) {
                 if (err2 == null) {
                     if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
-                        logger.error(" ::: Ocurrio un error con el consumo del servicio MB80 ::: ");
-                        reject(new Error("Ocurrio un error con el consumo del servicio MB80"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
                     } else {
                         var respuesta = creaObjeto(result.MTEjecutaTransaccionResult);
                         if (respuesta.CTACTE){
                             objeto.cuentaCliente = respuesta.CTACTE;
                             resolve(objeto);
                         } else {
-                            logger.error(" ::: Ocurrio un error con el consumo del servicio MB80 ::: ");
-                            reject(new Error("Ocurrio un error con el consumo del servicio MB80"));
+                            logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 ::: ");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
                         }
                     }
                 } else {
-                    reject(new Error("Ocurrio un error con el consumo del servicio MB80"));
+                    reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
                 }
             });
         });
@@ -85,21 +85,21 @@ var MB34 = (objeto) => {
             client.MTEjecutaTransaccion(args, function(err2, result) {
                 if (err2 == null) {
                     if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
-                        logger.error(" ::: Ocurrio un error con el consumo del servicio de MB34 ::: ");
-                        reject(new Error("Ocurrio un error con el consumo del servicio de MB34"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
                     } else {
                         var respuesta = creaObjeto(result.MTEjecutaTransaccionResult);
                         if (respuesta.NUMACCO) {
                             objeto.cuentaCliente = respuesta.NUMACCO;
                             resolve(objeto);
                         } else {
-                            logger.error("Ocurrio un error con el consumo del servicio de MB34");
-                            reject(new Error("Ocurrio un error con el consumo del servicio de MB34"));
+                            logger.error("Ocurrio un Error con el consumo del servicio de MB34");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
                         }
                     }
                 } else {
-                    logger.error(" ::: Ocurrio un error con el consumo del servicio de MB34 ::: ");
-                    reject(new Error("Ocurrio un error con el consumo del servicio de MB34"));
+                    logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 ::: ");
+                    reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
                 }
             });
         });
@@ -144,21 +144,21 @@ var BB02 = (objeto) => {
             client.MTEjecutaTransaccion(args, function(err2, result) {
                 if (err2 == null) {
                     if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
-                        logger.error(" ::: Ocurrio un error con el consumo del servicio de MB02 ::: ");
-                        reject(new Error("Ocurrio un error con el consumo del servicio de MB02"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
                     } else {
                         var respuesta = creaObjeto(result.MTEjecutaTransaccionResult);
                         if (respuesta.ACC) {
                             objeto.cuentaCliente = respuesta.ACC;
                             resolve(objeto);
                         } else {
-                            logger.error(" ::: Ocurrio un error con el consumo del servicio de MB02 ::: ");
-                            reject(new Error("Ocurrio un error con el consumo del servicio de MB02"));
+                            logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
                         }
                     }
                 } else {
-                    logger.error(" ::: Ocurrio un error con el consumo del servicio de MB02 ::: ");
-                    reject(new Error("Ocurrio un error con el consumo del servicio de MB02"));
+                    logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
+                    reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
                 }
             });
         });
