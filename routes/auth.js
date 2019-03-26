@@ -32,11 +32,11 @@ router.post('/login', async(req, res, next) => {
             
             var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then();
 
-            if (usuario.resp = 0) {
+            if (usuario == 0) {
                 return utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
-            } else if (usuario.resp = 1) {
+            } else if (usuario == 1) {
                 return utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
-            } else if (usuario.resp = 2) {
+            } else if (usuario == 2) {
                 return utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
             }
 

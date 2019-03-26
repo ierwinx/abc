@@ -11,7 +11,7 @@ process.env.backend = 'https://10.51.58.240'
 /****************************
  *      Puerto escucha      *
  ****************************/
-process.env.PORT = 8080;
+process.env.PORT = 443;
 
 /****************************
  *      ubicacion Mongo     *
