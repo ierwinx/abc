@@ -68,11 +68,16 @@ var buscarNumeroUsuario = async(numero) => {
     var respuesta = await Usuario.findOne({ usuario: numero }, function(err, user) {
         if (err) {
             logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
-            throw new Error("Ocurrio un problema al buscar el usuario");
+            return {resp:0};
         } else {
             if (!user) {
-                return undefined;
+                logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
+                return {resp:1};
             } else {
+                if (!user.status) {
+                    logger.error(" ::: El usuario encontrado no esta autorizado :::");
+                    return {resp:2};
+                }
                 return user;
             }
         }

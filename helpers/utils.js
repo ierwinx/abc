@@ -16,6 +16,8 @@ var printJson = function(res, status, mensaje, object) {
     if (object !== null) {
         json[object.titulo] = object.objeto
     }
+    logger.info(" ::: se retorna el siguiente json con estatus "+status+" al cliente ::: ");
+    console.log(json);
     res.status(status).json(json);
 }
 

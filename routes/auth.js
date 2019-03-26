@@ -1,9 +1,9 @@
-var logger = require('log4js').getLogger("Auth");
-var express = require('express');
-var router = express.Router();
-var utils = require('../helpers/utils');
-var UsuarioDAO = require('../daos/usuarioDAO');
-var fs = require('fs');
+const logger = require('log4js').getLogger("Auth");
+const express = require('express');
+const router = express.Router();
+const utils = require('../helpers/utils');
+const UsuarioDAO = require('../daos/usuarioDAO');
+const fs = require('fs');
 const mail = require('../config/mail');
 const cryptoJs = require('crypto-js');
 const dsi = require("../services/OAUTH/dsi");
@@ -27,11 +27,18 @@ router.post('/login', async(req, res, next) => {
     }
 
     dsi.validaToken(bearer).then(decoded => {
+        logger.info(" ::: Se obtiene el usuario a loguearse "+decoded.user_id+" :::");
         dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
             
-            var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then().catch(err => {
-                return utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [] });
-            });
+            var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then();
+
+            if (usuario.resp = 0) {
+                return utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+            } else if (usuario.resp = 1) {
+                return utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+            } else if (usuario.resp = 2) {
+                return utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
+            }
 
             var obj = {
                 nEmpleado: resp.usuario.No_empleado,
@@ -60,7 +67,7 @@ router.post('/registro', function(req, res, next) {
     var user = {
         usuario: req.body.usuario,
         correo: req.body.correo,
-        rol: req.body.rol,
+        //rol: req.body.rol,
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
 

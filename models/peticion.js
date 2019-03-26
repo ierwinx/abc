@@ -59,10 +59,6 @@ const usuarios = {
     },
     correo: {
         type: "email"
-    },
-    rol: {
-        type: "enum",
-        values: ["user", "admin"]
     }
 }
 

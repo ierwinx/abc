@@ -18,23 +18,6 @@ var user = new Schema({
         type: Boolean,
         default: false
     },
-    rol: {
-        type: String,
-        validate: {
-            validator: function(v) {
-                var valores = ['admin', 'user'];
-                var encontro = false;
-                valores.forEach(element => {
-                    if (element == v) {
-                        encontro = true;
-                    }
-                });
-                return encontro;
-              },
-            message: process.env.enumerador
-        },
-        required: [true, process.env.requerido]
-    },
     ip: {
         type: String,
         required: [true, process.env.requerido],
