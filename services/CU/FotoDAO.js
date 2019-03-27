@@ -34,12 +34,12 @@ var actualizaFoto = async(bean) => {
                     resolve(bean);
                 } else {
                     logger.error(" ::: Ocurrio un Error con el servicio actualizar foto de CU :::");
-                    reject(new Error("Ocurrio un Error con el servicio actualizar foto de CU ", respuesta.issue.fieldIssues));
+                    reject(new Error("Ocurrio un Error con el servicio actualizar foto de CU "));
                 }
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio actualizar foto de CU ::: ");
-            reject(new Error("Ocurrio un Error con el servicio actualizar foto de CU ", err));
+            reject(new Error("Ocurrio un Error con el servicio actualizar foto de CU "));
         });
         reques.write(objeto);
         reques.end();

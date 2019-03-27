@@ -36,7 +36,7 @@ var borrarCteCU = (bean) => {
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio borrado de CU ::: ");
-            reject(new Error("Ocurrio un Error con el servicio borrado de CU ", err));
+            reject(new Error("Ocurrio un Error con el servicio borrado de CU "));
         });
         reques.write(cadenaPost);
         reques.end();

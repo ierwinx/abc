@@ -15,7 +15,7 @@ router.post('/login', async(req, res, next) => {
     var header = req.headers['authorization'];
     if (!header) {
         logger.error("::: "+process.env.e400+" :::");
-        return utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [] });
+        return utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [{message:process.env.e400}] });
     }
     var bearer = "";
     try {
@@ -23,7 +23,7 @@ router.post('/login', async(req, res, next) => {
         bearer = bytes.toString(cryptoJs.enc.Utf8);
     } catch(err) {
         logger.error("::: "+process.env.e403+" :::");
-        return utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: [] });
+        return utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
     }
 
     dsi.validaToken(bearer).then(decoded => {
@@ -48,10 +48,10 @@ router.post('/login', async(req, res, next) => {
             utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
             
         }).catch(err => {
-            utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [] });
+            utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
         });
     }).catch(err => {
-        utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [] });
+        utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 
 });
@@ -85,11 +85,11 @@ router.post('/registro', function(req, res, next) {
             mail.enviar(mail.informacion(html, process.env.MAIL)).then(resp2 => {
                 utils.printJson(res, 200, process.env.e200, null);
             }).catch(error => {
-                utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
+                utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
             });
         });
     }).catch(error => {
-        utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [] });
+        utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 });
 

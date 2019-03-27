@@ -40,8 +40,7 @@ const schema = {
         }
     },
     usuarioLogin: {
-        type: "string", 
-        optional: true,
+        type: "string",
         pattern: /^[0-9]+$/
     }
 };

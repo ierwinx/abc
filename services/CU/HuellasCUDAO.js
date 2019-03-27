@@ -37,7 +37,7 @@ const actualizaHuellas = async(bean) => {
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio actualizar Huellas de CU ::: ");
-            reject(new Error("Ocurrio un Error con el servicio actualizar Huellas de CU ", err));
+            reject(new Error("Ocurrio un Error con el servicio actualizar Huellas de CU "));
         });
         reques.write(objeto);
         reques.end();

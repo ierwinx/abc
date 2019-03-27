@@ -40,7 +40,7 @@ var altaRenapoCU = async(bean) => {
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio alta renapo CU ::: ");
-            reject(new Error("Ocurrio un Error con el servicio alta renapo CU ", err));
+            reject(new Error("Ocurrio un Error con el servicio alta renapo CU "));
         });
         reques.write(objeto);
         reques.end();
@@ -72,7 +72,7 @@ var consultaRenapoCU = async(requestRenapo) => {
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio alta renapo CU ::: ");
             if (err.response.data) {
-                resolve(err.response.data);
+                reject(err.response.data);
             } else {
                 reject(new Error("Ocurrio un Error con el consumo del servicio de consultaRenapoCU 360 "));
             }

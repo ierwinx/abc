@@ -277,7 +277,7 @@ var telefono = (datos) => {
 var consulta = (datos) => {
     logger.info(" ::: Se valida datos de ICU o ALIAS:::");
     var check;
-    if (datos.icu) {
+    if (datos.icu != undefined) {
         check = v.compile(icus);
     } else {
         check = v.compile(alias);

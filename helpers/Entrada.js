@@ -47,29 +47,40 @@ var procesa = async(datos) => {
         }
     }
 
-    if (datos.infoCliente.length > 0) {
-        if (infoClientes.CrearUsuario(datos.infoCliente[0])) {
+    switch(datos.flujo) {
+        case 7.1:
             datos.infoCliente.forEach(element => {
                 infoClientes.validaFlujo(element, datos.flujo);
             });
-        } else {
-            if (datos.flujo < 7) {
-                datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
+            break;
+        case 7.2:
+            datos.infoCliente.forEach(element => {
+                infoClientes.validaFlujo(element, datos.flujo);
+            });
+            break;
+        default:
+            if (datos.infoCliente.length > 0) {
+                if (infoClientes.CrearUsuario(datos.infoCliente[0])) {
+                    datos.infoCliente.forEach(element => {
+                        infoClientes.validaFlujo(element, datos.flujo);
+                    });
+                } else {
+                    if (datos.flujo < 7) {
+                        datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
+                            throw err;
+                        });
+                    }
+                    datos.infoCliente.forEach(element => {
+                        infoClientes.validaFlujo(element, datos.flujo);
+                    });
+                }
+            } else {
+                datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null).catch(err => {
                     throw err;
                 });
             }
-            datos.infoCliente.forEach(element => {
-                infoClientes.validaFlujo(element, datos.flujo);
-            });
-        }
-    } else {
-        datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null).catch(err => {
-            throw err;
-        });
-    }
-
-    if (datos.flujo < 7) {
-        datos.infoCliente = DatosPersonales.cambiaMayusculas(datos.infoCliente);
+            datos.infoCliente = DatosPersonales.cambiaMayusculas(datos.infoCliente);
+            break;
     }
 
     var respuesta = new Array();
@@ -79,11 +90,6 @@ var procesa = async(datos) => {
             cliente = await EjecutaFlujo.procesa(datos.infoCliente[i], eventosEjecutar[j]).then().catch(err => {
                 throw err;
             });
-        }
-        if (!datos.usuarioLogin) {
-            cliente.usuarioLogin = "364088";
-        } else {
-            cliente.usuarioLogin = datos.usuarioLogin;
         }
         cliente.descFlujo = flujo.nombreFlujo;
         cliente.estatusCliente = true;

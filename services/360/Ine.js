@@ -26,7 +26,7 @@ var alta = (ine) => {
             if (err.response) {
                 resolve(err.response);
             } else {
-                reject("Ocurrio un Error con el consumo del servicio de alta ine 360");
+                reject(new Error("Ocurrio un Error con el consumo del servicio de alta ine 360"));
             }
         });
         reques.write(JSON.stringify(ine));

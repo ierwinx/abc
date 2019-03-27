@@ -34,7 +34,7 @@ var actualizaPwd = (objeto) => {
                         reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));
                     }
                 } else if (respuesta.estatus == 1) {
-                    reject("La nueva contraseña no puede ser igual a la anterior");
+                    reject(new Error("La nueva contraseña no puede ser igual a la anterior"));
                 } else {
                     logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion pws de X usuario 360 ::: ");
                     reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));

@@ -85,14 +85,15 @@ var consultaXnombreSoloBusca = async(bean) => {
             resp.on("data", datos => {
                 var resp = JSON.parse(datos);
                 if (resp && resp.lstResponse && resp.issue.issue === false && resp.lstResponse.length > 0 ) {
-                    resolve(true);
+                    bean.statusCU = true;
+                    resolve(bean);
                 } else {
-                    resolve(false)
+                    reject(new Error("Usuario no encontrado"));
                 }
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio consulta por nombre de CU ::: ");
-            reject(new Error("Ocurrio un Error con el servicio consulta por nombre de CU ", err));
+            reject(new Error("Ocurrio un Error con el servicio consulta por nombre de CU "));
         });
         reques.write(objeto);
         reques.end();

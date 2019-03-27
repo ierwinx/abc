@@ -40,11 +40,11 @@ var consultado360 = (objeto) => {
                         resolve(objeto);
                     } else {
                         logger.info(" ::: El usuario no lo encontro cliente unico  ::: ");
-                        reject("Usuario no encontrado");
+                        reject(new Error("Usuario no encontrado"));
                     }
                 } else {
                     logger.info(" ::: Ocurrio un Error con el consumo del servicio de consultado 360  ::: ");
-                    reject("Ocurrio un Error con el consumo del servicio de consultado 360")
+                    reject(new Error("Ocurrio un Error con el consumo del servicio de consultado 360"));
                 }
             });
         }).on("error", err => {

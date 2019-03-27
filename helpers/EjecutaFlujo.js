@@ -108,7 +108,7 @@ var procesa = async(objeto, servicio) => {
             var resp1 = await busquedaCUDAO.consultaXnombreSoloBusca(objeto).then().catch(err => {
                 throw err;
             });
-            if (resp1) {
+            if (resp1.statusCU) {
                 objeto = await Borrar360.borrar(objeto).then().catch(err => {
                     throw err;
                 });

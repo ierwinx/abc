@@ -40,7 +40,7 @@ var ligarCuentaCU = async(bean) => {
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el servicio ligar cuenta  de CU ::: ");
-            reject(new Error("Ocurrio un Error con el servicio ligar cuenta de CU ", err));
+            reject(new Error("Ocurrio un Error con el servicio ligar cuenta de CU "));
         });
         reques.write(objeto);
         reques.end();
