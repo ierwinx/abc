@@ -29,9 +29,12 @@ app.use('/', homeRouter);
 app.use('/ambientes/v1', ambientes);
 app.use('/auth/v1', auth);
 
+//app.listen(process.env.PORT);
+
 https.createServer({
   key: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.key')),
-  cert: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.crt'))
+  cert: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.crt')),
+  passphrase: '1Qaz2wsx'
 }, app).listen(process.env.PORT);
 
 module.exports = app;

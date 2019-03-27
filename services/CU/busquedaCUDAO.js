@@ -88,7 +88,8 @@ var consultaXnombreSoloBusca = async(bean) => {
                     bean.statusCU = true;
                     resolve(bean);
                 } else {
-                    reject(new Error("Usuario no encontrado"));
+                    bean.statusCU = false;
+                    resolve(bean);
                 }
             });
         }).on("error", err => {
