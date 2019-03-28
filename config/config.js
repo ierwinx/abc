@@ -65,9 +65,9 @@ process.env.secret = "4mbi3nt4Usu4ri0s";
 process.env.secret2 = "secret";
 
 /****************************
- *    Passphrase SSL        *
+ *    contra SSL        *
  ****************************/
-process.env.passphrase = "1Qaz2wsx";
+process.env.contraSSL = "1Qaz2wsx";
 
 /****************************
  *    ambiente sistema      *

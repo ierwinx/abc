@@ -124,12 +124,14 @@ var cliente = new Schema({
     vigencia: String,
     descFlujo: String,
     cuentaCliente: String,
-    alias: String,
-    passTemp: String
+    alias: String
 }, {
     toJSON: {
         transform: (doc, ret, game) => {
             delete ret.__v;
+            ret.idAbc = ret._id;
+            delete ret._id;
+            delete ret.password;
             delete ret.usuarioLogin;
         }
     }

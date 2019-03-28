@@ -194,6 +194,12 @@ const alias = {
     }
 }
 
+const telefonoAcertum = {
+    telefono: {
+        type: "string"
+    }
+}
+
 const contras = {
     contra: {
         type: "string",
@@ -279,8 +285,10 @@ var consulta = (datos) => {
     var check;
     if (datos.icu != undefined) {
         check = v.compile(icus);
-    } else {
+    } else if (datos.alias != undefined){
         check = v.compile(alias);
+    } else {
+        check = v.compile(telefonoAcertum);
     }
     var respuesta = check(datos);
     if (typeof(respuesta) == 'object') {

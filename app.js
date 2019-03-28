@@ -34,7 +34,7 @@ app.use('/auth/v1', auth);
 https.createServer({
   key: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.key')),
   cert: fs.readFileSync(path.join(__dirname, './cert/10_51_58_240.crt')),
-  passphrase: '1Qaz2wsx'
+  passphrase: process.env.contraSSL
 }, app).listen(process.env.PORT);
 
 module.exports = app;

@@ -30,7 +30,7 @@ var activacionXsuc = (objeto) => {
                 if (respuesta.estatus == 0) {
                     if (respuesta.respuesta.activacion.datos.alias && respuesta.respuesta.password_temporal) {
                         objeto.alias = respuesta.respuesta.activacion.datos.alias;
-                        objeto.passTemp = respuesta.respuesta.password_temporal;
+                        objeto.password = respuesta.respuesta.password_temporal;
                         resolve(objeto);
                     } else {
                         logger.error(" ::: Ocurrio un Error con el consumo del servicio activacion X sucursal 360 ::: ");

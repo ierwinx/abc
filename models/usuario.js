@@ -28,7 +28,6 @@ var user = new Schema({
     toObject: {
         transform: (doc, ret, game) => {
             delete ret.__v;
-            delete ret.password;
         }
     }
 });

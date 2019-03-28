@@ -11,10 +11,15 @@ var consultado360 = (objeto) => {
             tipo_consulta : "icu",
             icu: objeto.icu
         }, null, null, { encodeURIComponent: querystring.unescape });
-    } else {
+    } else if (objeto.alias) {
         query = querystring.stringify({
             tipo_consulta : "alias",
             alias: objeto.alias
+        }, null, null, { encodeURIComponent: querystring.unescape });
+    } else {
+        query = querystring.stringify({
+            tipo_consulta : "telefono_acertum",
+            "ext.acertum.telefono" : objeto.telefono
         }, null, null, { encodeURIComponent: querystring.unescape });
     }
 
