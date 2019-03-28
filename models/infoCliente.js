@@ -196,7 +196,8 @@ const alias = {
 
 const telefonoAcertum = {
     telefono: {
-        type: "string"
+        type: "string",
+        max: 10
     }
 }
 
