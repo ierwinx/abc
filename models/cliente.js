@@ -127,9 +127,10 @@ var cliente = new Schema({
     alias: String,
     passTemp: String
 }, {
-    toObject: {
+    toJSON: {
         transform: (doc, ret, game) => {
             delete ret.__v;
+            delete ret.usuarioLogin;
         }
     }
 });

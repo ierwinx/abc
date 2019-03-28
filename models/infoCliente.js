@@ -257,7 +257,7 @@ var ife = (datos) => {
     if (typeof(respuesta) == 'object') {
         respuesta3 = respuesta;
     }
-    if (typeof(respuesta2) != 'object') {
+    if (typeof(respuesta2) == 'object') {
         respuesta3.push(respuesta3);
     }
     if (respuesta3.length > 0) {
@@ -294,6 +294,16 @@ var validContra = (datos) => {
     var respuesta = check(datos);
     if (typeof(respuesta) == 'object') {
         throw respuesta;
+    }
+}
+
+var iteraInfo = (datos, flujo) => {
+    if (datos.length > 0) {
+        datos.forEach(element => {
+            validaFlujo(element, flujo);
+        });
+    } else {
+        validaFlujo(datos, flujo);
     }
 }
 
@@ -408,7 +418,6 @@ var validaFlujo = (datos, flujo) => {
     }
 }
 
-
 var CrearUsuario = function(datos) {
     logger.info(" ::: Se verifica se se crea un cliente desde base de datos con datos reales o no :::");
     var resp = false;
@@ -427,5 +436,6 @@ module.exports = {
     telefono,
     validaFlujo,
     consulta,
-    CrearUsuario
+    CrearUsuario,
+    iteraInfo
 }

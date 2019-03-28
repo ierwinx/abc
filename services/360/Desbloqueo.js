@@ -23,8 +23,8 @@ var desbloquea = (objeto) => {
                 if (respuesta.estatus == 0) {
                     resolve(process.env.e200);
                 } else if (respuesta.estatus == 3) {
-                    logger.info(respuesta.error.mensaje);
-                    reject(new Error(respuesta.error.mensaje));
+                    logger.info(" ::: " + respuesta.error.mensaje + " ::: ");
+                    resolve(respuesta.error.mensaje);
                 } else {
                     logger.error(" ::: Ocurrio un Error con el consumo del servicio de desbloqueo 360 ::: ");
                     reject(new Error("Ocurrio un Error con el consumo del servicio de desbloqueo 360"));

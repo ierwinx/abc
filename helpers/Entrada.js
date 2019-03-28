@@ -49,30 +49,22 @@ var procesa = async(datos) => {
 
     switch(datos.flujo) {
         case 7.1:
-            datos.infoCliente.forEach(element => {
-                infoClientes.validaFlujo(element, datos.flujo);
-            });
+            infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
             break;
         case 7.2:
-            datos.infoCliente.forEach(element => {
-                infoClientes.validaFlujo(element, datos.flujo);
-            });
+            infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
             break;
         default:
             if (datos.infoCliente.length > 0) {
                 if (infoClientes.CrearUsuario(datos.infoCliente[0])) {
-                    datos.infoCliente.forEach(element => {
-                        infoClientes.validaFlujo(element, datos.flujo);
-                    });
+                    infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
                 } else {
                     if (datos.flujo < 7) {
                         datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
                             throw err;
                         });
                     }
-                    datos.infoCliente.forEach(element => {
-                        infoClientes.validaFlujo(element, datos.flujo);
-                    });
+                    infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
                 }
             } else {
                 datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null).catch(err => {
@@ -84,9 +76,9 @@ var procesa = async(datos) => {
     }
 
     var respuesta = new Array();
-    for (var i = 0; i < datos.infoCliente.length; i++) {
+    for (let i = 0; i < datos.infoCliente.length; i++) {
         var cliente = new Object();
-        for (var j = 0; j < eventosEjecutar.length; j++) {
+        for (let j = 0; j < eventosEjecutar.length; j++) {
             cliente = await EjecutaFlujo.procesa(datos.infoCliente[i], eventosEjecutar[j]).then().catch(err => {
                 throw err;
             });
@@ -97,13 +89,18 @@ var procesa = async(datos) => {
         cliente.usuarioLogin = datos.usuarioLogin;
         respuesta.push(cliente);
     }
+
+    var arregloSalida = new Array();
     if (datos.flujo <= 7) {
-        respuesta.forEach(element => {
-            clienteDAO.guardar(element);
-        });
+        for (let i = 0; i < respuesta.length; i++) {
+            var objSal = await clienteDAO.guardar(respuesta[i]);
+            arregloSalida.push(objSal.toJSON());
+        }
+    } else {
+        arregloSalida = respuesta;
     }
 
-    return respuesta;
+    return arregloSalida;
 }
 
 var reProcesa = async(datos) => {

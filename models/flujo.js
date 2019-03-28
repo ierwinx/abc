@@ -24,10 +24,11 @@ var flujo = new Schema({
         default: false
     }
 }, {
-    toObject: {
+    toJSON: {
         transform: (doc, ret, game) => {
             delete ret.__v;
             delete ret._id;
+            delete ret.servicios;
         }
     }
 });

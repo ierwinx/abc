@@ -21,10 +21,12 @@ var caracteristica = new Schema({
     },
     idServicio: Number
 }, {
-    toObject: {
+    toJSON: {
         transform: (doc, ret, game) => {
             delete ret.__v;
             delete ret._id;
+            delete ret.flujosCompatibles;
+            delete ret.nvEjecucion;
         }
     }
 });
