@@ -9,7 +9,7 @@ var listar = async(objeto) => {
 
 var get = async(id) => {
     logger.info(" ::: Consulta entidades por id :::");
-    var respuesta = await Persona.findOne({ id: id });
+    var respuesta = await Entidad.findOne({ id: id });
     if (respuesta) {
         return respuesta;
     } else {

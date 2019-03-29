@@ -7,7 +7,7 @@ class FlujoINE {
     constructor() {
     }
 
-    static iniciar(body) {
+    static async iniciar(body) {
         logger.info(" ::: se incia Flujo ine en APP:::");
 
         var objeto = new Object();

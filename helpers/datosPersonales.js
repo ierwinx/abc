@@ -1,6 +1,5 @@
 const logger = require('log4js').getLogger("DatosPersonales");
 const GeneraCurpWS = require("../services/CU/Curp");
-const EntidadDAO = require("../daos/entidadDAO");
 
 class DatosPersonales {
 
@@ -12,7 +11,7 @@ class DatosPersonales {
         return generaCurp(datos).substr(0, 10) + '000';
     }
 
-    generaCurp(datos) {
+    async generaCurp(datos) {
         logger.info("::: Genera una curp aleatoria :::");
         var curp = "";
         try {
@@ -34,10 +33,10 @@ class DatosPersonales {
         
             var validaFinal = armardigotosPrefinales + (sexo == 'H' ? hombres : mujeres);
         
-            var entidadEncontrada = await EntidadDAO.get(datos.idEntidadFederativa).then().catch(err => {
+            /*var entidadEncontrada = await EntidadDAO.get(datos.idEntidadFederativa).catch(err => {
                 return err;
-            });
-            var estado = entidadEncontrada.abre;
+            });*/
+            var estado = "DF"; // entidadEncontrada.abre;
         
             curp = primerApellido + segundoApellido + nombre + anio + mes + dia + sexo + estado + validaFinal;
         } catch(error) {
