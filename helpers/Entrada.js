@@ -77,10 +77,11 @@ var procesa = async(datos) => {
     }
 
     var respuesta = new Array();
+    var ejecutaF = new EjecutaFlujo();
     for (let i = 0; i < datos.infoCliente.length; i++) {
         var cliente = new Object();
         for (let j = 0; j < eventosEjecutar.length; j++) {
-            cliente = await EjecutaFlujo.procesa(datos.infoCliente[i], eventosEjecutar[j]).then().catch(err => {
+            cliente = await ejecutaF.procesa(datos.infoCliente[i], eventosEjecutar[j]).then().catch(err => {
                 throw err;
             });
         }

@@ -1,6 +1,6 @@
 const logger = require('log4js').getLogger("Auth");
 const DatosPersonales = require('../../helpers/DatosPersonales');
-const encriptar = require('../../helpers/encriptar');
+const Encriptar = require('../../helpers/Encriptar');
 const querystring = require('querystring');
 const https = require("https");
 
@@ -9,10 +9,11 @@ var autenticar = () => {
 
     var servicio = new Promise((resolve, reject) => {
         var personal = new DatosPersonales();
+        var encripta = new Encriptar();
         var query = querystring.stringify({
             grant_type: "client_credentials",
             client_id: "e57d172c7173aedcabc16873f00e81cd",
-            client_secret: encriptar.cifrar(personal.concatenaDatos(new Date().getTime(), "172e7f7ba82ec117184da4294b76c9a2"))
+            client_secret: encripta.cifrar(personal.concatenaDatos(new Date().getTime(), "172e7f7ba82ec117184da4294b76c9a2"))
         });
 
         var reques = https.request({
