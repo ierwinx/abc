@@ -153,7 +153,8 @@ const ine2Ocr = {
         pattern: /^(\d{2})?$/
     },
     claveElector: { 
-        type: "string"
+        type: "string",
+        max: 18
     },
 }
 

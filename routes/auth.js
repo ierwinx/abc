@@ -1,7 +1,7 @@
 const logger = require('log4js').getLogger("Auth");
 const express = require('express');
 const router = express.Router();
-const utils = require('../helpers/utils');
+const Utils = require('../helpers/Utils');
 const UsuarioDAO = require('../daos/usuarioDAO');
 const fs = require('fs');
 const Mail = require('../config/Mail');
@@ -15,7 +15,7 @@ router.post('/login', async(req, res, next) => {
     var header = req.headers['authorization'];
     if (!header) {
         logger.error("::: "+process.env.e400+" :::");
-        return utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [{message:process.env.e400}] });
+        return Utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [{message:process.env.e400}] });
     }
     var bearer = "";
     try {
@@ -23,7 +23,7 @@ router.post('/login', async(req, res, next) => {
         bearer = bytes.toString(cryptoJs.enc.Utf8);
     } catch(err) {
         logger.error("::: "+process.env.e403+" :::");
-        return utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
+        return Utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
     }
 
     dsi.validaToken(bearer).then(decoded => {
@@ -33,11 +33,11 @@ router.post('/login', async(req, res, next) => {
             var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then();
 
             if (usuario == 0) {
-                return utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+                return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
             } else if (usuario == 1) {
-                return utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+                return Utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
             } else if (usuario == 2) {
-                return utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
+                return Utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
             }
 
             var obj = {
@@ -45,13 +45,13 @@ router.post('/login', async(req, res, next) => {
                 nombre: resp.usuario.Nombre
             }
             
-            utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
+            Utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
             
         }).catch(err => {
-            utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+            Utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
         });
     }).catch(err => {
-        utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+        Utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 
 });
@@ -61,7 +61,7 @@ router.post('/registro', function(req, res, next) {
     try {
         peticion.valida3(req.body)
     } catch(err) {
-        return utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
+        return Utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
     };
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
     var user = {
@@ -84,13 +84,13 @@ router.post('/registro', function(req, res, next) {
             html = template(datos);
             let email = new Mail();
             email.enviar(email.informacion(html, process.env.MAIL)).then(resp2 => {
-                utils.printJson(res, 200, process.env.e200, null);
+                Utils.printJson(res, 200, process.env.e200, null);
             }).catch(error => {
-                utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
+                Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
             });
         });
     }).catch(error => {
-        utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
+        Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 });
 
@@ -140,11 +140,11 @@ router.get('/declina/usuario/:id', function(req, res, next) {
 
 router.use(function(req, res) {
     logger.info(" ::: URL no encontrada ::: ");
-    utils.printJson(res, 404, process.env.e404, { titulo: 'Errores', objeto: [] });
+    Utils.printJson(res, 404, process.env.e404, { titulo: 'Errores', objeto: [] });
 });
 router.use(function(req, res) {
     logger.info(" ::: Error de servidor no conrolado ::: ");
-    utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [] });
+    Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [] });
 });
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("respuestas");
-const respuestas = require('../helpers/utils');
+const Utils = require('../helpers/Utils');
 const usuarioDAO = require("../daos/usuarioDAO");
 
 var filtra = async(req, res) => {
@@ -13,6 +13,7 @@ var filtra = async(req, res) => {
             error.name = " ::: Se esta accediendo a una ip no valida ::: ";
             error.message = "";
             logger.error(error);
+            var respuestas = new Utils();
             respuestas.printJson(res, 505, process.env.e505, null);
         }
     }

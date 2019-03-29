@@ -1,4 +1,4 @@
-const mongoose = require('../config/database');
+const mongoose = require('../config/ConexionDB');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 var Schema = mongoose.Schema;
