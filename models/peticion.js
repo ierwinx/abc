@@ -61,35 +61,38 @@ const usuarios = {
     }
 }
 
-var valida = (datos) => {
-    logger.info(" ::: Se valida JSON entrada :::");
-    var check = v.compile(schema);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
+class Peticion {
+
+    constructor() {
     }
+
+    static valida(datos) {
+        logger.info(" ::: Se valida JSON entrada :::");
+        var check = v.compile(schema);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    static valida2(datos) {
+        logger.info(" ::: Se valida JSON entrada :::");
+        var check = v.compile(schema2);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    static valida3(datos) {
+        logger.info(" ::: Se valida JSON entrada :::");
+        var check = v.compile(usuarios);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
 }
 
-var valida2 = (datos) => {
-    logger.info(" ::: Se valida JSON entrada :::");
-    var check = v.compile(schema2);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
-    }
-}
-
-var valida3 = (datos) => {
-    logger.info(" ::: Se valida JSON entrada :::");
-    var check = v.compile(usuarios);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
-    }
-}
-
-module.exports = {
-    valida,
-    valida2,
-    valida3
-}
+module.exports = Peticion;

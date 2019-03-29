@@ -19,7 +19,7 @@ var entidad = new Schema({
         unique: process.env.unico
     }
 }, {
-    toObject: {
+    toJSON: {
         transform: (doc, ret, game) => {
             delete ret._id;
             delete ret.__v;

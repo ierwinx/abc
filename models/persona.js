@@ -47,7 +47,7 @@ var persona = new Schema({
     anioRegistro : String,
     vigencia: String
 }, {
-    toObject: {
+    toJSON: {
         transform: (doc, ret, game) => {
             delete ret.__v;
         }

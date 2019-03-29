@@ -228,224 +228,221 @@ const crear = {
     }
 }
 
-var principales = (datos) => {
-    logger.info(" ::: Se valida Datos princiales :::");
-    var check = v.compile(general);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
+class InfoCliente {
+
+    constructor() {
     }
+
+    principales(datos) {
+        logger.info(" ::: Se valida Datos princiales :::");
+        var check = v.compile(general);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    direcciones(datos) {
+        logger.info(" ::: Se valida la direccion :::");
+        var check = v.compile(direccion);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    ife(datos) {
+        logger.info(" ::: Se valida INE :::");
+        var check;
+        var check2;
+        if (datos.cic) {
+            logger.info(" ::: Validacion con CIC ::: ");
+            check = v.compile(ine);
+            check2 = v.compile(ineCic);
+        } else {
+            logger.info(" ::: Validacion con OCR :::");
+            check = v.compile(ine);
+            check2 = v.compile(ine2Ocr);
+        }
+        var respuesta = check(datos);
+        var respuesta2 = check2(datos);
+        var respuesta3 = new Array();
+        if (typeof(respuesta) == 'object') {
+            respuesta3 = respuesta;
+        }
+        if (typeof(respuesta2) == 'object') {
+            respuesta3.push(respuesta3);
+        }
+        if (respuesta3.length > 0) {
+            throw respuesta3;
+        }
+    }
+
+    telefono(datos) {
+        logger.info(" ::: Se valida datos de smartphones :::");
+        var check = v.compile(smartphone);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    consulta(datos) {
+        logger.info(" ::: Se valida datos de ICU o ALIAS:::");
+        var check;
+        if (datos.icu != undefined) {
+            check = v.compile(icus);
+        } else if (datos.alias != undefined){
+            check = v.compile(alias);
+        } else {
+            check = v.compile(telefonoAcertum);
+        }
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    validContra(datos) {
+        logger.info(" ::: Se valida que venga una contra :::");
+        var check = v.compile(contras);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    iteraInfo(datos, flujo) {
+        if (datos.length > 0) {
+            datos.forEach(element => {
+                validaFlujo(element, flujo);
+            });
+        } else {
+            validaFlujo(datos, flujo);
+        }
+    }
+
+    validaFlujo(datos, flujo) {
+        switch(flujo) {
+            case 1:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.1:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.2:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.3:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.4:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.5:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.6:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.7:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.8:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.9:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.10:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 1.11:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 2:
+                principales(datos);
+                ife(datos);
+                break;
+            case 2.1:
+                principales(datos);
+                ife(datos);
+                break;
+            case 2.3:
+                principales(datos);
+                break;
+            case 2.4:
+                principales(datos);
+                ife(datos);
+                break;
+            case 3:
+                principales(datos);
+                telefono(datos);
+                direcciones(datos);
+                break;
+            case 3.1:
+                principales(datos);
+                telefono(datos);
+                direcciones(datos);
+                break;
+            case 3.4:
+                principales(datos);
+                telefono(datos);
+                direcciones(datos);
+                break;
+            case 3.4:
+                principales(datos);
+                telefono(datos);
+                direcciones(datos);
+                break;
+            case 4:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 5:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 6:
+                principales(datos);
+                direcciones(datos);
+                break;
+            case 7:
+                principales(datos);
+                break;
+            case 7.1:
+                consulta(datos);
+                break;
+            case 7.2:
+                consulta(datos);
+                validContra(datos);
+                break;
+        }
+    }
+
+    crearUsuario(datos) {
+        logger.info(" ::: Se verifica se se crea un cliente desde base de datos con datos reales o no :::");
+        var resp = false;
+        var check = v.compile(crear);
+        var respuesta = check(datos);
+        if (typeof(respuesta) != 'object') {
+            resp = true;
+        }
+        return resp;
+    }
+
 }
 
-var direcciones = (datos) => {
-    logger.info(" ::: Se valida la direccion :::");
-    var check = v.compile(direccion);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
-    }
-}
-
-var ife = (datos) => {
-    logger.info(" ::: Se valida INE :::");
-    var check;
-    var check2;
-    if (datos.cic) {
-        logger.info(" ::: Validacion con CIC ::: ");
-        check = v.compile(ine);
-        check2 = v.compile(ineCic);
-    } else {
-        logger.info(" ::: Validacion con OCR :::");
-        check = v.compile(ine);
-        check2 = v.compile(ine2Ocr);
-    }
-    var respuesta = check(datos);
-    var respuesta2 = check2(datos);
-    var respuesta3 = new Array();
-    if (typeof(respuesta) == 'object') {
-        respuesta3 = respuesta;
-    }
-    if (typeof(respuesta2) == 'object') {
-        respuesta3.push(respuesta3);
-    }
-    if (respuesta3.length > 0) {
-        throw respuesta3;
-    }
-}
-
-var telefono = (datos) => {
-    logger.info(" ::: Se valida datos de smartphones :::");
-    var check = v.compile(smartphone);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
-    }
-}
-
-var consulta = (datos) => {
-    logger.info(" ::: Se valida datos de ICU o ALIAS:::");
-    var check;
-    if (datos.icu != undefined) {
-        check = v.compile(icus);
-    } else if (datos.alias != undefined){
-        check = v.compile(alias);
-    } else {
-        check = v.compile(telefonoAcertum);
-    }
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
-    }
-}
-
-var validContra = (datos) => {
-    logger.info(" ::: Se valida que venga una contra :::");
-    var check = v.compile(contras);
-    var respuesta = check(datos);
-    if (typeof(respuesta) == 'object') {
-        throw respuesta;
-    }
-}
-
-var iteraInfo = (datos, flujo) => {
-    if (datos.length > 0) {
-        datos.forEach(element => {
-            validaFlujo(element, flujo);
-        });
-    } else {
-        validaFlujo(datos, flujo);
-    }
-}
-
-var validaFlujo = (datos, flujo) => {
-
-    switch(flujo) {
-        case 1:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.1:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.2:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.3:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.4:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.5:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.6:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.7:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.8:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.9:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.10:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 1.11:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 2:
-            principales(datos);
-            ife(datos);
-            break;
-        case 2.1:
-            principales(datos);
-            ife(datos);
-            break;
-        case 2.3:
-            principales(datos);
-            break;
-        case 2.4:
-            principales(datos);
-            ife(datos);
-            break;
-        case 3:
-            principales(datos);
-            telefono(datos);
-            direcciones(datos);
-            break;
-        case 3.1:
-            principales(datos);
-            telefono(datos);
-            direcciones(datos);
-            break;
-        case 3.4:
-            principales(datos);
-            telefono(datos);
-            direcciones(datos);
-            break;
-        case 3.4:
-            principales(datos);
-            telefono(datos);
-            direcciones(datos);
-            break;
-        case 4:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 5:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 6:
-            principales(datos);
-            direcciones(datos);
-            break;
-        case 7:
-            principales(datos);
-            break;
-        case 7.1:
-            consulta(datos);
-            break;
-        case 7.2:
-            consulta(datos);
-            validContra(datos);
-            break;
-    }
-}
-
-var CrearUsuario = function(datos) {
-    logger.info(" ::: Se verifica se se crea un cliente desde base de datos con datos reales o no :::");
-    var resp = false;
-    var check = v.compile(crear);
-    var respuesta = check(datos);
-    if (typeof(respuesta) != 'object') {
-        resp = true;
-    }
-    return resp;
-}
-
-module.exports = {
-    principales,
-    direcciones,
-    ife,
-    telefono,
-    validaFlujo,
-    consulta,
-    CrearUsuario,
-    iteraInfo
-}
+module.exports = InfoCliente;

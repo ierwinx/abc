@@ -25,7 +25,7 @@ var user = new Schema({
         match: [/^[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}$/, process.env.expReg]
     }
 }, {
-    toObject: {
+    toJSON: {
         transform: (doc, ret, game) => {
             delete ret.__v;
         }

@@ -2,7 +2,7 @@ const logger = require('log4js').getLogger("Entrada");
 const peticion = require('../models/peticion');
 const flujosDAO = require("../daos/flujoDAO");
 const caracteristicaDAO = require("../daos/caracteristicaDAO");
-const infoClientes = require("../models/infoCliente");
+const InfoCliente = require("../models/InfoCliente");
 const personaDAO = require("../daos/personaDAO");
 const clienteDAO = require("../daos/clienteDAO");
 const EjecutaFlujo = require("../helpers/EjecutaFlujo");
@@ -52,24 +52,25 @@ class Entrada {
             }
         }
     
+        var validaciones = new InfoCliente();
         switch(datos.flujo) {
             case 7.1:
-                infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
+                validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                 break;
             case 7.2:
-                infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
+                validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                 break;
             default:
                 if (datos.infoCliente.length > 0) {
-                    if (infoClientes.CrearUsuario(datos.infoCliente[0])) {
-                        infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
+                    if (validaciones.crearUsuario(datos.infoCliente[0])) {
+                        validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                     } else {
                         if (datos.flujo < 7) {
                             datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
                                 throw err;
                             });
                         }
-                        infoClientes.iteraInfo(datos.infoCliente, datos.flujo);
+                        validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                     }
                 } else {
                     datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null).catch(err => {
