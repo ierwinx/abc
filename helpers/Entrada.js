@@ -13,7 +13,7 @@ class Entrada {
     constructor() {
     }
 
-    async procesa(datos) {
+    static async procesa(datos) {
         logger.info(" ::: Inicia proceso de ambientacion usuarios :::");
         peticion.valida(datos);
         console.log(datos);
@@ -110,7 +110,7 @@ class Entrada {
         return arregloSalida;
     }
 
-    async reProcesa(datos) {
+    static async reProcesa(datos) {
         logger.info(" ::: Inicia proceso de re ambientacion usuarios :::");
 
         peticion.valida2(datos);
