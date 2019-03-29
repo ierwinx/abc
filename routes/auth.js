@@ -4,7 +4,7 @@ const router = express.Router();
 const utils = require('../helpers/utils');
 const UsuarioDAO = require('../daos/usuarioDAO');
 const fs = require('fs');
-const mail = require('../config/mail');
+const Mail = require('../config/Mail');
 const cryptoJs = require('crypto-js');
 const dsi = require("../services/OAUTH/dsi");
 const Handlebars = require("Handlebars");
@@ -82,7 +82,8 @@ router.post('/registro', function(req, res, next) {
                 id: data.id
             }
             html = template(datos);
-            mail.enviar(mail.informacion(html, process.env.MAIL)).then(resp2 => {
+            let email = new Mail();
+            email.enviar(email.informacion(html, process.env.MAIL)).then(resp2 => {
                 utils.printJson(res, 200, process.env.e200, null);
             }).catch(error => {
                 utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
@@ -108,7 +109,8 @@ router.get('/acepta/usuario/:id', function(req, res, next) {
                 color : 'green'
             }
             html = template(datos);
-            mail.enviar(mail.informacion(html, resp.correo));
+            let email = new Mail();
+            email.enviar(email.informacion(html, resp.correo));
         });
     });
     res.render('ingresa', { ambiente: process.env.ambiente });
@@ -129,7 +131,8 @@ router.get('/declina/usuario/:id', function(req, res, next) {
                 color : 'red'
             } 
             html = template(datos);
-            mail.enviar(mail.informacion(html, resp.correo));
+            let email = new Mail();
+            email.enviar(email.informacion(html, resp.correo));
         });
     });
     res.render('ingresa', { ambiente: process.env.ambiente });
