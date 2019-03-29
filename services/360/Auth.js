@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("Auth");
-const datosPeronales = require('../../helpers/datosPersonales');
+const DatosPersonales = require('../../helpers/DatosPersonales');
 const encriptar = require('../../helpers/encriptar');
 const querystring = require('querystring');
 const https = require("https");
@@ -8,10 +8,11 @@ var autenticar = () => {
     logger.info(" ::: se consulta servicio rest 360 para autenticacion :::");
 
     var servicio = new Promise((resolve, reject) => {
+        var personal = new DatosPersonales();
         var query = querystring.stringify({
             grant_type: "client_credentials",
             client_id: "e57d172c7173aedcabc16873f00e81cd",
-            client_secret: encriptar.cifrar(datosPeronales.concatenaDatos(new Date().getTime(), "172e7f7ba82ec117184da4294b76c9a2"))
+            client_secret: encriptar.cifrar(personal.concatenaDatos(new Date().getTime(), "172e7f7ba82ec117184da4294b76c9a2"))
         });
 
         var reques = https.request({

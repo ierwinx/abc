@@ -38,6 +38,7 @@ var MB80 = (objeto) => {
                         reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
                     } else {
                         var respuesta = creaObjeto(result.MTEjecutaTransaccionResult);
+                        logger.info("Respuesta: " + JSON.stringify(respuesta));
                         if (respuesta.CTACTE){
                             objeto.cuentaCliente = respuesta.CTACTE;
                             resolve(objeto);
@@ -89,6 +90,7 @@ var MB34 = (objeto) => {
                         reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
                     } else {
                         var respuesta = creaObjeto(result.MTEjecutaTransaccionResult);
+                        logger.info("Respuesta: " + JSON.stringify(respuesta));
                         if (respuesta.NUMACCO) {
                             objeto.cuentaCliente = respuesta.NUMACCO;
                             resolve(objeto);
@@ -148,6 +150,7 @@ var BB02 = (objeto) => {
                         reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
                     } else {
                         var respuesta = creaObjeto(result.MTEjecutaTransaccionResult);
+                        logger.info("Respuesta: " + JSON.stringify(respuesta));
                         if (respuesta.ACC) {
                             objeto.cuentaCliente = respuesta.ACC;
                             resolve(objeto);

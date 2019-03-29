@@ -32,6 +32,7 @@ var obtiene = (datos) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta.lstResponse && respuesta.lstResponse[0].curp && respuesta.lstResponse[0].rfc) {
                     datos.curp = respuesta.lstResponse[0].curp
                     datos.rfc = respuesta.lstResponse[0].rfc

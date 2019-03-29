@@ -31,6 +31,7 @@ var ligarCuentaCU = async(bean) => {
         }, resp => {
             resp.on("data", datos => {
                 var resp = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(resp));
                 if (resp.data && resp.data.objResponse && resp.data.issue && resp.data.issue.issue === false) {
                     resolve(bean);
                 } else {

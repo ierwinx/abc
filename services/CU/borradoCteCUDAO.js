@@ -27,6 +27,7 @@ var borrarCteCU = (bean) => {
         }, resp => {
             resp.on("data", datos => {
                 var resp = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(resp));
                 if (resp && resp.objResponse && resp.objResponse.status === 0) {
                     resolve(bean);
                 } else {

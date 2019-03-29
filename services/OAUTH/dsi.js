@@ -18,6 +18,7 @@ var validaToken = (bearer) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta.error) {
                     reject(new Error("Token invalido"));
                 } else {
@@ -44,7 +45,9 @@ var verificaInformacion = (usuario) => {
         soap.createClient(url, function(err, client) {
             client.DatosAuxiliares(args, function(err2, result) {
                 if (err2 == null) {
-                    resolve(parser.parse(result.DatosAuxiliaresResult));
+                    var respuesta = parser.parse(result.DatosAuxiliaresResult)
+                    logger.info("Respuesta: " + JSON.stringify(respuesta))
+                    resolve(respuesta);
                 } else {
                     logger.error(" ::: Ocurrio un Error al validar informacion frontend con oauth DSI :::")
                     reject(new Error("Ocurrio un Error al valida token con oauth "));

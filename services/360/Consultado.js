@@ -39,6 +39,7 @@ var consultado360 = (objeto) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta.success != undefined) {
                     if (respuesta.success){
                         objeto.icu = respuesta.respuesta.consultado.cliente.icu;

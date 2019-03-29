@@ -29,7 +29,9 @@ var actualizaExt = (objeto) => {
             method: 'POST'
         }, resp => {
             resp.on("data", datos => {
-                resolve(JSON.parse(datos));
+                var respuesta= JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
+                resolve(respuesta);
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el consumo del servicio de actualizaExt de 360 ::: ");

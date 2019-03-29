@@ -28,6 +28,7 @@ const actualizaHuellas = async(bean) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta && respuesta.lstResponse && respuesta.issue && respuesta.issue.issue === false && respuesta.lstResponse[0] && respuesta.lstResponse[0].status === 0) {
                     resolve(bean);
                 } else {

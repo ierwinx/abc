@@ -15,7 +15,7 @@ const Desbloqueo = require("../services/360/Desbloqueo");
 const ActualizaPsw = require("../services/360/ActualizaPsw");
 const FlujoINE = require("./FlujoINE");
 const Cuentas = require("../services/Alnova/Cuentas");
-const datosPersonales = require("../helpers/datosPersonales");
+const DatosPersonales = require("../helpers/DatosPersonales");
 
 var procesa = async(objeto, servicio) => {
     logger.info(` ::: Ejectuta el servicio ${servicio} ::: `);
@@ -23,7 +23,8 @@ var procesa = async(objeto, servicio) => {
     switch (servicio) {
         case 0.1:
             logger.info(" ::: Hacer menor ::: ");
-            objeto = datosPersonales.generaMenorEdad(objeto);
+            var persona = new DatosPersonales();
+            objeto = persona.generaMenorEdad(objeto);
             break;
         case 1.1:
             logger.info(" ::: Borrar CU ::: ");

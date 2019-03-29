@@ -30,6 +30,7 @@ var actualizaFoto = async(bean) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta && respuesta.lstResponse && respuesta.issue && respuesta.issue.issue === false && respuesta.lstResponse[0] && respuesta.lstResponse[0].path) {
                     resolve(bean);
                 } else {

@@ -20,6 +20,7 @@ var desbloquea = (objeto) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta.estatus == 0) {
                     resolve(process.env.e200);
                 } else if (respuesta.estatus == 3) {

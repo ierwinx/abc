@@ -31,6 +31,7 @@ var consultaXnombreCU = async(bean) => {
         }, resp => {
             resp.on("data", datos => {
                 var resp = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(resp));
                 if (resp && resp.lstResponse && resp.issue.issue === false && resp.lstResponse[0].pais && resp.lstResponse[0].canal && resp.lstResponse[0].sucursal && resp.lstResponse[0].folio) {
                     bean.descripcionCte = resp.lstResponse[0].descripcionCte;
                     bean.idAlnova = resp.lstResponse[0].cteAlnova;

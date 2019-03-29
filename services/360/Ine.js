@@ -19,7 +19,9 @@ var alta = (ine) => {
             method: 'POST'
         }, resp => {
             resp.on("data", datos => {
-                resolve(JSON.parse(datos));
+                var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
+                resolve(respuesta);
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el consumo del servicio de alta ine 360 ::: ");
@@ -55,7 +57,9 @@ var consulta = (ine) => {
             method: 'GET'
         }, resp => {
             resp.on("data", datos => {
-                resolve(JSON.parse(datos));
+                var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
+                resolve(respuesta);
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el consumo del servicio de consulta ine 360 ::: ");
@@ -86,7 +90,9 @@ var borrar = (ine) => {
             method: 'POST'
         }, resp => {
             resp.on("data", datos => {
-                resolve(JSON.parse(datos));
+                var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
+                resolve(respuesta);
             });
         }).on("error", err => {
             logger.err(" ::: Ocurrio un Error con el consumo del servico de borrado de 360 ::: ");
@@ -119,7 +125,9 @@ var actualizaIne = (ine) => {
             method: 'POST'
         }, resp => {
             resp.on("data", datos => {
-                resolve(JSON.parse(datos));
+                var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
+                resolve(respuesta);
             });
         }).on("error", err => {
             logger.error(" ::: Ocurrio un Error con el consumo del servicio de actualizacion ine 360 ::: ");

@@ -26,6 +26,7 @@ const borrar = (objeto) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 resolve(objeto);
             });
         }).on("error", err => {

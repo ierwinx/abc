@@ -6,7 +6,7 @@ const infoClientes = require("../models/infoCliente");
 const personaDAO = require("../daos/personaDAO");
 const clienteDAO = require("../daos/clienteDAO");
 const EjecutaFlujo = require("../helpers/EjecutaFlujo");
-const DatosPersonales = require("../helpers/datosPersonales");
+const DatosPersonales = require("../helpers/DatosPersonales");
 
 var procesa = async(datos) => {
     logger.info(" ::: Inicia proceso de ambientacion usuarios :::");
@@ -71,7 +71,8 @@ var procesa = async(datos) => {
                     throw err;
                 });
             }
-            datos.infoCliente = DatosPersonales.cambiaMayusculas(datos.infoCliente);
+            var persona = new DatosPersonales()
+            datos.infoCliente = persona.cambiaMayusculas(datos.infoCliente);
             break;
     }
 

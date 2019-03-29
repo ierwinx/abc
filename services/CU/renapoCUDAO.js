@@ -31,6 +31,7 @@ var altaRenapoCU = async(bean) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta && respuesta.objResponse && respuesta.issue && respuesta.issue.issue === false && respuesta.objResponse.status === 0) {
                     resolve(bean);
                 } else {

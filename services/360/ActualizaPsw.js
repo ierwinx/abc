@@ -25,6 +25,7 @@ var actualizaPwd = (objeto) => {
         }, resp => {
             resp.on("data", datos => {
                 var respuesta = JSON.parse(datos);
+                logger.info("Respuesta: " + JSON.stringify(respuesta));
                 if (respuesta.estatus == 0) {
                     if (respuesta.respuesta && respuesta.respuesta.actualizo) {
                         objeto.respuesta= "Registro actualizado";
