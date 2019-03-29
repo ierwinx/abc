@@ -1,5 +1,6 @@
 const logger = require('log4js').getLogger("DatosPersonales");
 const GeneraCurpWS = require("../services/CU/Curp");
+const EntidadDAO = require("../daos/entidadDAO");
 
 class DatosPersonales {
 
@@ -26,115 +27,17 @@ class DatosPersonales {
             var mes = datos.fechaNac.replace(/^(\d{2})\/(\d{2})\/(\d{4})$/g, '$2');
             var dia = datos.fechaNac.replace(/^(\d{2})\/(\d{2})\/(\d{4})$/g, '$1');
         
-            var sexo = cambiaGenero(datos.genero);
+            var sexo = DatosPersonales.cambiaGenero(datos.genero);
             var digitosPrefinales = ['B','C','D'];
         
             var armardigotosPrefinales = digitosPrefinales[Math.floor(Math.random() * digitosPrefinales.length)] + digitosPrefinales[Math.floor(Math.random() * digitosPrefinales.length)] + digitosPrefinales[Math.floor(Math.random() * digitosPrefinales.length)]
         
             var validaFinal = armardigotosPrefinales + (sexo == 'H' ? hombres : mujeres);
         
-            var estado;
-            switch (datos.idEntidadFederativa) {
-                case "1":
-                    estado = "AS";
-                    break;
-                case "2":
-                    estado = "BC";
-                    break;
-                case "3":
-                    estado = "BS";
-                    break;
-                case "4":
-                    estado = "CC";
-                    break;
-                case "5":
-                    estado = "CL";
-                    break;
-                case "6":
-                    estado = "CM";
-                    break;
-                case "7":
-                    estado = "CS";
-                    break;
-                case "8":
-                    estado = "CH";
-                    break;
-                case "9":
-                    estado = "DF";
-                    break;
-                case "10":
-                    estado = "DG";
-                    break;
-                case "11":
-                    estado = "GT";
-                    break;
-                case "12":
-                    estado = "GR";
-                    break;
-                case "13":
-                    estado = "HG";
-                    break;
-                case "14":
-                    estado = "JC";
-                    break;
-                case "15":
-                    estado = "MC";
-                    break;
-                case "16":
-                    estado = "MN";
-                    break;
-                case "17":
-                    estado = "MS";
-                    break;
-                case "18":
-                    estado = "NT";
-                    break;
-                case "19":
-                    estado = "NL";
-                    break;
-                case "20":
-                    estado = "OC";
-                    break;
-                case "21":
-                    estado = "PL";
-                    break;
-                case "22":
-                    estado = "QT";
-                    break;
-                case "23":
-                    estado = "QR";
-                    break;
-                case "24":
-                    estado = "SP";
-                    break;
-                case "25":
-                    estado = "SL";
-                    break;
-                case "26":
-                    estado = "SR";
-                    break;
-                case "27":
-                    estado = "TC";
-                    break;
-                case "28":
-                    estado = "TS";
-                    break;
-                case "29":
-                    estado = "TL";
-                    break;
-                case "30":
-                    estado = "VZ";
-                    break;
-                case "31":
-                    estado = "YN";
-                    break;
-                case "32":
-                    estado = "ZS";
-                    break;
-                default:
-                    estado = "DF";
-                    break;
-            }
+            var entidadEncontrada = await EntidadDAO.get(datos.idEntidadFederativa).then().catch(err => {
+                return err;
+            });
+            var estado = entidadEncontrada.abre;
         
             curp = primerApellido + segundoApellido + nombre + anio + mes + dia + sexo + estado + validaFinal;
         } catch(error) {
@@ -144,7 +47,7 @@ class DatosPersonales {
         return curp;
     }
 
-    cambiaGenero(genero) {
+    static cambiaGenero(genero) {
         var resultado = "";
         if (genero == 'F') {
             resultado = 'M';

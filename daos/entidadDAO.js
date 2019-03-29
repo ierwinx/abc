@@ -7,6 +7,17 @@ var listar = async(objeto) => {
     return respuesta;
 }
 
+var get = async(id) => {
+    logger.info(" ::: Consulta entidades por id :::");
+    var respuesta = await Persona.findOne({ id: id });
+    if (respuesta) {
+        return respuesta;
+    } else {
+        throw new Error(`No se encontraron resultados de la entidad ${id}`);
+    }
+}
+
 module.exports = {
-    listar
+    listar,
+    get
 }
