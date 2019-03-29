@@ -10,7 +10,8 @@ const Entrada = require("../helpers/Entrada");
 
 router.post('/usuarios', function(req, res, next) {
     logger.info("Entra peticion ambientar usuarios");
-    Entrada.procesa(req.body).then(data => {
+    var lectura = new Entrada();
+    lectura.procesa(req.body).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
@@ -23,7 +24,8 @@ router.post('/usuarios', function(req, res, next) {
 
 router.put('/usuarios', function(req, res, next) {
     logger.info("Entra peticion re ambientar usuarios");
-    Entrada.reProcesa(req.body).then(data => {
+    var lectura = new Entrada();
+    lectura.reProcesa(req.body).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
