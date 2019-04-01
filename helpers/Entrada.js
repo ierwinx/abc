@@ -1,10 +1,10 @@
 const logger = require('log4js').getLogger("Entrada");
-const peticion = require('../models/peticion');
-const flujosDAO = require("../daos/flujoDAO");
-const caracteristicaDAO = require("../daos/caracteristicaDAO");
+const Peticion = require('../models/Peticion');
+const FlujoDAO = require("../daos/FlujoDAO");
+const CaracteristicaDAO = require("../daos/CaracteristicaDAO");
 const InfoCliente = require("../models/InfoCliente");
-const personaDAO = require("../daos/personaDAO");
-const clienteDAO = require("../daos/clienteDAO");
+const PersonaDAO = require("../daos/PersonaDAO");
+const ClienteDAO = require("../daos/ClienteDAO");
 const EjecutaFlujo = require("../helpers/EjecutaFlujo");
 const DatosPersonales = require("../helpers/DatosPersonales");
 
@@ -15,17 +15,19 @@ class Entrada {
 
     static async procesa(datos) {
         logger.info(" ::: Inicia proceso de ambientacion usuarios :::");
-        peticion.valida(datos);
+        Peticion.valida(datos);
         console.log(datos);
     
         var eventosEjecutar = new Array();
-        var flujo = await flujosDAO.buscar(datos.flujo).then().catch(error => {
+        var flujosdao = new FlujoDAO();
+        var flujo = await flujosdao.buscar(datos.flujo).then().catch(error => {
             throw error;
         });
         eventosEjecutar = flujo.servicios;
     
         if (datos.caracteristicas.length > 0) {
-            var caracteristicas = await caracteristicaDAO.compatibles(datos.flujo).then().catch(error => {
+            var caracteristicasdao = new CaracteristicaDAO();
+            var caracteristicas = await caracteristicasdao.compatibles(datos.flujo).then().catch(error => {
                 throw error;
             });
             var noCompatibles = "";
@@ -53,6 +55,7 @@ class Entrada {
         }
     
         var validaciones = new InfoCliente();
+        var personadao = new PersonaDAO();
         switch(datos.flujo) {
             case 7.1:
                 validaciones.iteraInfo(datos.infoCliente, datos.flujo);
@@ -66,14 +69,14 @@ class Entrada {
                         validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                     } else {
                         if (datos.flujo < 7) {
-                            datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
+                            datos.infoCliente = await personadao.creaPersona(datos.numUsuarios, datos.infoCliente).catch(err => {
                                 throw err;
                             });
                         }
                         validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                     }
                 } else {
-                    datos.infoCliente = await personaDAO.creaPersona(datos.numUsuarios, null).catch(err => {
+                    datos.infoCliente = await personadao.creaPersona(datos.numUsuarios, null).catch(err => {
                         throw err;
                     });
                 }
@@ -101,7 +104,8 @@ class Entrada {
         var arregloSalida = new Array();
         if (datos.flujo <= 7) {
             for (let i = 0; i < respuesta.length; i++) {
-                var objSal = await clienteDAO.guardar(respuesta[i]);
+                let clientedao = new ClienteDAO();
+                var objSal = await clientedao.guardar(respuesta[i]);
                 arregloSalida.push(objSal.toJSON());
             }
         } else {
@@ -114,17 +118,18 @@ class Entrada {
     static async reProcesa(datos) {
         logger.info(" ::: Inicia proceso de re ambientacion usuarios :::");
 
-        peticion.valida2(datos);
+        Peticion.valida2(datos);
     
         var id = datos.id;
         var respuesta = new Object();
     
-        var activa = await clienteDAO.activar(id).then().catch(err => {
+        let clientedao = new ClienteDAO();
+        var activa = await clientedao.activar(id).then().catch(err => {
             throw err;
         });
     
         if (activa.ok == 1) {
-            var encuentra = await clienteDAO.get(id).then().catch(error => {
+            var encuentra = await clientedao.get(id).then().catch(error => {
                 throw error;
             });
     
@@ -143,7 +148,7 @@ class Entrada {
                 throw err;
             });
     
-            borrado = await clienteDAO.eliminaCliente(id).then().catch(err => {
+            borrado = await clientedao.eliminaCliente(id).then().catch(err => {
                 throw err;
             });
             

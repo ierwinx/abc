@@ -2,10 +2,10 @@ const logger = require('log4js').getLogger("Ambientes");
 const express = require('express');
 const router = express.Router();
 const Utils = require('../helpers/Utils');
-const caracteristicasDAO = require('../daos/caracteristicaDAO');
-const flujosDAO = require('../daos/flujoDAO');
-const clientesDAO = require("../daos/clienteDAO");
-const entidadDAO = require("../daos/entidadDAO");
+const CaracteristicaDAO = require('../daos/CaracteristicaDAO');
+const FlujoDAO = require('../daos/FlujoDAO');
+const ClienteDAO = require("../daos/ClienteDAO");
+const EntidadDAO = require("../daos/EntidadDAO");
 const Entrada = require("../helpers/Entrada");
 
 router.post('/usuarios', function(req, res, next) {
@@ -36,34 +36,38 @@ router.put('/usuarios', function(req, res, next) {
 
 router.get('/flujos', function(req, res, next) {
     logger.info("Entra peticion consulta flujos");
-    flujosDAO.listar().then(data => {
+    var flujosdao = new FlujoDAO();
+    flujosdao.listar().then(data => {
         Utils.printJson(res, 200, process.env.e200, {titulo: "Flujos", objeto: data});
-    }).catch(err => {
+    }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 });
 
 router.get('/caracteristicas', function(req, res, next) {
     logger.info("Entra peticion consulta caracteristicas");
-    caracteristicasDAO.listar().then(data => {
+    var caracteristicasdao = new CaracteristicaDAO();
+    caracteristicasdao.listar().then(data => {
         Utils.printJson(res, 200, process.env.e200, {titulo: "Caracteristicas", objeto: data});
-    }).catch(err => {
+    }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 });
 
 router.get('/entidades', function(req, res, next) {
     logger.info("Entra peticion consulta entidades");
-    entidadDAO.listar().then(data => {
+    var entidaddao = new EntidadDAO();
+    entidaddao.listar().then(data => {
         Utils.printJson(res, 200, process.env.e200, {titulo: "Entidades", objeto: data});
-    }).catch(err => {
+    }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 });
 
 router.get('/consulta/usuario/:id', function(req, res, next) {
     logger.info("Entra peticion consulta usuario por id");
-    clientesDAO.buscar(req.params.id).then(data => {
+    var clientedao = new ClienteDAO();
+    clientedao.buscar(req.params.id).then(data => {
         Utils.printJson(res, 200, process.env.e200, {titulo: "infoClientes", objeto: data});
     }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
@@ -72,7 +76,8 @@ router.get('/consulta/usuario/:id', function(req, res, next) {
 
 router.delete('/borra/usuario/:id', function(req, res, next) {
     logger.info("Entra peticion borado de usuario por id");
-    clientesDAO.eliminar(req.params.id).then(data => {
+    var clientedao = new ClienteDAO();
+    clientedao.eliminar(req.params.id).then(data => {
         Utils.printJson(res, 200, process.env.e200, null);
     }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });

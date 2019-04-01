@@ -191,13 +191,15 @@ const icus = {
 
 const alias = {
     alias: {
-        type: "string"
+        type: "string",
+        min: 1
     }
 }
 
 const telefonoAcertum = {
     telefono: {
         type: "string",
+        min: 10,
         max: 10
     }
 }
@@ -271,7 +273,9 @@ class InfoCliente {
             respuesta3 = respuesta;
         }
         if (typeof(respuesta2) == 'object') {
-            respuesta3.push(respuesta3);
+            respuesta2.forEach(element => {
+                respuesta3.push(element);
+            });
         }
         if (respuesta3.length > 0) {
             throw respuesta3;
@@ -289,18 +293,50 @@ class InfoCliente {
 
     consulta(datos) {
         logger.info(" ::: Se valida datos de ICU o ALIAS:::");
-        var check;
-        if (datos.icu != undefined) {
-            check = v.compile(icus);
-        } else if (datos.alias != undefined){
-            check = v.compile(alias);
+        var check1 = v.compile(icus);
+        var check2 = v.compile(alias);
+        var check3 = v.compile(telefonoAcertum);
+        var respuesta1;
+        var respuesta2;
+        var respuesta3;
+        var respuesta4 = new Array();
+        if (datos.icu == undefined && datos.alias == undefined && datos.telefono == undefined) {
+            respuesta1 = check1(datos);
+            respuesta2 = check2(datos);
+            respuesta3 = check3(datos);
+
+            respuesta4.push(respuesta1[0]);
+            respuesta4.push(respuesta2[0]);
+            respuesta4.push(respuesta3[0]);
+
+            if (respuesta4.length > 0) {
+                throw respuesta4;
+            }
         } else {
-            check = v.compile(telefonoAcertum);
+
+            if (datos.icu == '') {
+                respuesta1 = check1(datos);
+                if (typeof(respuesta1) == 'object') {
+                    throw respuesta1;
+                }
+            }
+
+            if (datos.alias == '') {
+                respuesta2 = check2(datos);
+                if (typeof(respuesta2) == 'object') {
+                    throw respuesta2;
+                }
+            }
+
+            if (datos.telefono == '') {
+                respuesta3 = check3(datos);
+                if (typeof(respuesta3) == 'object') {
+                    throw respuesta3;
+                }
+            }
+
         }
-        var respuesta = check(datos);
-        if (typeof(respuesta) == 'object') {
-            throw respuesta;
-        }
+        
     }
 
     validContra(datos) {
@@ -315,119 +351,119 @@ class InfoCliente {
     iteraInfo(datos, flujo) {
         if (datos.length > 0) {
             datos.forEach(element => {
-                validaFlujo(element, flujo);
+                this.validaFlujo(element, flujo);
             });
         } else {
-            validaFlujo(datos, flujo);
+            this.validaFlujo(datos, flujo);
         }
     }
 
     validaFlujo(datos, flujo) {
         switch(flujo) {
             case 1:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.1:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.2:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.3:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.4:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.5:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.6:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.7:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.8:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.9:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.10:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 1.11:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 2:
-                principales(datos);
-                ife(datos);
+                this.principales(datos);
+                this.ife(datos);
                 break;
             case 2.1:
-                principales(datos);
-                ife(datos);
+                this.principales(datos);
+                this.ife(datos);
                 break;
             case 2.3:
-                principales(datos);
+                this.principales(datos);
                 break;
             case 2.4:
-                principales(datos);
-                ife(datos);
+                this.principales(datos);
+                this.ife(datos);
                 break;
             case 3:
-                principales(datos);
-                telefono(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.telefono(datos);
+                this.direcciones(datos);
                 break;
             case 3.1:
-                principales(datos);
-                telefono(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.telefono(datos);
+                this.direcciones(datos);
                 break;
             case 3.4:
-                principales(datos);
-                telefono(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.telefono(datos);
+                this.direcciones(datos);
                 break;
             case 3.4:
-                principales(datos);
-                telefono(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.telefono(datos);
+                this.direcciones(datos);
                 break;
             case 4:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 5:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 6:
-                principales(datos);
-                direcciones(datos);
+                this.principales(datos);
+                this.direcciones(datos);
                 break;
             case 7:
-                principales(datos);
+                this.principales(datos);
                 break;
             case 7.1:
-                consulta(datos);
+                this.consulta(datos);
                 break;
             case 7.2:
-                consulta(datos);
-                validContra(datos);
+                this.consulta(datos);
+                this.validContra(datos);
                 break;
         }
     }

@@ -1,112 +1,110 @@
-const logger = require('log4js').getLogger("usuarioDAO");
+const logger = require('log4js').getLogger("UsuarioDAO");
 const Usuario = require('../models/usuario');
 
-var guardar = async(objeto) => {
-    logger.info(" ::: Guarda Informacion del Usuario :::");
-    var user = new Usuario(objeto);
-    var errores = user.validateSync();
-    if (errores) {
-        logger.error(" ::: Ocurrio un Error el las validaciones al guarda un usuario :::");
-        throw new Error(errores.message.replace('usuario validation failed: ','ValidationError: '));
-    } else {
-        var resp = await user.save().then().catch(err => {
-            logger.error(" ::: La informacion no pasa las validaciones :::");
-            if (err.errors) {
-                Object.keys(err.errors).forEach(element => {
-                    throw new Error('ValidationError: ' + element + ' : ' + err.errors[element].message);
-                });
-            }
-        });
-        return resp;
+class UsuarioDAO {
+    
+    constructor() {
     }
-}
 
-var actualizar = async(objeto) => {
-    logger.info(" ::: Actualiza la Informacion del Usuario por ID :::");
-    var user = new Usuario(objeto);
-    var errores = user.validateSync();
-    if (errores) {
-        logger.error(" ::: Ocurrio un Error el las validaciones al actualizar un usuario :::");
-        throw new Error(errores.message.replace('usuario validation failed: ','ValidationError: '));
-    } else {
-        return await Usuario.findOneAndUpdate({_id: objeto.id}, objeto).exec();
-    }
-}
-
-var eliminar = async(id) => {
-    logger.info(" ::: Elimina un usuario por ID :::");
-    var respuesta = await Usuario.deleteOne({_id: id }).exec();
-    return respuesta;
-}
-
-var listar = async() => {
-    logger.info(" ::: Consulta todos los usuarios :::");
-    var respuesta = await Usuario.find();
-    return respuesta;
-}
-
-var buscar = async(id) => {
-    logger.info(" ::: Elimina un usuario por ID :::");
-    var respuesta = await Usuario.findOne({ _id: id }, function(err, user) {
-        if (err) {
-            logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
-            throw new Error("Ocurrio un problema con el servicio de Login");
+    async guardar(objeto) {
+        logger.info(" ::: Guarda Informacion del Usuario :::");
+        var user = new Usuario(objeto);
+        var errores = user.validateSync();
+        if (errores) {
+            logger.error(" ::: Ocurrio un Error el las validaciones al guarda un usuario :::");
+            throw new Error(errores.message.replace('usuario validation failed: ','ValidationError: '));
         } else {
-            if (!user) {
-                throw new Error("El usuario no existe en el sistema");
-            } else {
-                return user;
-            }
+            var resp = await user.save().then().catch(err => {
+                logger.error(" ::: La informacion no pasa las validaciones :::");
+                if (err.errors) {
+                    Object.keys(err.errors).forEach(element => {
+                        throw new Error('ValidationError: ' + element + ' : ' + err.errors[element].message);
+                    });
+                }
+            });
+            return resp;
         }
-        
-    });
-    return respuesta;
-}
+    }
 
-var buscarNumeroUsuario = async(numero) => {
-    logger.info(" ::: Buscar un usuario por ID :::");
-    var respuesta = {};
-    await Usuario.findOne({ usuario: numero }, function(err, user) {
-        if (err) {
-            logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
-            return respuesta = 0;
+    async actualizar(objeto) {
+        logger.info(" ::: Actualiza la Informacion del Usuario por ID :::");
+        var user = new Usuario(objeto);
+        var errores = user.validateSync();
+        if (errores) {
+            logger.error(" ::: Ocurrio un Error el las validaciones al actualizar un usuario :::");
+            throw new Error(errores.message.replace('usuario validation failed: ','ValidationError: '));
         } else {
-            if (!user) {
+            return await Usuario.findOneAndUpdate({_id: objeto.id}, objeto).exec();
+        }
+    }
+
+    async eliminar(id) {
+        logger.info(" ::: Elimina un usuario por ID :::");
+        var respuesta = await Usuario.deleteOne({_id: id }).exec();
+        return respuesta;
+    }
+
+    async listar() {
+        logger.info(" ::: Consulta todos los usuarios :::");
+        var respuesta = await Usuario.find();
+        return respuesta;
+    }
+
+    async buscar(id) {
+        logger.info(" ::: Busca un usuario por ID :::");
+        var respuesta = await Usuario.findOne({ _id: id }, function(err, user) {
+            if (err) {
                 logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
-                return respuesta = 1;
+                throw new Error("Ocurrio un problema con el servicio de Login");
             } else {
-                if (!user.status) {
-                    logger.error(" ::: El usuario encontrado no esta autorizado :::");
-                    return respuesta = 2;
+                if (!user) {
+                    throw new Error("El usuario no existe en el sistema");
                 } else {
-                    return respuesta = user;
+                    return user;
                 }
             }
-        }
-        
-    });
-    return respuesta;
+            
+        });
+        return respuesta;
+    }
+
+    async buscarNumeroUsuario(numero) {
+        logger.info(" ::: Buscar un usuario por numero de empleado :::");
+        var respuesta = {};
+        await Usuario.findOne({ usuario: numero }, function(err, user) {
+            if (err) {
+                logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
+                return respuesta = 0;
+            } else {
+                if (!user) {
+                    logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
+                    return respuesta = 1;
+                } else {
+                    if (!user.status) {
+                        logger.error(" ::: El usuario encontrado no esta autorizado :::");
+                        return respuesta = 2;
+                    } else {
+                        return respuesta = user;
+                    }
+                }
+            }
+            
+        });
+        return respuesta;
+    }
+
+    async activar(objeto) {
+        logger.info(" ::: Activa un usuario por ID :::");
+        var respuesta = await Usuario.findOneAndUpdate({_id: objeto.id}, { status: objeto.status }).exec();
+        return respuesta;
+    }
+
+    async total() {
+        logger.info(" ::: Cuenta todo los usuarios en db :::");
+        var respuesta = await Usuario.countDocuments().exec();
+        return respuesta;
+    }
+
 }
 
-var activar = async(objeto) => {
-    logger.info(" ::: Activa un usuario por ID :::");
-    var respuesta = await Usuario.findOneAndUpdate({_id: objeto.id}, { status: objeto.status }).exec();
-    return respuesta;
-}
-
-var total = async() => {
-    logger.info(" ::: Cuenta todo los usuarios en db :::");
-    var respuesta = await Usuario.countDocuments().exec();
-    return respuesta;
-}
-
-module.exports = {
-    guardar,
-    eliminar,
-    actualizar,
-    listar,
-    buscar,
-    activar,
-    total,
-    buscarNumeroUsuario
-}
+module.exports = UsuarioDAO;

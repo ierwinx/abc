@@ -52,7 +52,7 @@ class FlujoINE {
                 cic: body.cic,
                 apellido_paterno: body.apellidoP,
                 apellido_materno: body.apellidoM,
-                fecha_nacimiento: cambiaFecha(body.fechaNac),
+                fecha_nacimiento: FlujoINE.cambiaFecha(body.fechaNac),
                 sexo: DatosPersonales.cambiaGenero(body.genero),
                 curp: body.curp,
                 anio_emision: body.anioEmision == undefined ? '' : body.anioEmision,
@@ -71,7 +71,7 @@ class FlujoINE {
                 nombre: body.nombre,
                 apellido_paterno: body.apellidoP,
                 apellido_materno: body.apellidoM,
-                fecha_nacimiento: cambiaFecha(body.fechaNac),
+                fecha_nacimiento: FlujoINE.cambiaFecha(body.fechaNac),
                 sexo: DatosPersonales.cambiaGenero(body.genero),
                 curp: body.curp,
                 anio_emision: body.anioEmision == undefined ? '' : body.anioEmision,
@@ -102,7 +102,7 @@ class FlujoINE {
         return body;
     }
 
-    cambiaFecha(fecha) {
+    static cambiaFecha(fecha) {
         var formato = fecha.replace(/^(\d{2})\/(\d{2})\/(\d{4})$/g, '$3-$2-$1');
         return formato;
     }

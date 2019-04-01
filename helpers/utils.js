@@ -1,6 +1,6 @@
 const logger = require('log4js').getLogger("Utils");
 const uuidv1 = require('uuid/v1');
-const UsuarioDAO = require('../daos/usuarioDAO');
+const UsuarioDAO = require('../daos/UsuarioDAO');
 const cryptoJs = require('crypto-js');
 const dsi = require("../services/OAUTH/dsi");
 
@@ -45,7 +45,8 @@ class Utils {
         dsi.validaToken(bearer).then(decoded => {
             dsi.verificaInformacion().then(async(resp) => {
     
-                var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then().catch(err => {
+                var usuariodao = new UsuarioDAO();
+                var usuario = await usuariodao.buscarNumeroUsuario(decoded.user_id).then().catch(err => {
                     return printJson(res, 500, "Favor de registrarse en el sistema", null);
                 });
     

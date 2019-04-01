@@ -2,7 +2,7 @@ const logger = require('log4js').getLogger("Auth");
 const express = require('express');
 const router = express.Router();
 const Utils = require('../helpers/Utils');
-const UsuarioDAO = require('../daos/usuarioDAO');
+const UsuarioDAO = require('../daos/UsuarioDAO');
 const fs = require('fs');
 const Mail = require('../config/Mail');
 const cryptoJs = require('crypto-js');
@@ -30,7 +30,8 @@ router.post('/login', async(req, res, next) => {
         logger.info(" ::: Se obtiene el usuario a loguearse "+decoded.user_id+" :::");
         dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
             
-            var usuario = await UsuarioDAO.buscarNumeroUsuario(decoded.user_id).then();
+            var usuariodao = new UsuarioDAO();
+            var usuario = await usuariodao.buscarNumeroUsuario(decoded.user_id).then();
 
             if (usuario == 0) {
                 return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
@@ -71,7 +72,8 @@ router.post('/registro', function(req, res, next) {
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
 
-    UsuarioDAO.guardar(user).then(data => {
+    var usuariodao  = new UsuarioDAO();
+    usuariodao.guardar(user).then(data => {
         fs.readFile("./views/Emails/email.hbs", 'utf8', function(err, html) {
             var template = Handlebars.compile(html);
             var datos = {
@@ -97,7 +99,8 @@ router.post('/registro', function(req, res, next) {
 router.get('/acepta/usuario/:id', function(req, res, next) {
     logger.info(" ::: Entra peticion acepta usuario :::");
     var id = req.params.id;
-    UsuarioDAO.activar({
+    var usuariodao  = new UsuarioDAO();
+    usuariodao.activar({
         id: id,
         status: true
     }).then(resp => {
@@ -119,7 +122,8 @@ router.get('/acepta/usuario/:id', function(req, res, next) {
 router.get('/declina/usuario/:id', function(req, res, next) {
     logger.info(" ::: Entra peticion declina usuario :::");
     var id = req.params.id;
-    UsuarioDAO.activar({
+    var usuariodao  = new UsuarioDAO();
+    usuariodao.activar({
         id: id,
         status: false
     }).then(resp => {
