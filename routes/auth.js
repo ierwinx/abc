@@ -6,7 +6,7 @@ const UsuarioDAO = require('../daos/UsuarioDAO');
 const fs = require('fs');
 const Mail = require('../config/Mail');
 const cryptoJs = require('crypto-js');
-const dsi = require("../services/OAUTH/dsi");
+const DSI = require("../services/OAUTH/DSI");
 const Handlebars = require("Handlebars");
 const peticion = require("../models/peticion");
 
@@ -26,6 +26,7 @@ router.post('/login', async(req, res, next) => {
         return Utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
     }
 
+    var dsi = new DSI();
     dsi.validaToken(bearer).then(decoded => {
         logger.info(" ::: Se obtiene el usuario a loguearse "+decoded.user_id+" :::");
         dsi.verificaInformacion(decoded.user_id).then(async(resp) => {

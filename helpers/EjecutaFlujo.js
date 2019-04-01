@@ -143,19 +143,22 @@ class EjecutaFlujo {
                 break;
             case 3.2:
                 logger.info(" ::: Apertura cuenta digital MB80 ::: ");
-                objeto = await Cuentas.MB80(objeto).then().catch(err => {
+                let cuentas = new Cuentas();
+                objeto = await cuentas.MB80(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
             case 3.3:
                 logger.info(" ::: Apertura cuenta MB34 ::: ");
-                objeto = await Cuentas.MB34(objeto).then().catch(err => {
+                let cuentas = new Cuentas();
+                objeto = await cuentas.MB34(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
             case 3.4:
                 logger.info(" ::: Apertura cuenta guardadito BB02 ::: ");
-                objeto = await Cuentas.BB02(objeto).then().catch(err => {
+                let cuentas = new Cuentas();
+                objeto = await cuentas.BB02(objeto).then().catch(err => {
                     throw err;
                 });
                 break;

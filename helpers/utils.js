@@ -2,7 +2,7 @@ const logger = require('log4js').getLogger("Utils");
 const uuidv1 = require('uuid/v1');
 const UsuarioDAO = require('../daos/UsuarioDAO');
 const cryptoJs = require('crypto-js');
-const dsi = require("../services/OAUTH/dsi");
+const DSI = require("../services/OAUTH/DSI");
 
 class Utils {
 
@@ -42,6 +42,7 @@ class Utils {
             return printJson(res, 403, process.env.e403, null);
         }
     
+        var dsi = new DSI();
         dsi.validaToken(bearer).then(decoded => {
             dsi.verificaInformacion().then(async(resp) => {
     
