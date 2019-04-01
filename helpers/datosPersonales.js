@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("DatosPersonales");
-const GeneraCurpWS = require("../services/CU/Curp");
+const Curp = require("../services/CU/Curp");
 
 class DatosPersonales {
 
@@ -100,7 +100,7 @@ class DatosPersonales {
         return fecha + '|' + cadena;
     }
 
-    generaMenorEdad(datos) {
+    async generaMenorEdad(datos) {
         logger.info("::: Inicia generacion de menor edad :::");
         try {
             var mes = datos.fechaNac.split("/")[1];
@@ -114,7 +114,9 @@ class DatosPersonales {
             
             datos.fechaNac = (dia.length == 2 ? dia : "0" + dia) + "/" + (mes.length == 2 ? mes : "0" + mes) + "/" + nuevoAnio;
         
-            var curpRFC = GeneraCurpWS.obtiene(datos);
+            var curpRFC = await Curp.obtiene(nueva).catch(err=> {
+                throw err;
+            });
     
             datos.curp = curpRFC.curp;
             datos.rfc = curpRFC.rfc;

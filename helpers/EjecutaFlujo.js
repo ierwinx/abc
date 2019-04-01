@@ -1,8 +1,6 @@
 const logger = require('log4js').getLogger("EjecutaFlujo");
-const FotoDAO = require("../services/CU/FotoDAO");
-const HuellasCUDAO = require("../services/CU/HuellasCUDAO");
+const Objetos = require("../services/CU/Objetos");
 const CRUD = require("../services/CU/CRUD");
-
 const Ligue = require("../services/CU/Ligue");
 const Renapo = require("../services/CU/Renapo");
 const ActivacionXSuc = require("../services/360/ActivacionXSuc");
@@ -56,14 +54,16 @@ class EjecutaFlujo {
             }
             case 1.4: {
                 logger.info(" ::: Actualiza foto CU ::: ");
-                objeto = await FotoDAO.actualizaFoto(objeto).then().catch(err => {
+                let objetoscu = new Objetos();
+                objeto = await objetoscu.actualizaFoto(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
             }
             case 1.5: {
                 logger.info(" ::: Actualiza Huellas CU ::: ");
-                objeto = await HuellasCUDAO.actualizaHuellas(objeto).then().catch(err => {
+                let objetoscu = new Objetos();
+                objeto = await objetoscu.actualizaHuellas(objeto).then().catch(err => {
                     throw err;
                 });
                 break;

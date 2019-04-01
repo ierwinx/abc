@@ -1,6 +1,6 @@
 const logger = require('log4js').getLogger("PersonaDAO");
 const Persona = require('../models/persona');
-const GeneraCurp = require("../services/CU/Curp");
+const Curp = require("../services/CU/Curp");
 
 class PersonaDAO {
 
@@ -156,7 +156,7 @@ class PersonaDAO {
                 vigencia: await this.valida(vigenciaValor)
             }
     
-            var curpRFC = await GeneraCurp.obtiene(nueva).catch(err=> {
+            var curpRFC = await Curp.obtiene(nueva).catch(err=> {
                 throw err;
             });
     
