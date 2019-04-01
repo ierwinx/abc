@@ -10,22 +10,22 @@ class Cuentas {
         var servicio = new Promise((resolve, reject) => {
             logger.info(" ::: se consulta servicio soap de ALNOVA para Apertura de cuenta Digital :::");
     
-            entity = '0127';
-            branch = '0172';
-            user = 'B243454';
-            terminal = 'WE50';
-            chanel = '01';
+            var entity = '0127';
+            var branch = '0172';
+            var user = 'B243454';
+            var terminal = 'WE50';
+            var chanel = '01';
     
-            tipoOper = '6';
-            celular = objeto.numCel;
-            numeroCliente = objeto.noClienteAlnova;
-            nivelCuenta = 'N2';
-            idTelefono = objeto.idTel;
-            bdmid = objeto.bdmid;
-            sisTel = objeto.sisTel;
-            sisOper = objeto.sisOper;
-            latitud = objeto.latitud;
-            longitud = objeto.longitud;
+            var tipoOper = '6';
+            var celular = objeto.numCel;
+            var numeroCliente = objeto.noClienteAlnova;
+            var nivelCuenta = 'N2';
+            var idTelefono = objeto.idTel;
+            var bdmid = objeto.bdmid;
+            var sisTel = objeto.sisTel;
+            var sisOper = objeto.sisOper;
+            var latitud = objeto.latitud;
+            var longitud = objeto.longitud;
             
             var url = 'http://10.63.32.115/Conexion_TF/Servicio_Conexion.asmx?WSDL';
             var args = {
@@ -41,7 +41,7 @@ class Cuentas {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
                         } else {
-                            var respuesta = this.creaObjeto(result.MTEjecutaTransaccionResult);
+                            var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                             logger.info("Respuesta: " + JSON.stringify(respuesta));
                             if (respuesta.CTACTE){
                                 objeto.cuentaCliente = respuesta.CTACTE;
@@ -65,18 +65,18 @@ class Cuentas {
         var servicio = new Promise((resolve, reject) => {
             logger.info(" ::: se consulta servicio soap de ALNOVA para Apertura de cuenta Digital:::");
     
-            entity = '0127';
-            branch = '0172';
-            user = 'B243454';
-            terminal = 'WE50';
-            chanel = '01';
-    
-            idAlnova = objeto.noClienteAlnova;
-            producto = '16';
-            //producto = '14';
-            subproducto = '0018'
-            //subproducto = '0035';
-            montoAp = '000000000000000'
+            var entity = '0127';
+            var branch = '0172';
+            var user = 'B243454';
+            var terminal = 'WE50';
+            var chanel = '01';
+
+            var idAlnova = objeto.noClienteAlnova;
+            var producto = '16';
+            //var producto = '14';
+            var subproducto = '0018'
+            //var subproducto = '0035';
+            var montoAp = '000000000000000'
             
             var url = 'http://10.63.32.115/Conexion_TF/Servicio_Conexion.asmx?WSDL';
             var args = {
@@ -92,7 +92,7 @@ class Cuentas {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
                         } else {
-                            var respuesta = this.creaObjeto(result.MTEjecutaTransaccionResult);
+                            var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                             logger.info("Respuesta: " + JSON.stringify(respuesta));
                             if (respuesta.NUMACCO) {
                                 objeto.cuentaCliente = respuesta.NUMACCO;
@@ -117,25 +117,25 @@ class Cuentas {
         var servicio = new Promise((resolve, reject) => {
             logger.info(" ::: se consulta servicio soap de ALNOVA para Apertura de cuenta :::");
             
-            entity = '0127';
-            branch = '0172';
-            user = 'B243454';
-            terminal = 'WE50';
-            chanel = '01';
-            funcion = 'AP';
-            referencia = this.agregaEspacios(this.generaReferencia());
+            var entity = '0127';
+            var branch = '0172';
+            var user = 'B243454';
+            var terminal = 'WE50';
+            var chanel = '01';
+            var funcion = 'AP';
+            var referencia = this.agregaEspacios(this.generaReferencia());
     
-            producto = '13';
-            entidad = '0127';
-            sucursal = '0673';
-            nEmpleado = '00000000';
-            subproducto = '0017';
-            numeroCliente = objeto.idAlnova;
-            divisa = 'MXP';
-            monto = '0000000000000000';
-            codigo = '000';
+            var producto = '13';
+            var entidad = '0127';
+            var sucursal = '0673';
+            var nEmpleado = '00000000';
+            var subproducto = '0017';
+            var numeroCliente = objeto.idAlnova;
+            var divisa = 'MXP';
+            var monto = '0000000000000000';
+            var codigo = '000';
     
-            entrada = producto + entidad + sucursal + nEmpleado + subproducto + numeroCliente + divisa + monto + codigo;
+            var entrada = producto + entidad + sucursal + nEmpleado + subproducto + numeroCliente + divisa + monto + codigo;
     
             var url = 'http://10.63.32.115/Conexion_TF/Servicio_Conexion.asmx?WSDL';
             var args = {
@@ -151,7 +151,7 @@ class Cuentas {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
                         } else {
-                            var respuesta = this.creaObjeto(result.MTEjecutaTransaccionResult);
+                            var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                             logger.info("Respuesta: " + JSON.stringify(respuesta));
                             if (respuesta.ACC) {
                                 objeto.cuentaCliente = respuesta.ACC;
@@ -193,7 +193,7 @@ class Cuentas {
         return referencia;
     }
 
-    creaObjeto(cadena) {
+    static creaObjeto(cadena) {
         var divide = cadena.split('~');
         var salida = new Object();
         divide.forEach(element => {

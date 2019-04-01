@@ -24,12 +24,13 @@ class FlujoINE {
             };
         }
         
-        var respuesta1 = await Ine.consulta(objeto).then().catch(err => {
+        var ine = new Ine();
+        var respuesta1 = await ine.consulta(objeto).then().catch(err => {
             throw err;
         });
     
         if (respuesta1.estatus == 0) {
-            var respuesta2 = await Ine.borrar(objeto).then().catch(err => {
+            var respuesta2 = await ine.borrar(objeto).then().catch(err => {
                 throw err;
             });
             if (respuesta2.estatus == 0) {
@@ -84,7 +85,7 @@ class FlujoINE {
             };
         }
     
-        var respuesta3 = await Ine.alta(objeto2).then().catch(err => {
+        var respuesta3 = await ine.alta(objeto2).then().catch(err => {
             throw err;
         });
         if (respuesta3.estatus == 0) {

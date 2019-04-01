@@ -12,11 +12,9 @@ const homeRouter = require('./routes/home');
 const ambientes = require('./routes/ambientes');
 const auth = require('./routes/auth');
 
-// view engine handlebars
 app.engine('hbs', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'hbs');
 
-// Habilita cors
 app.use(cors());
 
 app.use(require('./config/log4js'));

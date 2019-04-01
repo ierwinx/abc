@@ -1,11 +1,11 @@
-const token360 = require('../services/360/Auth');
+const Auth = require('../services/360/Auth');
 const logger = require('log4js').getLogger("config");
 
 /****************************
  *         Ambiente         *
  ****************************/
 process.env.ambiente = 'Desarrollo';
-process.env.frontend = 'https://10.51.58.238:4080/abc'
+process.env.frontend = 'https://10.51.58.237:4080/abc'
 process.env.backend = 'https://10.51.58.240'
 
 /****************************
@@ -77,7 +77,7 @@ process.env.NODE_ENV === "production"
 /****************************
  *    Obtiene token 360     *
  ****************************/
-token360.autenticar().then(res => {
+Auth.autenticar().then(res => {
     process.env.token = res;
     logger.info(" ::: Inicia App ABC correctamente ::: ");
 }).catch(error => {
