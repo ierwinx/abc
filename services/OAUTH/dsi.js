@@ -6,6 +6,9 @@ const parser = require('fast-xml-parser');
 var validaToken = (bearer) => {
     logger.info(" ::: se consume servicio para validar sesion frontend con oauth DSI :::");
     var promesa = new Promise((resolve, reject) => {
+
+        logger.info("GET: " + bearer)
+
         https.request({
             headers: {
                 "Authorization": bearer
@@ -42,6 +45,7 @@ var verificaInformacion = (usuario) => {
             LlavMaest : usuario
         };
 
+        logger.info("SOAP: " + args);
         soap.createClient(url, function(err, client) {
             client.DatosAuxiliares(args, function(err2, result) {
                 if (err2 == null) {
