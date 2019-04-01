@@ -5,10 +5,9 @@ const Ligue = require("../services/CU/Ligue");
 const Renapo = require("../services/CU/Renapo");
 const Activacion = require("../services/360/Activacion");
 const Consultado360 = require("../services/360/Consultado");
-const Extendidos360 = require("../services/360/Extendidos");
 const Borrar360 = require("../services/360/Borrar");
 const Desbloqueo = require("../services/360/Desbloqueo");
-const ActualizaPsw = require("../services/360/ActualizaPsw");
+const Actualiza = require("../services/360/Actualiza");
 const FlujoINE = require("./FlujoINE");
 const Cuentas = require("../services/Alnova/Cuentas");
 const DatosPersonales = require("../helpers/DatosPersonales");
@@ -122,7 +121,8 @@ class EjecutaFlujo {
             }
             case 2.6: {
                 logger.info(" ::: Extendidos ::: ");
-                objeto = await Extendidos360.actualizaExt(objeto).then().catch(err => {
+                let actualizacion = new Actualiza();
+                objeto = await actualizacion.extendidos(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
@@ -153,7 +153,8 @@ class EjecutaFlujo {
             }
             case 3.0: {
                 logger.info(" ::: Actualiza contra 360 ::: ");
-                objeto = await ActualizaPsw.actualizaPwd(objeto).then().catch(err => {
+                let actualizacion = new Actualiza();
+                objeto = await actualizacion.contrasena(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
