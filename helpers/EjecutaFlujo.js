@@ -3,7 +3,7 @@ const Objetos = require("../services/CU/Objetos");
 const CRUD = require("../services/CU/CRUD");
 const Ligue = require("../services/CU/Ligue");
 const Renapo = require("../services/CU/Renapo");
-const ActivacionXSuc = require("../services/360/ActivacionXSuc");
+const Activacion = require("../services/360/Activacion");
 const Consultado360 = require("../services/360/Consultado");
 const Extendidos360 = require("../services/360/Extendidos");
 const Borrar360 = require("../services/360/Borrar");
@@ -114,7 +114,8 @@ class EjecutaFlujo {
             }
             case 2.5: {
                 logger.info(" ::: Activacion por sucursal ::: ");
-                objeto = await ActivacionXSuc.activacionXsuc(objeto).then().catch(err => {
+                var activa360 = new Activacion();
+                objeto = await activa360.sucursal(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
