@@ -17,8 +17,8 @@ class Auth {
             var encripta = new Encriptar();
             var query = querystring.stringify({
                 grant_type: "client_credentials",
-                client_id: "e57d172c7173aedcabc16873f00e81cd",
-                client_secret: encripta.cifrar(personal.concatenaDatos(new Date().getTime(), "172e7f7ba82ec117184da4294b76c9a2"))
+                client_id: process.env.idCliente,
+                client_secret: encripta.cifrar(personal.concatenaDatos(new Date().getTime(), process.env.sectretCliente))
             });
     
             var reques = https.request({

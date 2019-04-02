@@ -46,7 +46,7 @@ process.env.enumerador = "Opción no valida";
 process.env.unico = "Ya existe este valor en la base de datos";
 
 /****************************
- *    Llave publica 360     *
+ *    Llaves 360     *
  ****************************/
 process.env.llave360 = `
 -----BEGIN PUBLIC KEY-----
@@ -56,6 +56,8 @@ H5jxQAKsrZ4ujOte0e6FGqbnoZDTwq4wQLy/FQMY+DKKKTj1CIX67vkgf32kl9k1
 rciHDac6tG2/QpPu+wIDAQAB
 -----END PUBLIC KEY-----
 `;
+process.env.idCliente = "e57d172c7173aedcabc16873f00e81cd";
+process.env.sectretCliente = "172e7f7ba82ec117184da4294b76c9a2";
 
 /****************************
  *    Tiempo expira JWT     *

@@ -4,8 +4,8 @@ const CRUD = require("../services/CU/CRUD");
 const Ligue = require("../services/CU/Ligue");
 const Renapo = require("../services/CU/Renapo");
 const Activacion = require("../services/360/Activacion");
-const Consultado360 = require("../services/360/Consultado");
-const Borrar360 = require("../services/360/Borrar");
+const Consultas = require("../services/360/Consultas");
+const Borrado = require("../services/360/Borrado");
 const Desbloqueo = require("../services/360/Desbloqueo");
 const Actualiza = require("../services/360/Actualiza");
 const FlujoINE = require("./FlujoINE");
@@ -134,7 +134,8 @@ class EjecutaFlujo {
                     throw err;
                 });
                 if (resp1.statusCU) {
-                    objeto = await Borrar360.borrar(objeto).then().catch(err => {
+                    var borrar360 = new Borrado()
+                    objeto = await borrar360.elimina(objeto).then().catch(err => {
                         throw err;
                     });
                 }
@@ -146,7 +147,8 @@ class EjecutaFlujo {
             }
             case 2.9: {
                 logger.info(" ::: Desbloqueo ::: ");
-                objeto = await Desbloqueo.desbloquea(objeto).then().catch(err => {
+                var desblo = new Desbloqueo();
+                objeto = await desblo.desbloquea(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
@@ -161,7 +163,8 @@ class EjecutaFlujo {
             }
             case 3.1: {
                 logger.info(" ::: Consulta 360 ::: ");
-                objeto = await Consultado360.consultado360(objeto).then().catch(err => {
+                var consultas360 = new Consultas()
+                objeto = await consultas360.buscar(objeto).then().catch(err => {
                     throw err;
                 });
                 break;
