@@ -5,13 +5,15 @@ const Utils = require('../helpers/Utils');
 const UsuarioDAO = require('../daos/UsuarioDAO');
 const fs = require('fs');
 const Mail = require('../config/Mail');
-const cryptoJs = require('crypto-js');
+const Desencriptar = require('../helpers/Desencripta');
+const Encriptar = require('../helpers/Encriptar');
 const DSI = require("../services/OAUTH/DSI");
 const Handlebars = require("Handlebars");
 const peticion = require("../models/peticion");
 
 router.post('/login', async(req, res, next) => {
-    logger.info("::: Entra peticion Login :::");
+    var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
+    logger.info("::: Entra peticion Login de IP: " + ip + " :::");
     var header = req.headers['authorization'];
     if (!header) {
         logger.error("::: "+process.env.e400+" :::");
@@ -19,8 +21,7 @@ router.post('/login', async(req, res, next) => {
     }
     var bearer = "";
     try {
-        var bytes = cryptoJs.AES.decrypt(header, process.env.secret2);
-        bearer = bytes.toString(cryptoJs.enc.Utf8);
+        bearer = Desencriptar.aes256(header);
     } catch(err) {
         logger.error("::: "+process.env.e403+" :::");
         return Utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
@@ -49,27 +50,27 @@ router.post('/login', async(req, res, next) => {
             
             Utils.printJson(res, 200, process.env.e200, { titulo: "Usuario", objeto: obj });
             
-        }).catch(err => {
-            Utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+        }).catch(error => {
+            Utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [{message:error.message}] });
         });
-    }).catch(err => {
-        Utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+    }).catch(error => {
+        Utils.printJson(res, 400, error.message, { titulo: 'Errores', objeto: [{message:error.message}] });
     });
 
 });
 
 router.post('/registro', function(req, res, next) {
     logger.info(" ::: Entra peticion registro ::: ");
+    var pet = Desencriptar.aes256(req.body);
     try {
-        peticion.valida3(req.body)
+        peticion.valida3(pet)
     } catch(err) {
         return Utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
     };
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
     var user = {
-        usuario: req.body.usuario,
-        correo: req.body.correo,
-        //rol: req.body.rol,
+        usuario: pet.usuario,
+        correo: pet.correo,
         ip: ip == '::1' ? '127.0.0.1' : ip
     };
 
@@ -82,7 +83,7 @@ router.post('/registro', function(req, res, next) {
                 correo: user.correo,
                 ambiente: process.env.ambiente,
                 dominio: process.env.backend + ':' + process.env.PORT,
-                id: data.id
+                id: Encriptar.aes256(data.id)
             }
             html = template(datos);
             let email = new Mail();
@@ -99,7 +100,7 @@ router.post('/registro', function(req, res, next) {
 
 router.get('/acepta/usuario/:id', function(req, res, next) {
     logger.info(" ::: Entra peticion acepta usuario :::");
-    var id = req.params.id;
+    var id = Desencriptar.aes256(req.params.id);
     var usuariodao  = new UsuarioDAO();
     usuariodao.activar({
         id: id,
@@ -122,7 +123,7 @@ router.get('/acepta/usuario/:id', function(req, res, next) {
 
 router.get('/declina/usuario/:id', function(req, res, next) {
     logger.info(" ::: Entra peticion declina usuario :::");
-    var id = req.params.id;
+    var id = Desencriptar.aes256(req.params.id);
     var usuariodao  = new UsuarioDAO();
     usuariodao.activar({
         id: id,

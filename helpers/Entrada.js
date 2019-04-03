@@ -7,6 +7,7 @@ const PersonaDAO = require("../daos/PersonaDAO");
 const ClienteDAO = require("../daos/ClienteDAO");
 const EjecutaFlujo = require("../helpers/EjecutaFlujo");
 const DatosPersonales = require("../helpers/DatosPersonales");
+const Desencriptar = require("../helpers/Desencripta");
 
 class Entrada {
 
@@ -14,9 +15,8 @@ class Entrada {
     }
 
     static async procesa(datos) {
-        logger.info(" ::: Inicia proceso de ambientacion usuarios :::");
+        logger.info(" ::: Inicia proceso de ambientacion usuarios " + JSON.stringify(datos) + " :::");
         Peticion.valida(datos);
-        console.log(datos);
     
         var eventosEjecutar = new Array();
         var flujosdao = new FlujoDAO();
@@ -116,7 +116,7 @@ class Entrada {
     }
 
     static async reProcesa(datos) {
-        logger.info(" ::: Inicia proceso de re ambientacion usuarios :::");
+        logger.info(" ::: Inicia proceso de re ambientacion usuarios " + JSON.stringify(datos) + " :::");
 
         Peticion.valida2(datos);
     

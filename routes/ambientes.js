@@ -7,10 +7,11 @@ const FlujoDAO = require('../daos/FlujoDAO');
 const ClienteDAO = require("../daos/ClienteDAO");
 const EntidadDAO = require("../daos/EntidadDAO");
 const Entrada = require("../helpers/Entrada");
+const Desencriptar = require("../helpers/Desencripta");
 
 router.post('/usuarios', function(req, res, next) {
     logger.info("Entra peticion ambientar usuarios");
-    Entrada.procesa(req.body).then(data => {
+    Entrada.procesa(Desencriptar.aes256(req.body)).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
@@ -23,7 +24,7 @@ router.post('/usuarios', function(req, res, next) {
 
 router.put('/usuarios', function(req, res, next) {
     logger.info("Entra peticion re ambientar usuarios");
-    Entrada.reProcesa(req.body).then(data => {
+    Entrada.reProcesa(Desencriptar.aes256(req.body)).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
@@ -67,7 +68,7 @@ router.get('/entidades', function(req, res, next) {
 router.get('/consulta/usuario/:id', function(req, res, next) {
     logger.info("Entra peticion consulta usuario por id");
     var clientedao = new ClienteDAO();
-    clientedao.buscar(req.params.id).then(data => {
+    clientedao.buscar(Desencriptar.aes256(req.params.id)).then(data => {
         Utils.printJson(res, 200, process.env.e200, {titulo: "infoClientes", objeto: data});
     }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
@@ -77,7 +78,7 @@ router.get('/consulta/usuario/:id', function(req, res, next) {
 router.delete('/borra/usuario/:id', function(req, res, next) {
     logger.info("Entra peticion borado de usuario por id");
     var clientedao = new ClienteDAO();
-    clientedao.eliminar(req.params.id).then(data => {
+    clientedao.eliminar(Desencriptar.aes256(req.params.id)).then(data => {
         Utils.printJson(res, 200, process.env.e200, null);
     }).catch(error => {
         Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });

@@ -2,6 +2,7 @@ const logger = require('log4js').getLogger("Encriptar");
 const base = require('base-64');
 const utf8 = require('utf8');
 const crypto = require('crypto');
+const CryptoJS = require('crypto-js');
 
 class Encripta {
     
@@ -22,6 +23,11 @@ class Encripta {
             padding: crypto.constants.RSA_PKCS1_PADDING,
         }, Buffer.from(datos)).toString("base64");
         return encode;
+    }
+
+    static aes256(texto) {
+        var ciphertext = CryptoJS.AES.encrypt(texto, process.env.secret2);
+        return ciphertext.toString();
     }
 
 }

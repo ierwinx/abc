@@ -124,7 +124,8 @@ var cliente = new Schema({
     vigencia: String,
     descFlujo: String,
     cuentaCliente: String,
-    alias: String
+    alias: String,
+    fecha: Date
 }, {
     toJSON: {
         transform: (doc, ret, game) => {

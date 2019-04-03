@@ -1,8 +1,8 @@
 const logger = require('log4js').getLogger("Utils");
 const uuidv1 = require('uuid/v1');
 const UsuarioDAO = require('../daos/UsuarioDAO');
-const cryptoJs = require('crypto-js');
 const DSI = require("../services/OAUTH/DSI");
+const Encriptar = require("../helpers/Encriptar");
 
 class Utils {
 
@@ -21,43 +21,49 @@ class Utils {
         if (object !== null) {
             json[object.titulo] = object.objeto
         }
-        logger.info(" ::: se retorna el siguiente json con estatus "+status+" al cliente ::: ");
-        console.log(json);
-        res.status(status).json(json);
+        logger.info(" ::: JSON respuesta " + JSON.stringify(json) + " con Status " + status + " ::: ");
+        res.status(status).json(Encriptar.aes256(JSON.stringify(json)));
     }
 
     verifyToken(req, res, next) {
         logger.info("::: se valida acceso al sistema :::");
+
         var header = req.headers['authorization'];
         if (!header) {
             logger.error("::: "+process.env.e400+" :::");
-            return printJson(res, 400, process.env.e400, null);
+            return Utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [{message:process.env.e400}] });
         }
         var bearer = "";
         try {
-            var bytes = cryptoJs.AES.decrypt(header, process.env.secret2);
-            bearer = bytes.toString(cryptoJs.enc.Utf8);
+            bearer = Desencriptar.aes256(header);
         } catch(err) {
             logger.error("::: "+process.env.e403+" :::");
-            return printJson(res, 403, process.env.e403, null);
+            return Utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
         }
-    
+
         var dsi = new DSI();
         dsi.validaToken(bearer).then(decoded => {
-            dsi.verificaInformacion().then(async(resp) => {
-    
+            logger.info(" ::: Se obtiene el usuario a loguearse "+decoded.user_id+" :::");
+            dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
+                
                 var usuariodao = new UsuarioDAO();
-                var usuario = await usuariodao.buscarNumeroUsuario(decoded.user_id).then().catch(err => {
-                    return printJson(res, 500, "Favor de registrarse en el sistema", null);
-                });
-    
+                var usuario = await usuariodao.buscarNumeroUsuario(decoded.user_id).then();
+
+                if (usuario == 0) {
+                    return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+                } else if (usuario == 1) {
+                    return Utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+                } else if (usuario == 2) {
+                    return Utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
+                }
+
                 if (usuario.usuario != resp.usuario.No_empleado) {
-                    printJson(res, 500, "Error al verificar usuario", null);
+                    Utils.printJson(res, 500, "Error al verificar usuario", null);
                 } else {
                     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
                     if (ip != "::1") {
                         if (usuario.ip != ip) {
-                            printJson(res, 505, process.env.e505, null);
+                            Utils.printJson(res, 505, process.env.e505, null);
                         } else {
                             next();
                         }
@@ -65,12 +71,14 @@ class Utils {
                         next();
                     }
                 }
+                
             }).catch(err => {
-                return printJson(res, 500, err.message, null);
-            })
+                Utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+            });
         }).catch(err => {
-            return printJson(res, 400, err.message, null);
+            Utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
         });
+        
     }
 
 }

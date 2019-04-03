@@ -8,6 +8,7 @@ class ClienteDAO {
 
     async guardar(objeto) {
         logger.info(" ::: Guarda Informacion de un Cliente :::");
+        objeto.fecha = new Date();
         var cliente = new Cliente(objeto);
         var errores = cliente.validateSync();
         if (errores) {
