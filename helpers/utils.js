@@ -22,7 +22,8 @@ class Utils {
             json[object.titulo] = object.objeto
         }
         logger.info(" ::: JSON respuesta " + JSON.stringify(json) + " con Status " + status + " ::: ");
-        res.status(status).json(Encriptar.aes256(JSON.stringify(json)));
+        //res.status(status).json(Encriptar.aes256(JSON.stringify(json)));
+        res.status(status).json(json);
     }
 
     verifyToken(req, res, next) {
@@ -57,12 +58,12 @@ class Utils {
                     return Utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
                 }
 
-                if (usuario.usuario != resp.usuario.No_empleado) {
+                if (Desencriptar.aes256(usuario.usuario) != resp.usuario.No_empleado) {
                     Utils.printJson(res, 500, "Error al verificar usuario", null);
                 } else {
                     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
                     if (ip != "::1") {
-                        if (usuario.ip != ip) {
+                        if (Desencriptar.aes256(usuario.ip) != ip) {
                             Utils.printJson(res, 505, process.env.e505, null);
                         } else {
                             next();

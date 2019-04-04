@@ -11,7 +11,7 @@ const Desencriptar = require("../helpers/Desencripta");
 
 router.post('/usuarios', function(req, res, next) {
     logger.info("Entra peticion ambientar usuarios");
-    Entrada.procesa(Desencriptar.aes256(req.body)).then(data => {
+    Entrada.procesa(datos).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
@@ -66,7 +66,7 @@ router.get('/entidades', function(req, res, next) {
 });
 
 router.get('/consulta/usuario/:id', function(req, res, next) {
-    logger.info("Entra peticion consulta usuario por id");
+    logger.info("Entra peticion consulta usuario por id " + req.params.id);
     var clientedao = new ClienteDAO();
     clientedao.buscar(Desencriptar.aes256(req.params.id)).then(data => {
         Utils.printJson(res, 200, process.env.e200, {titulo: "infoClientes", objeto: data});
@@ -76,7 +76,7 @@ router.get('/consulta/usuario/:id', function(req, res, next) {
 });
 
 router.delete('/borra/usuario/:id', function(req, res, next) {
-    logger.info("Entra peticion borado de usuario por id");
+    logger.info("Entra peticion borado de usuario por id " + req.params.id);
     var clientedao = new ClienteDAO();
     clientedao.eliminar(Desencriptar.aes256(req.params.id)).then(data => {
         Utils.printJson(res, 200, process.env.e200, null);

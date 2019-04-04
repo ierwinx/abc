@@ -1,19 +1,10 @@
 const logger = require('log4js').getLogger("Encriptar");
-const base = require('base-64');
-const utf8 = require('utf8');
 const crypto = require('crypto');
 const CryptoJS = require('crypto-js');
 
 class Encripta {
     
     constructor() {
-    }
-
-    base64(datos) {
-        logger.info(" ::: Encripta un string a base64 ::: ");
-        var bytes = utf8.encode(datos);
-        var encode = base.encode(bytes);
-        return encode;
     }
 
     cifrar(datos) {
@@ -26,8 +17,11 @@ class Encripta {
     }
 
     static aes256(texto) {
-        var ciphertext = CryptoJS.AES.encrypt(texto, process.env.secret2);
-        return ciphertext.toString();
+        logger.info(" ::: Encripta un string a aes256 ::: ");
+        var bytes = CryptoJS.AES.encrypt(texto, process.env.secret2);
+        var base = CryptoJS.enc.Base64.parse(bytes.toString());
+        var hex = base.toString(CryptoJS.enc.Hex);
+        return hex;
     }
 
 }

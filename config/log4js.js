@@ -29,6 +29,6 @@ log4js.configure({
     },
     pm2: true
 });
-app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO, format: ':method :url' }));
+app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO, format: '{ Method: :method, URL: :url, Hostname: :hostname }' }));
 
 module.exports = app;

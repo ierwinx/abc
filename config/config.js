@@ -1,5 +1,6 @@
 const Auth = require('../services/360/Auth');
 const logger = require('log4js').getLogger("config");
+//const BloqueoDAO = require("../daos/BloqueoDAO");
 
 /****************************
  *         Ambiente         *
@@ -30,7 +31,7 @@ process.env.MAIL = "eluz@bancoazteca.com";
 process.env.e200 = "Operación realizada exitosamente";
 process.env.e201 = "Se ejecuto correctamente la transacción";
 process.env.e500 = "Error interno del servidor";
-process.env.e505 = "Ip en listas negras";
+process.env.e505 = "Ip bloqueada temporalmente";
 process.env.e400 = "Token requerido";
 process.env.e404 = "Path no encontrado";
 process.env.e403 = "Token Inválido";
@@ -85,3 +86,19 @@ Auth.autenticar().then(res => {
 }).catch(error => {
     logger.error(" ::: Error al obtener token 360 ::: ");
 });
+
+
+/*setInterval(async() => {
+    logger.info(" ::: Inicia el desbloqueo de ip ::: ");
+    var desbloqueo = new BloqueoDAO();
+    var lista = await desbloqueo.listar().then().catch(error => {
+        logger.error(" ::: Error al obtener listas de ips bloqueadas ::: " + error);
+    });
+    
+    lista.forEach(element => {
+        desbloqueo.eliminar(element.id).then().catch(error => {
+            logger.error(" ::: Error al desbloquear ips ::: " + error);
+        });
+    });
+    
+}, 60000);*/

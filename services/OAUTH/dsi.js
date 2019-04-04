@@ -50,7 +50,7 @@ class DSI {
                 LlavMaest : usuario
             };
     
-            logger.info("SOAP: " + args);
+            logger.info("SOAP: " + JSON.stringify(args));
             soap.createClient(url, function(err, client) {
                 client.DatosAuxiliares(args, function(err2, result) {
                     if (err2 == null) {

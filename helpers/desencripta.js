@@ -1,6 +1,4 @@
 const logger = require('log4js').getLogger("Desencripta");
-const base = require('base-64');
-const utf8 = require('utf8');
 const CryptoJS = require('crypto-js');
 
 class Desencripta {
@@ -8,16 +6,13 @@ class Desencripta {
     constructor() {
     }
 
-    base64(datos) {
-        logger.info(" ::: Desencripta un string base64 ::: ");
-        var bytes = base.decode(datos);
-        var texto = utf8.decode(bytes);
-        return texto;
-    }
-
     static aes256(texto) {
-        var bytes = CryptoJS.AES.decrypt(texto, process.env.secret2);
-        return bytes.toString(CryptoJS.enc.Utf8);
+        logger.info(" ::: Desencripta un texto aes256 a string ::: ");
+        var hex = CryptoJS.enc.Hex.parse(texto);
+        var base64 = hex.toString(CryptoJS.enc.Base64);
+        var aes = CryptoJS.AES.decrypt(base64, process.env.secret2);
+        var texto = aes.toString(CryptoJS.enc.Utf8);
+        return texto;
     }
 
 }

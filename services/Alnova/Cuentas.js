@@ -37,6 +37,7 @@ class Cuentas {
             soap.createClient(url, function(err, client) {
                 client.MTEjecutaTransaccion(args, function(err2, result) {
                     if (err2 == null) {
+                        logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
@@ -88,6 +89,7 @@ class Cuentas {
             soap.createClient(url, function(err, client) {
                 client.MTEjecutaTransaccion(args, function(err2, result) {
                     if (err2 == null) {
+                        logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
@@ -147,6 +149,7 @@ class Cuentas {
             soap.createClient(url, function(err, client) {
                 client.MTEjecutaTransaccion(args, function(err2, result) {
                     if (err2 == null) {
+                        logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));

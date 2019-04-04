@@ -10,10 +10,12 @@ const Encriptar = require('../helpers/Encriptar');
 const DSI = require("../services/OAUTH/DSI");
 const Handlebars = require("Handlebars");
 const peticion = require("../models/peticion");
+const BloqueoDAO = require("../daos/BloqueoDAO");
+const Fechas = require("../helpers/Fechas");
 
 router.post('/login', async(req, res, next) => {
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
-    logger.info("::: Entra peticion Login de IP: " + ip + " :::");
+    logger.info("::: Entra peticion Login de ip: " + ip + " :::");
     var header = req.headers['authorization'];
     if (!header) {
         logger.error("::: "+process.env.e400+" :::");
@@ -53,25 +55,54 @@ router.post('/login', async(req, res, next) => {
         }).catch(error => {
             Utils.printJson(res, 500, error.message, { titulo: 'Errores', objeto: [{message:error.message}] });
         });
-    }).catch(error => {
-        Utils.printJson(res, 400, error.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+    }).catch(async(error) => {
+        if (error.message == "Token invalido") {
+            var bloqueodao = new BloqueoDAO();
+            var usuarioBloqueado = await bloqueodao.buscar(ip == "::1" ? "127.0.0.1" : ip);
+            if (usuarioBloqueado) {
+                if (usuarioBloqueado.contador == 3) {
+                    return Utils.printJson(res, 505, process.env.e505, { titulo: 'Errores', objeto: [{message:process.env.e505}, {message: "Favor de validar en 10 minutos"}] });
+                } else {
+                    usuarioBloqueado.contador = usuarioBloqueado.contador + 1;
+                    var actualizado = await bloqueodao.actualiza(usuarioBloqueado).then().catch(error => {
+                        logger.error(" ::: Error al actualizar usuario bloqueado :::");
+                        return Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:process.env.e500}] });
+                    });
+                    if (actualizado.ok == 1){
+                        return Utils.printJson(res, 505, process.env.e505, { titulo: 'Errores', objeto: [{message:error.message}] });
+                    }
+                }
+            } else {
+                var bloqueo = {
+                    ip: ip == "::1" ? "127.0.0.1" : ip,
+                    hora: Fechas.horaActual()
+                }
+                bloqueodao.guardar(bloqueo).then().catch(error => {
+                    logger.error(" ::: Error al guardar usuario bloqueado :::");
+                    return Utils.printJson(res, 500, process.env.e500, { titulo: 'Errores', objeto: [{message:error.message}] });
+                });
+                return Utils.printJson(res, 505, process.env.e505, { titulo: 'Errores', objeto: [{message:error.message}] });
+            }
+        } else {
+            Utils.printJson(res, 400, error.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+        }
     });
 
 });
 
 router.post('/registro', function(req, res, next) {
     logger.info(" ::: Entra peticion registro ::: ");
-    var pet = Desencriptar.aes256(req.body);
+    var pet = req.body;
     try {
-        peticion.valida3(pet)
+        peticion.valida3(req.body)
     } catch(err) {
         return Utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
     };
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
     var user = {
-        usuario: pet.usuario,
+        usuario: Encriptar.aes256(pet.usuario),
         correo: pet.correo,
-        ip: ip == '::1' ? '127.0.0.1' : ip
+        ip: Encriptar.aes256(ip == '::1' ? '127.0.0.1' : ip)
     };
 
     var usuariodao  = new UsuarioDAO();
@@ -79,7 +110,7 @@ router.post('/registro', function(req, res, next) {
         fs.readFile("./views/Emails/email.hbs", 'utf8', function(err, html) {
             var template = Handlebars.compile(html);
             var datos = {
-                usuario: user.usuario,
+                usuario: Desencriptar.aes256(user.usuario),
                 correo: user.correo,
                 ambiente: process.env.ambiente,
                 dominio: process.env.backend + ':' + process.env.PORT,

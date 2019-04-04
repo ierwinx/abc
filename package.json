@@ -11,7 +11,6 @@
     "url": "git@10.50.109.50:364088/abc-back.git"
   },
   "dependencies": {
-    "base-64": "^0.1.0",
     "chai": "^4.2.0",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
@@ -32,7 +31,6 @@
     "nodemailer": "^5.1.1",
     "querystring": "^0.2.0",
     "soap": "^0.26.0",
-    "utf8": "^3.0.0",
     "uuid": "^3.3.2"
   }
 }

@@ -1,4 +1,5 @@
 const mongoose = require('../config/ConexionDB');
+const Desencripta = require("../helpers/Desencripta");
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 var Schema = mongoose.Schema;
@@ -21,13 +22,18 @@ var user = new Schema({
     ip: {
         type: String,
         required: [true, process.env.requerido],
-        unique: process.env.unico,
-        match: [/^[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}$/, process.env.expReg]
+        unique: process.env.unico
     }
 }, {
     toJSON: {
         transform: (doc, ret, game) => {
+            ret.ip = Desencripta.aes256(ret.ip);
             delete ret.__v;
+        }
+    },
+    toObject: {
+        transform: (doc, ret, game) => {
+            ret.ip = Desencripta.aes256(ret.ip);
         }
     }
 });
