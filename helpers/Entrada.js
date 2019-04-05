@@ -63,6 +63,9 @@ class Entrada {
             case 7.2:
                 validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                 break;
+            case 7.2:
+                validaciones.iteraInfo(datos.infoCliente, datos.flujo);
+                break;
             default:
                 if (datos.infoCliente.length > 0) {
                     if (validaciones.crearUsuario(datos.infoCliente[0])) {

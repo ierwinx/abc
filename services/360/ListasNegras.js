@@ -99,6 +99,9 @@ class ListasNegras {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de alta listas negras 360 ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de alta listas negras 360"));
                         }
+                    } else if (respuesta.estatus == 3){
+                        logger.error(" ::: Ya se dio de alta en listas negras el usuario ::: ");
+                        reject(new Error("Ya se dio de alta en listas negras previamente el usuario"));
                     } else {
                         logger.error(" ::: Ocurrio un Error con el consumo del servicio de alta listas negras 360 ::: ");
                         reject(new Error("Ocurrio un Error con el consumo del servicio de alta listas negras 360"));
