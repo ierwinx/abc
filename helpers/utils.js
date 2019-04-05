@@ -22,8 +22,8 @@ class Utils {
             json[object.titulo] = object.objeto
         }
         logger.info(" ::: JSON respuesta " + JSON.stringify(json) + " con Status " + status + " ::: ");
-        //res.status(status).json(Encriptar.aes256(JSON.stringify(json)));
-        res.status(status).json(json);
+        res.status(status).json(Encriptar.aes256(JSON.stringify(json)));
+        //res.status(status).json(json);
     }
 
     verifyToken(req, res, next) {

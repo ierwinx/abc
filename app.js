@@ -7,7 +7,7 @@ const handlebars = require('express-handlebars');
 const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
-
+const bodyParser = require('body-parser');
 const homeRouter = require('./routes/home');
 const ambientes = require('./routes/ambientes');
 const auth = require('./routes/auth');
@@ -20,6 +20,7 @@ app.use(cors());
 app.use(require('./config/log4js'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.text());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

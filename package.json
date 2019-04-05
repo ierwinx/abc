@@ -11,6 +11,7 @@
     "url": "git@10.50.109.50:364088/abc-back.git"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
@@ -22,6 +23,7 @@
     "fast-xml-parser": "^3.12.14",
     "fastest-validator": "^0.6.16",
     "handlebars": "^4.1.1",
+    "helmet": "^3.16.0",
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.5.0",
     "log4js": "^3.0.6",

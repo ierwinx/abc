@@ -92,9 +92,9 @@ router.post('/login', async(req, res, next) => {
 
 router.post('/registro', function(req, res, next) {
     logger.info(" ::: Entra peticion registro ::: ");
-    var pet = req.body;
+    var pet = Desencriptar.aes256(req.body);
     try {
-        peticion.valida3(req.body)
+        peticion.valida3(Desencriptar.aes256(req.body))
     } catch(err) {
         return Utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
     };

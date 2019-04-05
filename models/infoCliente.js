@@ -400,11 +400,12 @@ class InfoCliente {
                 this.principales(datos);
                 this.direcciones(datos);
                 break;
-            case 1.10:
+            case 1.11:
                 this.principales(datos);
                 this.direcciones(datos);
+                this.ife(datos);
                 break;
-            case 1.11:
+            case 1.12:
                 this.principales(datos);
                 this.direcciones(datos);
                 break;
