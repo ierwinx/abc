@@ -125,6 +125,7 @@ var cliente = new Schema({
     descFlujo: String,
     cuentaCliente: String,
     alias: String,
+    idListaNegra: String,
     fecha: Date
 }, {
     toJSON: {

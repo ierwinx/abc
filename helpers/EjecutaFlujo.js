@@ -11,6 +11,7 @@ const Actualiza = require("../services/360/Actualiza");
 const FlujoINE = require("./FlujoINE");
 const Cuentas = require("../services/Alnova/Cuentas");
 const DatosPersonales = require("../helpers/DatosPersonales");
+const FlujoLN360 = require("./FlujoLN360");
 
 class EjecutaFlujo {
 
@@ -143,6 +144,9 @@ class EjecutaFlujo {
             }
             case 2.8: {
                 logger.info(" ::: Listas Negras 360 ::: ");
+                objeto = FlujoLN360.ejecuta(objeto).then().catch(err => {
+                    throw err;
+                });
                 break;
             }
             case 2.9: {

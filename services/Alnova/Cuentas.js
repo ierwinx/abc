@@ -39,8 +39,8 @@ class Cuentas {
                     if (err2 == null) {
                         logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
-                            logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 ::: ");
-                            reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
+                            logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 de Alnova ::: ");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio MB80  de Alnova"));
                         } else {
                             var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                             logger.info("Respuesta: " + JSON.stringify(respuesta));
@@ -48,12 +48,12 @@ class Cuentas {
                                 objeto.cuentaCliente = respuesta.CTACTE;
                                 resolve(objeto);
                             } else {
-                                logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 ::: ");
-                                reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
+                                logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80  de Alnova ::: ");
+                                reject(new Error("Ocurrio un Error con el consumo del servicio MB80  de Alnova"));
                             }
                         }
                     } else {
-                        reject(new Error("Ocurrio un Error con el consumo del servicio MB80"));
+                        reject(new Error("Ocurrio un Error con el consumo del servicio MB80  de Alnova"));
                     }
                 });
             });
@@ -91,8 +91,8 @@ class Cuentas {
                     if (err2 == null) {
                         logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
-                            logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 ::: ");
-                            reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
+                            logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 de Alnova ::: ");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio de MB34 de Alnova"));
                         } else {
                             var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                             logger.info("Respuesta: " + JSON.stringify(respuesta));
@@ -100,13 +100,13 @@ class Cuentas {
                                 objeto.cuentaCliente = respuesta.NUMACCO;
                                 resolve(objeto);
                             } else {
-                                logger.error("Ocurrio un Error con el consumo del servicio de MB34");
-                                reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
+                                logger.error("Ocurrio un Error con el consumo del servicio de MB34 de Alnova");
+                                reject(new Error("Ocurrio un Error con el consumo del servicio de MB34 de Alnova"));
                             }
                         }
                     } else {
-                        logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 ::: ");
-                        reject(new Error("Ocurrio un Error con el consumo del servicio de MB34"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 de Alnova ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de MB34 de Alnova"));
                     }
                 });
             });
@@ -151,8 +151,8 @@ class Cuentas {
                     if (err2 == null) {
                         logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
-                            logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
-                            reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
+                            logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
                         } else {
                             var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                             logger.info("Respuesta: " + JSON.stringify(respuesta));
@@ -160,13 +160,13 @@ class Cuentas {
                                 objeto.cuentaCliente = respuesta.ACC;
                                 resolve(objeto);
                             } else {
-                                logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
-                                reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
+                                logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
+                                reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
                             }
                         }
                     } else {
-                        logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 ::: ");
-                        reject(new Error("Ocurrio un Error con el consumo del servicio de MB02"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
                     }
                 });
             });
