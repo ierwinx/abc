@@ -105,7 +105,7 @@ Auth.autenticar().then(res => {
             }
         });
         
-    }, 600000);
+    }, 300000);
     logger.info(" ::: Inicia App ABC correctamente ::: ");
 }).catch(error => {
     logger.error(" ::: Error al obtener token 360 ::: ");
