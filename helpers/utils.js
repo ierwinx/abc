@@ -47,7 +47,7 @@ class Utils {
             dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
                 
                 var usuariodao = new UsuarioDAO();
-                var usuario = await usuariodao.buscarNumeroUsuario(decoded.user_id).then();
+                var usuario = await usuariodao.buscarCorreo(decoded.user_id).then();
 
                 if (usuario == 0) {
                     return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });

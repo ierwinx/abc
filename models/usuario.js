@@ -27,13 +27,7 @@ var user = new Schema({
 }, {
     toJSON: {
         transform: (doc, ret, game) => {
-            ret.ip = Desencripta.aes256(ret.ip);
             delete ret.__v;
-        }
-    },
-    toObject: {
-        transform: (doc, ret, game) => {
-            ret.ip = Desencripta.aes256(ret.ip);
         }
     }
 });

@@ -35,7 +35,7 @@ router.post('/login', async(req, res, next) => {
         dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
             
             var usuariodao = new UsuarioDAO();
-            var usuario = await usuariodao.buscarNumeroUsuario(decoded.user_id).then();
+            var usuario = await usuariodao.buscarCorreo(resp.usuario.Correo).then();
 
             if (usuario == 0) {
                 return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
@@ -92,12 +92,21 @@ router.post('/login', async(req, res, next) => {
 
 router.post('/registro', function(req, res, next) {
     logger.info(" ::: Entra peticion registro ::: ");
-    var pet = Desencriptar.aes256(req.body);
+    var pet = new Object();
+    if (req.body.length > 0) {
+        pet = JSON.parse(Desencriptar.aes256(req.body));
+    } else {
+        try {
+            peticion.valida3({});
+        } catch(err) {
+            return Utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
+        }
+    }
     try {
-        peticion.valida3(Desencriptar.aes256(req.body))
+        peticion.valida3(JSON.parse(Desencriptar.aes256(req.body)));
     } catch(err) {
         return Utils.printJson(res, 500, process.env.e500, { titulo: "Errores", objeto: err});
-    };
+    }
     var ip = req.ip.replace(/^([a-z:]+):(\d+).(\d+).(\d+).(\d+)$/g, '$2.$3.$4.$5');
     var user = {
         usuario: Encriptar.aes256(pet.usuario),

@@ -68,10 +68,10 @@ class UsuarioDAO {
         return respuesta;
     }
 
-    async buscarNumeroUsuario(numero) {
-        logger.info(" ::: Buscar un usuario por numero de empleado :::");
+    async buscarCorreo(email) {
+        logger.info(" ::: Buscar un usuario por email ::: "+ email);
         var respuesta = {};
-        await Usuario.findOne({ usuario: numero }, function(err, user) {
+        await Usuario.findOne({ correo: email }, function(err, user) {
             if (err) {
                 logger.error(" ::: Ocurrio un Error al buscar un usuario :::");
                 return respuesta = 0;
