@@ -255,6 +255,45 @@ class InfoCliente {
             }
         }
 
+        this.renapo = {
+            nombre: { 
+                type: "string",
+                min: 1,
+                max: 30
+            },
+            apellidoP : { 
+                type: "string",
+                min: 1,
+                max: 50
+            },
+            apellidoM: {
+                type: "string",
+                optional: true,
+                max: 50
+            },
+            fechaNac : {
+                type: "string",
+                pattern: /^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/
+            },
+            curp: {
+                type: "string",
+                pattern: /[A-Z][AEIOUX][A-Z]{2}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[MH]([ABCMTZ]S|[BCJMOT]C|[CNPST]L|[GNQ]T|[GQS]R|C[MH]|[MY]N|[DH]G|NE|VZ|DF|SP)[BCDFGHJ-NP-TV-Z]{3}[0-9A-Z][0-9]$/
+            },
+            rfc: {
+                type: "string",
+                pattern: /[A-Z&amp;Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]/
+            },
+            genero: { 
+                type: "enum",
+                values: ["F", "M"]
+            },
+            idEntidadFederativa: {
+                type: "number",
+                min:0,
+                max:33
+            }
+        };
+
     }
 
     principales(datos) {
@@ -379,6 +418,15 @@ class InfoCliente {
         }
     }
 
+    datosRenapo(datos) {
+        logger.info(" ::: Se valida que tenga datos ln :::");
+        var check = this.v.compile(this.renapo);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
     iteraInfo(datos, flujo) {
         if (datos.length > 0) {
             datos.forEach(element => {
@@ -488,7 +536,7 @@ class InfoCliente {
                 this.direcciones(datos);
                 break;
             case 7:
-                this.principales(datos);
+                this.datosRenapo(datos);
                 break;
             case 7.1:
                 this.consulta(datos);

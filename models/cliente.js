@@ -40,12 +40,12 @@ var cliente = new Schema({
     },
     numCel: {
         type: String,
-        required: [true, process.env.requerido],
+        required: [false, process.env.requerido],
     },
     telefonoDomicilio: String,
     correo: {
         type: String,
-        required: [true, process.env.requerido],
+        required: [false, process.env.requerido],
         match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, process.env.expReg]
     },
     curp: {
@@ -66,11 +66,11 @@ var cliente = new Schema({
     ocr: String,
     calle: {
         type: String,
-        required: [true, process.env.requerido]
+        required: [false, process.env.requerido]
     },
     numExt: {
         type: String,
-        required: [true, process.env.requerido]
+        required: [false, process.env.requerido]
     },
     numInt: {
         type: String,
@@ -78,17 +78,17 @@ var cliente = new Schema({
     },
     cp: {
         type: String,
-        required: [true, process.env.requerido],
+        required: [false, process.env.requerido],
         minlength: [5, process.env.minLongitud + '5'],
         maxlength: [6, process.env.maxLongitud + '6']
     },
     colonia: {
         type: String,
-        required: [true, process.env.requerido]
+        required: [false, process.env.requerido]
     },
     delegacion: {
         type: String,
-        required: [true, process.env.requerido]
+        required: [false, process.env.requerido]
     },
     idEntidadFederativa: {
         type: String,
