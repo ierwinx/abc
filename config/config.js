@@ -1,6 +1,5 @@
 const Auth = require('../services/360/Auth');
 const logger = require('log4js').getLogger("config");
-//const BloqueoDAO = require("../daos/BloqueoDAO");
 
 /****************************
  *         Ambiente         *
@@ -82,23 +81,32 @@ process.env.NODE_ENV === "production"
  ****************************/
 Auth.autenticar().then(res => {
     process.env.token = res;
+    const BloqueoDAO = require("../daos/BloqueoDAO");
+    setInterval(async() => {
+        logger.info(" ::: Inicia el desbloqueo de ip ::: ");
+        var desbloqueo = new BloqueoDAO();
+        var lista = await desbloqueo.listar().then().catch(error => {
+            logger.error(" ::: Error al obtener listas de ips bloqueadas ::: " + error);
+        });
+        
+        lista.forEach(element => {
+            var arreglo = element.hora.split(":");
+            var hora = parseInt(arreglo[0]);
+            var minutos = parseInt(arreglo[1]);
+            var segundos = parseInt(arreglo[2]);
+            var fecha = new Date();
+            var horaActual = fecha.getHours();
+            var minutoActual = fecha.getHours();
+            var segundoActual = fecha.getHours();
+            if (hora >= horaActual && minutos > 10) {
+                desbloqueo.eliminar(element.id).then().catch(error => {
+                    logger.error(" ::: Error al desbloquear ips ::: " + error);
+                });
+            }
+        });
+        
+    }, 600000);
     logger.info(" ::: Inicia App ABC correctamente ::: ");
 }).catch(error => {
     logger.error(" ::: Error al obtener token 360 ::: ");
 });
-
-
-/*setInterval(async() => {
-    logger.info(" ::: Inicia el desbloqueo de ip ::: ");
-    var desbloqueo = new BloqueoDAO();
-    var lista = await desbloqueo.listar().then().catch(error => {
-        logger.error(" ::: Error al obtener listas de ips bloqueadas ::: " + error);
-    });
-    
-    lista.forEach(element => {
-        desbloqueo.eliminar(element.id).then().catch(error => {
-            logger.error(" ::: Error al desbloquear ips ::: " + error);
-        });
-    });
-    
-}, 60000);*/
