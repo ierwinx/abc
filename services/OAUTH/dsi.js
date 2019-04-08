@@ -2,6 +2,7 @@ const logger = require('log4js').getLogger("DSI");
 const https = require('https');
 const soap = require("soap");
 const parser = require('fast-xml-parser');
+const Utils = require("../../helpers/Utils");
 
 class DSI {
 
@@ -18,7 +19,7 @@ class DSI {
                 headers: {
                     "Authorization": bearer
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: 'authns.desadsi.gs',
                 port: 443,
                 path: '/nidp/oauth/nam/tokeninfo',

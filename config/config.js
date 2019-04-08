@@ -74,7 +74,12 @@ process.env.contraSSL = "1Qaz2wsx";
 /****************************
  *    ambiente sistema      *
  ****************************/
-process.env.NODE_ENV === "production"
+process.env.NODE_ENV = "production"
+
+/****************************
+ *    passCertificate      *
+ ****************************/
+process.env.passCertificate = "false";
 
 /****************************
  *    Obtiene token 360     *
@@ -93,11 +98,8 @@ Auth.autenticar().then(res => {
             var arreglo = element.hora.split(":");
             var hora = parseInt(arreglo[0]);
             var minutos = parseInt(arreglo[1]);
-            var segundos = parseInt(arreglo[2]);
             var fecha = new Date();
             var horaActual = fecha.getHours();
-            var minutoActual = fecha.getHours();
-            var segundoActual = fecha.getHours();
             if (hora >= horaActual && minutos > 10) {
                 desbloqueo.eliminar(element.id).then().catch(error => {
                     logger.error(" ::: Error al desbloquear ips ::: " + error);

@@ -1,5 +1,6 @@
 const logger = require('log4js').getLogger("Activacion");
 const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class Activacion {
 
@@ -24,7 +25,7 @@ class Activacion {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/morannon/activacion/1',

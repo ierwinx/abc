@@ -3,6 +3,7 @@ const DatosPersonales = require('../../helpers/DatosPersonales');
 const Encriptar = require('../../helpers/Encriptar');
 const querystring = require('querystring');
 const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class Auth {
 
@@ -25,7 +26,7 @@ class Auth {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.63.32.44',
                 port: 8446,
                 path: '/auth/v4/oauth/token',

@@ -1,6 +1,6 @@
 const logger = require('log4js').getLogger("Utils");
 const uuidv1 = require('uuid/v1');
-const UsuarioDAO = require('../daos/UsuarioDAO');
+//const UsuarioDAO = require('../daos/UsuarioDAO');
 const DSI = require("../services/OAUTH/DSI");
 const Encriptar = require("../helpers/Encriptar");
 
@@ -25,7 +25,7 @@ class Utils {
         res.status(status).json(Encriptar.aes256(JSON.stringify(json)));
     }
 
-    verifyToken(req, res, next) {
+    /*verifyToken(req, res, next) {
         logger.info("::: se valida acceso al sistema :::");
 
         var header = req.headers['authorization'];
@@ -79,6 +79,14 @@ class Utils {
             Utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
         });
         
+    }*/
+
+    static parseBool(cadena) {
+        var resp = true;
+        if (cadena == 'false') {
+            resp = false;
+        }
+        return resp;
     }
 
 }

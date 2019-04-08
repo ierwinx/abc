@@ -1,6 +1,7 @@
 const logger = require('log4js').getLogger("ListasNegras");
 const querystring = require('querystring');
 const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class ListasNegras {
 
@@ -28,7 +29,7 @@ class ListasNegras {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/ln/consulta/1?' + objeto,
@@ -82,7 +83,7 @@ class ListasNegras {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/ln/alta/1',

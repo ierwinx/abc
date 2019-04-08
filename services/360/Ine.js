@@ -1,6 +1,7 @@
 const logger = require('log4js').getLogger("Ine");
 const querystring = require('querystring');
 const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class Ine {
 
@@ -17,7 +18,7 @@ class Ine {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/ine/alta/1',
@@ -55,7 +56,7 @@ class Ine {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/ine/consulta/1?' + query,
@@ -88,7 +89,7 @@ class Ine {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/ine/borra/1',
@@ -123,7 +124,7 @@ class Ine {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/ine/actualiza/1',

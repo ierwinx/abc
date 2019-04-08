@@ -1,5 +1,6 @@
 const logger = require('log4js').getLogger("Desbloqueo");
 const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class Desbloqueo {
 
@@ -17,7 +18,7 @@ class Desbloqueo {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/morannon/desbloqueo/1',

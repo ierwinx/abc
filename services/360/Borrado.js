@@ -1,6 +1,7 @@
 const https = require("https");
 const logger = require('log4js').getLogger("Borrado");
 const querystring = require('querystring');
+const Utils = require("../../helpers/Utils");
 
 class Borrado {
 
@@ -23,7 +24,7 @@ class Borrado {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/cliente360/borra/1?' + alnova,

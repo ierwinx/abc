@@ -1,6 +1,7 @@
 const logger = require('log4js').getLogger("Consultas");
 const querystring = require('querystring');
 const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class Consultas {
 
@@ -36,7 +37,7 @@ class Consultas {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
-                rejectUnauthorized: false,
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.63.32.44',
                 port: 8443,
                 path: '/sor/v1/cliente/consulta?' + query,
