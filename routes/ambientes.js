@@ -11,7 +11,7 @@ const Desencriptar = require("../helpers/Desencripta");
 
 router.post('/usuarios', function(req, res, next) {
     logger.info("Entra peticion ambientar usuarios");
-    Entrada.procesa(JSON.parse(Desencriptar.aes256(req.body))).then(data => {
+    Entrada.procesa(req.body.length > 0 ? JSON.parse(Desencriptar.aes256(req.body)) : {}).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
@@ -24,7 +24,7 @@ router.post('/usuarios', function(req, res, next) {
 
 router.put('/usuarios', function(req, res, next) {
     logger.info("Entra peticion re ambientar usuarios");
-    Entrada.reProcesa(JSON.parse(Desencriptar.aes256(req.body))).then(data => {
+    Entrada.reProcesa(req.body.length > 0 ? JSON.parse(Desencriptar.aes256(req.body)) : {}).then(data => {
         Utils.printJson(res, 200, process.env.e200, { titulo: 'infoClientes', objeto: data });
     }).catch(error => {
         if (error.length > 0) {
