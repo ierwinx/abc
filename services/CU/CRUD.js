@@ -39,7 +39,7 @@ class CRUD {
             cadenaFoto: bean.foto == undefined ? '' : bean.foto,
             idActividad: "0",
             idEstadoCivil: "0",
-            idIdentificacion: bean.idIdentificacion == undefined ? '2' : bean.idIdentificacion,
+            idIdentificacion: bean.idIdentificacion == undefined ? bean.idIdentificacion == '' ? '2' : bean.idIdentificacion : bean.idIdentificacion,
             folioIdentificacion: bean.ocr == undefined ? bean.cic == undefined ? "" : bean.cic : bean.ocr == '' ? bean.cic == undefined ? "" : bean.cic  : bean.ocr,
             idNacionalidad: "449",
             curp: bean.curp,
