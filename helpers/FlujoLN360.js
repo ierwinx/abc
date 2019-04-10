@@ -16,7 +16,9 @@ class FlujoLN360 {
 
         //se borrara informacion LN
         if (resp1.statusLN) {
-
+            await listasNegras.baja(resp1).then().catch(error => {
+                throw error;
+            });
         }
 
         datos = await listasNegras.alta(datos).then().catch(error => {

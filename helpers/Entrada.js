@@ -105,7 +105,7 @@ class Entrada {
         }
     
         var arregloSalida = new Array();
-        if (datos.flujo <= 7) {
+        if (datos.flujo <= 7 || datos.flujo >= 7.3 ) {
             for (let i = 0; i < respuesta.length; i++) {
                 let clientedao = new ClienteDAO();
                 var objSal = await clientedao.guardar(respuesta[i]);

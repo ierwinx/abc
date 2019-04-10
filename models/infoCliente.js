@@ -24,16 +24,19 @@ class InfoCliente {
         this.general = {
             nombre: { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 30
             },
             apellidoP : { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 50
             },
             apellidoM: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 optional: true,
                 max: 50
             },
@@ -134,6 +137,33 @@ class InfoCliente {
             huella2: {
                 type: "string",
                 optional: true
+            },
+            fechaNac : {
+                type: "string",
+                pattern: /^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/
+            },
+            nombre: { 
+                type: "string",
+                min: 1,
+                max: 30
+            },
+            apellidoP : { 
+                type: "string",
+                min: 1,
+                max: 50
+            },
+            apellidoM: {
+                type: "string",
+                optional: true,
+                max: 50
+            },
+            genero: { 
+                type: "enum",
+                values: ["F", "M"]
+            },
+            curp: {
+                type: "string",
+                pattern: /[A-Z][AEIOUX][A-Z]{2}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[MH]([ABCMTZ]S|[BCJMOT]C|[CNPST]L|[GNQ]T|[GQS]R|C[MH]|[MY]N|[DH]G|NE|VZ|DF|SP)[BCDFGHJ-NP-TV-Z]{3}[0-9A-Z][0-9]$/
             }
         }
         
@@ -200,7 +230,7 @@ class InfoCliente {
         }
         
         this.telefonoAcertum = {
-            telefono: {
+            numCel: {
                 type: "string",
                 min: 10,
                 max: 10
@@ -547,6 +577,9 @@ class InfoCliente {
                 break;
             case 7.3:
                 this.listasNegras(datos);
+                break;
+            case 7.4:
+                this.ife(datos);
                 break;
         }
     }
