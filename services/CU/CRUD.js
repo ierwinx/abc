@@ -39,7 +39,7 @@ class CRUD {
             cadenaFoto: bean.foto == undefined ? '' : bean.foto,
             idActividad: "0",
             idEstadoCivil: "0",
-            idIdentificacion: bean.idIdentificacion == undefined ? bean.idIdentificacion == '' ? '2' : bean.idIdentificacion : bean.idIdentificacion,
+            idIdentificacion: bean.idIdentificacion == undefined ? '2' : bean.idIdentificacion == '' ? '2' : bean.idIdentificacion,
             folioIdentificacion: bean.ocr == undefined ? bean.cic == undefined ? "" : bean.cic : bean.ocr == '' ? bean.cic == undefined ? "" : bean.cic  : bean.ocr,
             idNacionalidad: "449",
             curp: bean.curp,
@@ -223,6 +223,7 @@ class CRUD {
             }, resp => {
                 resp.on("data", datos => {
                     var resp = JSON.parse(datos);
+                    logger.info("Respuesta: " + JSON.stringify(resp));
                     if (resp && resp.lstResponse && resp.issue.issue === false && resp.lstResponse.length > 0 ) {
                         bean.statusCU = true;
                         resolve(bean);
