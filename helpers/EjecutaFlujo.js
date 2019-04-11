@@ -157,6 +157,13 @@ class EjecutaFlujo {
                 });
                 break;
             }
+            case 2.11: {
+                logger.info(" ::: Eliminar de listas negras ::: ");
+                objeto = await FlujoLN360.elimina(objeto).then().catch(err => {
+                    throw err;
+                });
+                break;
+            }
             case 3.0: {
                 logger.info(" ::: Actualiza contra 360 ::: ");
                 let actualizacion = new Actualiza();
