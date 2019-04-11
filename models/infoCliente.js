@@ -526,6 +526,9 @@ class InfoCliente {
                 this.principales(datos);
                 this.ife(datos);
                 break;
+            case 2.2:
+                this.principales(datos);
+                break;
             case 2.3:
                 this.principales(datos);
                 break;

@@ -5,19 +5,19 @@ const logger = require('log4js').getLogger("config");
  *         Ambiente         *
  ****************************/
 process.env.ambiente = 'Desarrollo';
-process.env.frontend = 'https://10.51.58.237:4080/abc'
+process.env.frontend = 'https://10.51.58.237:8443/abc'
 process.env.backend = 'https://10.51.58.240'
 
 /****************************
  *      Puerto escucha      *
  ****************************/
-process.env.PORT = 8080;
+process.env.PORT = 3000;
 
 /****************************
  *      ubicacion Mongo     *
  ****************************/
-process.env.mongolocal = 'localhost:27017/ABC2'
-process.env.mongoExt = 'desarrollo:Gruposalinas2019@10.51.58.240:27017/ABC2'
+process.env.mongolocal = 'localhost:27017/ABC'
+process.env.mongoExt = 'desarrollo:Gruposalinas2019@10.51.58.240:27017/ABC'
 
 /****************************
  *      Email respuestas    *
