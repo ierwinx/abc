@@ -18,19 +18,4 @@ router.get('/Desencriptar', function(req, res, next) {
     res.send(Desencriptar.aes256(req.body));
 });
 
-router.get("/encripta", async(req, res, next) => {
-    var usuarios = new UsuariosDAO();
-    var lista = await usuarios.listar().then().catch(error => {
-        throw error;
-    });
-    lista.forEach(async(element) => {
-        element.usuario = Encriptar.aes256(element.usuario);
-        element.ip = Encriptar.aes256(element.ip);
-        console.log(element);
-        await usuarios.actualizar(element).then().catch(error => {
-            throw error;
-        });
-    });
-});
-
 module.exports = router;
