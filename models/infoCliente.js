@@ -584,6 +584,9 @@ class InfoCliente {
             case 7.4:
                 this.ife(datos);
                 break;
+            case 7.5:
+                this.listasNegras(datos);
+                break;
         }
     }
 
