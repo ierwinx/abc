@@ -75,7 +75,6 @@ class PersonaDAO {
             var total = await Persona.countDocuments().exec();
             var personaEncontradas = new Array();
             var cant = 5;
-            var encuentraCIC = false;
             var cicValor = '';
             var numeroEmisionValor = '';
             var claveElectorValor = '';
@@ -84,16 +83,8 @@ class PersonaDAO {
             for (let i = 0; i <= cant; i++) {
                 var random = Math.floor(Math.random() * total);
                 var persona = await Persona.findOne().skip(random).exec();
-                if (persona.cic != undefined) {
-                    if (persona.cic != '') {
-                        encuentraCIC = true;
-                        cicValor = persona.cic;
-                    } else {
-                        ocrValor = persona.ocr;
-                    }
-                } else {
-                    ocrValor = persona.ocr;
-                }
+                cicValor = persona.cic;
+                ocrValor = persona.ocr;
                 vigenciaValor = persona.vigencia;
                 numeroEmisionValor = persona.numeroEmision;
                 claveElectorValor = persona.claveElector;
@@ -149,10 +140,10 @@ class PersonaDAO {
                 anioEmision: "",
                 situacionRegistral: "",
                 tipoReporte:  "",
-                ocr: encuentraCIC ? '' : await this.valida(ocrValor),
+                ocr: await this.valida(ocrValor),
                 numeroEmision: await this.valida(numeroEmisionValor),
                 claveElector: await this.valida(claveElectorValor),
-                cic: encuentraCIC ? await this.valida(cicValor) : '',
+                cic: await this.valida(cicValor),
                 vigencia: await this.valida(vigenciaValor)
             }
     

@@ -70,31 +70,38 @@ class InfoCliente {
                 min:0,
                 max:33
             }
-        };
+        }
         
         this.direccion = {
             calle: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 max: 70
             },
             numExt: {
                 type: "string",
+                pattern : /^[a-zA-Z0-9 ]+/,
                 max: 10
             },
             numInt: {
                 type: "string",
+                pattern : /^[a-zA-Z0-9 ]+/,
+                optional: true,
                 max: 10
             },
             colonia: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 max: 70
             },
             delegacion: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 max: 70
             },
             estado: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 max: 30
             },
             cp: {
@@ -188,7 +195,7 @@ class InfoCliente {
             claveElector: { 
                 type: "string",
                 max: 18
-            },
+            }
         }
         
         this.smartphone = {
@@ -248,16 +255,19 @@ class InfoCliente {
         this.crear = {
             nombre: { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 30
             },
             apellidoP : { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 50
             },
             apellidoM: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 optional: true,
                 max: 50
             }
@@ -266,16 +276,19 @@ class InfoCliente {
         this.ln360 = {
             nombre: { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 30
             },
             apellidoP : { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 50
             },
             apellidoM: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 optional: true,
                 max: 50
             },
@@ -288,16 +301,19 @@ class InfoCliente {
         this.renapo = {
             nombre: { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 30
             },
             apellidoP : { 
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 min: 1,
                 max: 50
             },
             apellidoM: {
                 type: "string",
+                pattern : /^[a-zA-Z ]+/,
                 optional: true,
                 max: 50
             },
@@ -322,7 +338,7 @@ class InfoCliente {
                 min:0,
                 max:33
             }
-        };
+        }
 
     }
 
