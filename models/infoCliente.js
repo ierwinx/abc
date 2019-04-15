@@ -17,7 +17,8 @@ class InfoCliente {
                 array: "El campo '{field}' debe ser de tipo Array",
                 string: "El campo '{field}' debe ser de tipo String",
                 enumValue: "El campo '{field}' no permite ese valor ",
-                email: "El campo '{field}' no contiene un formato permitido"
+                email: "El campo '{field}' no contiene un formato permitido",
+                boolean: "El campo '{field}' debe ser de tipo boolean"
             }
         });
         
@@ -340,6 +341,39 @@ class InfoCliente {
             }
         }
 
+        this.extendidos = {
+            codigoPais: {
+                type: "string",
+                pattern: /^[0-9]+$/,
+                min: 1,
+                max: 3
+            },
+            numCel: {
+                type: "string",
+                pattern: /^[0-9]+$/,
+                min: 10,
+                max: 10
+            },
+            tipoDispositivo: {
+                type: "enum",
+                values: ["ANDROID", "IOS"]
+            },
+            pushId: {
+                type: "string",
+                pattern : /^[a-zA-Z_\-: ]+/,
+            },
+            infoHash: {
+                type: "string",
+                pattern : /^[a-zA-Z_\-: ]+/,
+            },
+            aceptaPublicidad: {
+                type: "boolean"
+            },
+            comparteDatos: {
+                type: "boolean"
+            }
+        }
+
     }
 
     principales(datos) {
@@ -392,6 +426,15 @@ class InfoCliente {
     telefono(datos) {
         logger.info(" ::: Se valida datos de smartphones :::");
         var check = this.v.compile(this.smartphone);
+        var respuesta = check(datos);
+        if (typeof(respuesta) == 'object') {
+            throw respuesta;
+        }
+    }
+
+    extendidos360(datos) {
+        logger.info(" ::: Se valida datos de extendidos :::");
+        var check = this.v.compile(this.extendidos);
         var respuesta = check(datos);
         if (typeof(respuesta) == 'object') {
             throw respuesta;
@@ -579,6 +622,7 @@ class InfoCliente {
             case 5:
                 this.principales(datos);
                 this.direcciones(datos);
+                this.extendidos360(datos);
                 break;
             case 6:
                 this.principales(datos);

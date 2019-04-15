@@ -62,7 +62,7 @@ class Actualiza {
 
     }
 
-    extendidos() {
+    extendidos(objeto) {
         logger.info(" ::: Inicia actualiza extendidos de 360 :::");
 
         var servicio = new Promise((resolve, reject) => {
@@ -74,8 +74,10 @@ class Actualiza {
                 "tipo_dispositivo": onrejectionhandled.tipoDispositivo,
                 "info_hash": objeto.infoHash,
                 "aceptar_publicidad": objeto.aceptaPublicidad,
-                "compartir_datos": objeto.ComparteDatos
+                "compartir_datos": objeto.comparteDatos
             });
+
+            logger.info("POST: " + query);
 
             var reques = https.request({
                 headers: {
