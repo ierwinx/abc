@@ -66,18 +66,18 @@ class Actualiza {
         logger.info(" ::: Inicia actualiza extendidos de 360 :::");
 
         var servicio = new Promise((resolve, reject) => {
-            var query = querystring.stringify({
+            var query = {
                 "icu": objeto.icu,
                 "codigo_pais": objeto.codigoPais,
                 "telefono": objeto.numCel,
                 "push_id": objeto.pushId,
-                "tipo_dispositivo": onrejectionhandled.tipoDispositivo,
+                "tipo_dispositivo": objeto.tipoDispositivo,
                 "info_hash": objeto.infoHash,
                 "aceptar_publicidad": objeto.aceptaPublicidad,
                 "compartir_datos": objeto.comparteDatos
-            });
+            };
 
-            logger.info("POST: " + query);
+            logger.info("POST: " + JSON.stringify(query));
 
             var reques = https.request({
                 headers: {
@@ -93,17 +93,21 @@ class Actualiza {
                 resp.on("data", datos => {
                     var respuesta= JSON.parse(datos);
                     logger.info("Respuesta: " + JSON.stringify(respuesta));
-                    resolve(respuesta);
+                    if (respuesta.error && respuesta.error.mensaje) {
+                        reject("Ocurrio un Error con el alta del servicio extendidos de 360");
+                    } else {
+                        resolve(respuesta);
+                    }
                 });
             }).on("error", err => {
-                logger.error(" ::: Ocurrio un Error con el consumo del servicio de actualizaExt de 360 ::: ");
+                logger.error(" ::: Ocurrio un Error con el consumo del servicio de extendidos de 360 ::: ");
                 if (err.response.data) {
-                    resolve(err.response.data);
+                    reject(err.response.data);
                 } else {
-                    reject(new Error("Ocurrio un Error con el alta del servicio actualizaExt de 360"));
+                    reject(new Error("Ocurrio un Error con el alta del servicio extendidos de 360"));
                 }
             });
-            reques.write(query);
+            reques.write(JSON.stringify(query));
             reques.end();
         });
 

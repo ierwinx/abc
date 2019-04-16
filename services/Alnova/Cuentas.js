@@ -33,17 +33,16 @@ class Cuentas {
                 mtDatosEntrada:  'ENTITY/'+entity+'~BRANCH/'+branch+'~USER/'+user+'~TERMINAL/'+terminal+'~CHANNEL/'+chanel+'~TIPOPER/' + tipoOper + '~TELCEL/' + celular + '~NUMCTE/' + numeroCliente + '~NIVCTA/' + nivelCuenta + '~IDTEL/' + idTelefono + '~SISTEL/' + sisTel + '~SISOPER/' + sisOper + '~BDMID/' + bdmid + '~LATITUD/' + latitud + '~LONGTUD/' + longitud
             };
     
-            logger.info("POST : " + args.mtDatosEntrada);
+            logger.info("POST : " + JSON.stringify(Cuentas.creaObjeto(args.mtDatosEntrada)));
             soap.createClient(url, function(err, client) {
                 client.MTEjecutaTransaccion(args, function(err2, result) {
                     if (err2 == null) {
-                        logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
+                        var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
+                        logger.info("Respuesta: " + JSON.stringify(respuesta));
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio MB80 de Alnova ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio MB80  de Alnova"));
                         } else {
-                            var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
-                            logger.info("Respuesta: " + JSON.stringify(respuesta));
                             if (respuesta.CTACTE){
                                 objeto.cuentaCliente = respuesta.CTACTE;
                                 resolve(objeto);
@@ -89,13 +88,12 @@ class Cuentas {
             soap.createClient(url, function(err, client) {
                 client.MTEjecutaTransaccion(args, function(err2, result) {
                     if (err2 == null) {
-                        logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
+                        var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
+                        logger.info("Respuesta: " + JSON.stringify(respuesta));
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB34 de Alnova ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB34 de Alnova"));
                         } else {
-                            var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
-                            logger.info("Respuesta: " + JSON.stringify(respuesta));
                             if (respuesta.NUMACCO) {
                                 objeto.cuentaCliente = respuesta.NUMACCO;
                                 resolve(objeto);
@@ -145,17 +143,16 @@ class Cuentas {
                 mtDatosEntrada: 'ENTITY/'+entity+'~BRANCH/'+branch+'~USER/'+user+'~TERMINAL/'+terminal+'~CHANNEL/'+chanel+'~FUNCION/'+funcion+'~REFEREN/'+referencia+'~ENTRADA/'+entrada+'~SALIDA/'
             };
     
-            logger.info("POST : " + args.mtDatosEntrada);
+            logger.info("POST : " + JSON.stringify(Cuentas.creaObjeto(args.mtDatosEntrada)));
             soap.createClient(url, function(err, client) {
                 client.MTEjecutaTransaccion(args, function(err2, result) {
                     if (err2 == null) {
-                        logger.info("Respuesta: " + result.MTEjecutaTransaccionResult);
+                        var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
+                        logger.info("Respuesta: " + JSON.stringify(respuesta));
                         if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
                         } else {
-                            var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
-                            logger.info("Respuesta: " + JSON.stringify(respuesta));
                             if (respuesta.ACC) {
                                 objeto.cuentaCliente = respuesta.ACC;
                                 resolve(objeto);
