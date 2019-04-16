@@ -8,7 +8,7 @@ class Actualiza {
     constructor() {
     }
 
-    contrasena() {
+    contrasena(objeto) {
         logger.info(" ::: se consulta el servicio rest 360 para actualizar PWS de X usuario ::: ")
 
         var objetoEn = JSON.stringify({
@@ -38,14 +38,14 @@ class Actualiza {
                             objeto.respuesta= "Registro actualizado";
                             resolve(objeto);
                         } else {
-                            logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion de pws X sucursal 360 ::: ");
-                            reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));
+                            logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion pws de usuario 360 ::: ");
+                            reject(new Error("Ocurrio un Error con el consumo del servicio actualizacion pws de usuario 360"));
                         }
                     } else if (respuesta.estatus == 1) {
                         reject(new Error("La nueva contraseña no puede ser igual a la anterior"));
                     } else {
-                        logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion pws de X usuario 360 ::: ");
-                        reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws X usuario"));
+                        logger.error(" ::: Ocurrio un Error con el consumo del servicio actualizacion pws de usuario 360 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de 360 actualizacion pws usuario"));
                     }
                 });
             }).on("error", err => {
@@ -96,7 +96,7 @@ class Actualiza {
                     if (respuesta.error && respuesta.error.mensaje) {
                         reject("Ocurrio un Error con el alta del servicio extendidos de 360");
                     } else {
-                        resolve(respuesta);
+                        resolve(objeto);
                     }
                 });
             }).on("error", err => {

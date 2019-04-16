@@ -21,11 +21,11 @@ class Cuentas {
             var numeroCliente = objeto.noClienteAlnova;
             var nivelCuenta = 'N2';
             var idTelefono = objeto.idTel;
-            var bdmid = objeto.bdmid;
+            var bdmid = objeto.icu;
             var sisTel = objeto.sisTel;
             var sisOper = objeto.sisOper;
-            var latitud = objeto.latitud;
-            var longitud = objeto.longitud;
+            var latitud = "19.2968114";
+            var longitud = "-99.1859132";
             
             var url = 'http://10.63.32.115/Conexion_TF/Servicio_Conexion.asmx?WSDL';
             var args = {
