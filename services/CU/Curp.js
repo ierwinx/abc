@@ -18,7 +18,7 @@ class Curp {
             apeMaterno: datos.apellidoM.toUpperCase(),
             fechaNac: fecha,
             genero: this.cambiaGenreo(datos.genero),
-            entidadFed: datos.idEntidadFederativa.length == 2 ? datos.idEntidadFederativa : "0"+ datos.idEntidadFederativa,
+            entidadFed: (datos.idEntidadFederativa + "").length == 2 ? datos.idEntidadFederativa : "0"+ datos.idEntidadFederativa,
             ipAutenticacion: "127.0.0.1",
             usuarioAutenticacion: "USRPRUEBAS"
         }, null, null, { encodeURIComponent: querystring.unescape });

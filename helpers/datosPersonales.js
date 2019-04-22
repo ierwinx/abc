@@ -113,8 +113,7 @@ class DatosPersonales {
             var nuevoAnio = anioActual - edades[Math.floor(Math.random() * edades.length)];
             
             datos.fechaNac = (dia.length == 2 ? dia : "0" + dia) + "/" + (mes.length == 2 ? mes : "0" + mes) + "/" + nuevoAnio;
-        
-            var curpRFC = await Curp.obtiene(nueva).catch(err=> {
+            var curpRFC = await Curp.obtiene(datos).catch(err=> {
                 throw err;
             });
     
