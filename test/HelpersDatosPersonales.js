@@ -23,9 +23,14 @@ describe('Datos Personales', function() {
         resp.should.have.length(1);
     });
 
-    it('CambiaGenero', function() {
+    it('CambiaGenero Femenino', function() {
         var res = DatosPersonales.cambiaGenero("F");
         assert.equal(res, "M");
+    });
+
+    it('CambiaGenero Masculino', function() {
+        var res = DatosPersonales.cambiaGenero("M");
+        assert.equal(res, "H");
     });
 
     it('QuitaCaracteres', function() {
