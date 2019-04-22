@@ -622,7 +622,6 @@ class InfoCliente {
             case 5:
                 this.principales(datos);
                 this.direcciones(datos);
-                this.extendidos360(datos);
                 break;
             case 6:
                 this.principales(datos);
