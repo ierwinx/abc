@@ -63,7 +63,10 @@ class Entrada {
             case 7.2:
                 validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                 break;
-            case 7.2:
+            case 7.3:
+                validaciones.iteraInfo(datos.infoCliente, datos.flujo);
+                break;
+            case 7.4:
                 validaciones.iteraInfo(datos.infoCliente, datos.flujo);
                 break;
             case 7.5:
