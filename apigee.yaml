@@ -1,0 +1,502 @@
+swagger: '2.0'
+
+info:
+  version: 1.0.0
+  title: Ambientacion Clientes
+  description: |
+    Ambientacion Clientes
+
+host: localhost
+basePath: /ambientes/v1
+
+schemes:
+  - https
+
+securityDefinitions:
+  Bearer:
+    description: >
+      Para acceder a la API se debe pasar un token válido en todas las consultas.
+      La siguiente sintaxis se debe utilizar en el encabezado 'Authorization' :
+        Bearer: 2zzLJmBAtTNIU8nF8e8XbmDvaNGs
+    type: apiKey
+    name: Authorization
+    in: header
+
+security:
+  - Bearer: []
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+paths:
+
+  /usuarios:
+    post:
+      description: Servicio para la ambientación de los Clientes en Desarrollo
+      tags:
+        - Clientes
+      
+      parameters:
+        - name: body
+          required: true
+          description: Solicitud para alta de clientes
+          in: body
+          schema:
+            $ref: '#/definitions/inputAmbientaCliente'
+            
+      responses:
+      
+        200:
+          description: Creado
+          schema:
+            $ref: '#/definitions/outputAmbientaCliente'
+        
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: '#/definitions/expectedErrorResponse'
+        
+        404:
+          description: No encontrado
+          schema:
+            $ref: '#/definitions/expectedErrorResponse'
+            
+        500:
+          description: Error inesperado
+          schema:
+           $ref: '#/definitions/expectedErrorResponse'
+
+  
+definitions:
+  
+  expectedError:
+    type: object
+    properties:
+      codigo:
+        description: Muestra el codigo de error
+        type: number
+        example: 400
+      mensaje:
+        description: Muestra el codigo de error
+        type: string
+        example: Path no encontrado
+  
+  
+  inputAmbientaCliente:
+    type: object
+    properties:
+      flujo:
+        description: El número de flujo para ambientar al cliente
+        type: string
+        example: "1.0"
+      numUsuarios:
+        description: El número de usuarios a ser ambientados
+        type: number
+        example: 2
+      infoCliente:
+        description: Objeto con los datos del cliente a ambientar
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/infoCliente'
+        
+     
+  infoCliente2:
+    type: object
+    properties:
+      _id:
+        description: Identificador del objeto
+        type: string
+        example: "5c4f9883d9444d36fc1cf2d1"
+      icu:
+        description: Es el icu del cliente
+        type: string
+        example: ""
+      nombre:
+        description: Es el nombre del cliente
+        type: string
+        example: "Alan"
+      apellidoP:
+        type: string
+        example: "CRUZ"
+      apellidoM:
+        type: string
+        example: "MIGUEL"
+      genero:
+        description: Es el genero del cliente ya se 'M' o 'F' masculino o femenino
+        type: string
+        example: "M"
+      numCel:
+        description: Es el número celular del cliente
+        type: string
+        example: "5541420905"
+      telefonoDomicilio:
+        description: Es el numero de casa del cliente
+        type: string
+        example: "56969761"
+      correo:
+        description: Es el correo del cliente
+        type: string
+        example: "ajcruz@bancoazteca.com"
+      curp:
+        description: Es el CURP del cliente
+        type: string
+        example: "CUMA940114HDFGRL"
+      rfc:
+        description: Es el RFC del cliente
+        type: string
+        example: "CUMA940114ED8"
+      fechaNac:
+        description: Es el fecha de nacimiento del cliente
+        type: string
+        example: "dd/MM/yyyy"
+      idIdentificacion:
+        type: string
+        example: "1"
+      ocr:
+        description: Es el número de identificación del cliente
+        type: string
+        example: "317382731"
+      calle:
+        description : Calle del domicilio del cliente
+        type: string
+        example: "Av insurgentes sur"
+      numExt:
+        description : Número exterior de la vivienda del cliente
+        type: number
+        example: 3479
+      numInt:
+        description : Número interior de la vivienda del cliente
+        type: number
+        example: 3
+      cp:
+        description: Codigo postal de la vivienda del cliente
+        type: string
+        example: "14000"
+      colonia:
+        description: Colonia de la vivienda del cliente
+        type: string
+        example: "Lomitas"
+      delegacion:
+        description: Delegación de la vivienda del cliente
+        type: string
+        example: "Tlalpan"
+      idEntidadFederativa:
+        type: string
+        example: "15"
+      paisCu:
+        type: string
+        example: "1"
+      canalCu:
+        type: string
+        example: "1"
+      sucursalCu: 
+        type: string
+        example: "8757"
+      folioCu: 
+        type: string
+        example: "6555"
+      tipoCte: 
+        type: string
+        example: ""
+      descripcionCte:
+        type: string
+        example: "CARGADO"
+      idNegocio:
+        type: string
+        example: "1"
+      idCanal:
+        type: string
+        example: "8757"
+      idCliente:
+        type: string
+        example: "6033"
+      digVer:
+        type: string
+        example: ""
+      usuario:
+        type: string
+        example: ""
+      password:
+        type: string
+        example: ""
+      token:
+        type: string
+        example: ""
+      foto:
+        type: string
+        example: ""
+      huella1:
+        type: string
+        example: ""
+      mano1:
+        type: string
+        example: ""
+      dedo1:
+        type: string
+        example: ""
+      idNacionalidad:
+        type: string
+        example: ""
+      cveEntidadNacimiento:
+        type: string
+        example: "17"
+      nivelCte:
+        type: string
+        example: "N2"
+      
+  infoCliente:
+    type: object
+    properties:
+      icu:
+        description: Es el icu del cliente
+        type: string
+        example: ""
+      nombre:
+        description: Es el nombre del cliente
+        type: string
+        example: "Alan"
+      apellidoP:
+        description: Es el apellido paterno del cliente
+        type: string
+        example: "Cruz"
+      apellidoM:
+        description: Es el apellido materno del cliente
+        type: string
+        example: "Miguel"
+      genero:
+        description: Es el genero del cliente ya se 'M' o 'F' masculino o femenino
+        type: string
+        example: "M"
+      numCel:
+        description: Es el número celular del cliente
+        type: string
+        example: "5541420905"
+      telefonoDomicilio: 
+        description: Es el numero de casa del cliente
+        type: string
+        example: "56969761"
+      correo:
+        description: Es el correo del cliente
+        type: string
+        example: "ajcruz@bancoazteca.com"
+      curp:
+        description: Es el CURP del cliente
+        type: string
+        example: "LULE910429HMCZNR07"
+      rfc:
+        description: Es el RFC del cliente
+        type: string
+        example: "LULE910429D74"
+      fechaNac:
+        description: Es el fecha de nacimiento del cliente
+        type: string
+        example: "29/03/1990"
+      idIdentificacion:
+        type: string
+        example: "1"
+      ocr:
+        description: Es el número de identificación del cliente
+        type: string
+        example: "317382731"
+      calle:
+        description : Calle del domicilio del cliente
+        type: string
+        example: "Av insurgentes sur"
+      numExt:
+        description : Número exterior de la vivienda del cliente
+        type: string
+        example: "3479"
+      numInt:
+        description : Número interior de la vivienda del cliente
+        type: string
+        example: "3"
+      cp:
+        description: Codigo postal de la vivienda del cliente
+        type: string
+        example: "14000"
+      estado:
+        description: Estado del cliente
+        type: string
+        example: "Puebla"
+      colonia:
+        description: Colonia de la vivienda del cliente
+        type: string
+        example: "Lomitas"
+      delegacion:
+        description: Delegación de la vivienda del cliente
+        type: string
+        example: "Tlalpan"
+      cveEntidadNacimiento:
+        type: string
+        example: "17"
+      idEntidadFederativa:
+        type: string
+        example: ""
+      pais:
+        type: string
+        example: ""
+      canal:
+        type: string
+        example: ""
+      sucursal:
+        type: string
+        example: ""
+      folio:
+        type: string
+        example: ""
+      tipoCte:
+        type: string
+        example: ""
+      descripcionCte:
+        type: string
+        example: ""
+      idAlnova:
+        description: El id Alnova del cliente
+        type: string
+        example: "5527137129393"
+      idNegocio:
+        type: string
+        example: "1"
+      idCanal:
+        type: string
+        example: "8757"
+      idCliente:
+        type: string
+        example: "6033"
+      digVer:
+        type: string
+        example: "4"
+      usuario:
+        description: Usuario del cliente
+        type: string
+        example: "user1"
+      password:
+        description: Contraseña del cliente
+        type: string
+        example: "password1"
+      token:
+        description: Token del cliente
+        type: string
+        example: "1s68sdf782"
+      foto:
+        type: string
+        example: ""
+      huella1:
+        type: string
+        example: ""
+      mano1:
+        type: string
+        example: ""
+      dedo1:
+        type: string
+        example: ""
+      idNacionalidad:
+        type: string
+        example: ""
+      nivelCte:
+        type: string
+        example: "N2"
+        
+
+  outputAmbientaCliente:
+    type: object
+    properties:
+      codigo:
+        description: Código de la operación
+        type: string
+        example: "200.banca_digital-ambientacion_clientes.87"
+      mensaje:
+        description: Mensaje de la operación
+        type: string
+        example: "Operación realizada exitosamente"
+      folio:
+        description: Se obtiene un folio para consultar despues esta peticion
+        type: string
+        example: "35459920-2345-11e9-9d9d-9f09522820a2"
+      infoCliente:
+        type: array
+        items:
+          description: Objeto con los datos del cliente a ambientar
+          $ref: '#/definitions/infoCliente2'
+
+  inputRENAPO:
+    type: object
+    properties:
+      nombre:
+        type: string
+        description: Nombre del usuario
+        example: "Alan Jesus"
+      apellido_paterno:
+        type: string
+        description: Apellido paterno
+        example: "Cruz"
+      apellido_materno:
+        type: string
+        description: Apellido materno
+        example: "Miguel"
+      curp:
+        type: string
+        description: Curp del cliente
+        example: "LULE910429HMCZNR07"
+      rfc:
+        type: string
+        description: RFC del cliente
+        example: "LULE910429D74"
+      sexo:
+        type: string
+        description: Genero del cliente
+        example: "f"
+      cveEntidadNacimiento:
+        type: string
+        description: Entidad de nacimiento del cliente
+        example: "17"
+      fechaNacimiento:
+        type: string
+        description: Fecha nacimiento
+        example: "10/03/1993"
+      
+  outputRENAPO:
+    type: object
+    properties:
+      codigo:
+        description: Código de la operación
+        type: string
+        example: "0"
+      mensaje:
+        description: Descripción de la operación
+        type: string
+        example: "Operación exitosa"
+      folio:
+        type: string
+        description: Número de folio de la operación
+        example: "15720180927175536771"
+      idSolicitud:
+        type: string
+        description: Id de la solicitud
+        example: "20181116000152153105305"
+
+  expectedErrorResponse:
+    type: object
+    properties:
+      codigo:
+        type: string
+        description: Código del error
+        example: "404.banca_digital-ambientacion_clientes.85"
+      mensaje:
+        type: string
+        description: Descripción del error
+        example: "Path no encontrado"
+      info:
+        type: string
+        description: Contiene la url donde se puede consultar la informacion del error generado
+        example: "http://developer.company.com/errors#404.01.85"
+      folio:
+        type: string
+        description: En un numero identificador para atender el error
+        example: "d75b34d0-232d-11e9-b910-9ddce1ce9fba"
+        
+        

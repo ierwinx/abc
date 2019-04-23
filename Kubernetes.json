@@ -1,0 +1,38 @@
+{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "name": "abc-deployment",
+        "namespace": "default",
+        "labels": {
+            "k8s-app": "abc-deployment"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "k8s-app": "abc-deployment"
+            }
+        },
+        "template": {
+            "metadata": {
+                "name": "abc-deployment",
+                "labels": {
+                    "k8s-app": "abc-deployment"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "abc-deployment",
+                        "image": "ierwinx/abc:0.1",
+                        "securityContext": {
+                            "privileged": false
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

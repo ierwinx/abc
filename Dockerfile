@@ -1,6 +1,6 @@
 FROM  node:lts-alpine
 
-EXPOSE 443
+EXPOSE 8080
 
 WORKDIR /Ambientacion
 
