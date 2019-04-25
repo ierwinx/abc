@@ -1,0 +1,20 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "serviciomicro",
+        "namespace": "default"
+    },
+    "spec": {
+        "ports": [
+            {
+                "port": 8080,
+                "targetPort": 8080
+            }
+        ],
+        "selector": {
+            "run": "microservicio"
+        },
+        "type": "LoadBalancer"
+    }
+}

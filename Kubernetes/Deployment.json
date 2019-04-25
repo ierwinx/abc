@@ -26,13 +26,7 @@
                 "containers": [
                     {
                         "name": "microservicio",
-                        "image": "ierwinx/microservicio:latest",
-                        "ports": [
-                            {
-                                "containerPort": "8080",
-                                "protocol": "TCP"
-                            }
-                        ],
+                        "image": "ierwinx/abc:latest",
                         "imagePullPolicy": "Always"
                     }
                 ]
