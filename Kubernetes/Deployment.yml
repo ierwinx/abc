@@ -1,23 +1,22 @@
-
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microservicio
+  name: microservicio2
   namespace: default
   labels:
-    run: microservicio
+    app: microservicio2
 spec:
   replicas: 2
   selector:
     matchLabels:
-      run: microservicio
+      app: microservicio2
   template:
     metadata:
-      name: microservicio
+      name: microservicio2
       labels:
-        run: microservicio
+        app: microservicio2
     spec:
       containers:
-        name: microservicio
+      - name: microservicio2
         image: ierwinx/abc:latest
         imagePullPolicy: Always

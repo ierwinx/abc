@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: serviciomicro
+  name: serviciomicro2
   namespace: default
 spec:
   ports:
+  - protocol: TCP
     port: 8080
     targetPort: 8080
   selector:
-    run: microservicio
+    app: microservicio2
   type: LoadBalancer
