@@ -7,31 +7,31 @@ var verifyToken = (req, res, next) => {
 
     var header = req.headers['authorization'];
     if (!header) {
-        logger.error("::: "+process.env.e400+" :::");
-        return Utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [{message:process.env.e400}] });
+        logger.error("::: " + process.env.e400 + " :::");
+        return Utils.printJson(res, 400, process.env.e400, { titulo: 'Errores', objeto: [{ message: process.env.e400 }] });
     }
     var bearer = "";
     try {
         bearer = Desencriptar.aes256(header);
-    } catch(err) {
-        logger.error("::: "+process.env.e403+" :::");
+    } catch (err) {
+        logger.error("::: " + process.env.e403 + " :::");
         return Utils.printJson(res, 403, process.env.e403, { titulo: 'Errores', objeto: process.env.e403 });
     }
 
     var dsi = new DSI();
     dsi.validaToken(bearer).then(decoded => {
-        logger.info(" ::: Se obtiene el usuario a loguearse "+decoded.user_id+" :::");
+        logger.info(" ::: Se obtiene el usuario a loguearse " + decoded.user_id + " :::");
         dsi.verificaInformacion(decoded.user_id).then(async(resp) => {
-            
+
             var usuariodao = new UsuarioDAO();
             var usuario = await usuariodao.buscarCorreo(decoded.user_id).then();
 
             if (usuario == 0) {
-                return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+                return Utils.printJson(res, 500, "Ocurrio un problema al buscar el usuario", { titulo: 'Errores', objeto: [{ registro: false, autorizado: false }] });
             } else if (usuario == 1) {
-                return Utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{registro:false, autorizado:false}] });
+                return Utils.printJson(res, 500, "Usuario no encontrado", { titulo: 'Errores', objeto: [{ registro: false, autorizado: false }] });
             } else if (usuario == 2) {
-                return Utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{registro:true, autorizado:false}] });
+                return Utils.printJson(res, 500, "El usuario encontrado no esta autorizado", { titulo: 'Errores', objeto: [{ registro: true, autorizado: false }] });
             }
 
             if (Desencriptar.aes256(usuario.usuario) != resp.usuario.No_empleado) {
@@ -48,12 +48,12 @@ var verifyToken = (req, res, next) => {
                     next();
                 }
             }
-            
+
         }).catch(err => {
-            Utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+            Utils.printJson(res, 500, err.message, { titulo: 'Errores', objeto: [{ message: error.message }] });
         });
     }).catch(err => {
-        Utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{message:error.message}] });
+        Utils.printJson(res, 400, err.message, { titulo: 'Errores', objeto: [{ message: error.message }] });
     });
     
 }
