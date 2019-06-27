@@ -11,7 +11,7 @@ process.env.backend = 'https://10.51.58.240'
 /****************************
  *      Puerto escucha      *
  ****************************/
-process.env.PORT = 8080;
+process.env.PORT = 8081;
 
 /****************************
  *      ubicacion Mongo     *
@@ -88,7 +88,7 @@ Auth.autenticar().then(res => {
     process.env.token = res;
     const BloqueoDAO = require("../daos/BloqueoDAO");
     setInterval(async() => {
-        logger.info(" ::: Inicia el desbloqueo de ip ::: ");
+        //logger.info(" ::: Inicia el desbloqueo de ip ::: ");
         var desbloqueo = new BloqueoDAO();
         var lista = await desbloqueo.listar().then().catch(error => {
             logger.error(" ::: Error al obtener listas de ips bloqueadas ::: " + error);

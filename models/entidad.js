@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var entidad = new Schema({
     id: {
-        type: String,
+        type: Number,
         required:[true, process.env.requerido],
         unique: process.env.unico
     },
