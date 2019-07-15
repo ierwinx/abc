@@ -1,4 +1,4 @@
-const logger = require('log4js').getLogger("Renapo");
+const logger = require('log4js').getLogger("RenapoCU");
 const querystring = require('querystring');
 const http = require('http');
 
