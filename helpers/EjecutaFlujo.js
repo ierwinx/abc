@@ -12,6 +12,7 @@ const FlujoINE = require("./FlujoINE");
 const Cuentas = require("../services/Alnova/Cuentas");
 const DatosPersonales = require("../helpers/DatosPersonales");
 const FlujoLN360 = require("./FlujoLN360");
+const FlujoRenapo360 = require("./FlujoRenapo360");
 
 class EjecutaFlujo {
 
@@ -160,6 +161,13 @@ class EjecutaFlujo {
             case 2.11: {
                 logger.info(" ::: Eliminar de listas negras ::: ");
                 objeto = await FlujoLN360.elimina(objeto).then().catch(err => {
+                    throw err;
+                });
+                break;
+            }
+            case 2.12: {
+                logger.info(" ::: Alta renapo ::: ");
+                objeto = await FlujoRenapo360.iniciar(objeto).then().catch(err => {
                     throw err;
                 });
                 break;

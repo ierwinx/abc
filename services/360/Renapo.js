@@ -75,13 +75,10 @@ class Renapo360 {
                 resp.on("data", datos => {
                     var respuesta = JSON.parse(datos);
                     if (respuesta && respuesta.estatus !== 0 && respuesta.respuesta) {
-                        resolve(bean);
+                        resolve(true);
                     } else {
-                        logger.error(" ::: Ocurrio un Error con el servicio de consulta RENAPO 360 ::: ");
-                        reject(new Error("Ocurrio un Error con el servicio de consulta RENAPO 360"));
+                        resolve(false);
                     }
-
-                    resolve(respuesta.data);
                 });
             }).on("error", err => {
                 logger.error(" ::: Ocurrio un Error con el servicio consulta renapo 360 ::: ");
@@ -115,9 +112,10 @@ class Renapo360 {
                 resp.on("data", datos => {
                     var respuesta = JSON.parse(datos);
                     if (respuesta && respuesta.estatus === 0 && respuesta.respuesta.borrado == true) {
-                        resolve(true);
+                        resolve(bean);
                     } else {
-                        resolve(false);
+                        logger.error(" ::: Ocurrio un Error con el servicio borrar renapo 360 ::: ");
+                        reject(new Error("Ocurrio un Error con el consumo del servicio de borrar Renapo 360 "));
                     }
                 });
             }).on("error", err => {
