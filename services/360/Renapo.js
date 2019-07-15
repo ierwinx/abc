@@ -77,15 +77,15 @@ class Renapo360 {
                     if (respuesta && respuesta.estatus !== 0 && respuesta.respuesta) {
                         resolve(bean);
                     } else {
-                        logger.error(" ::: Ocurrio un Error con el servicio de Alta RENAPO 360 ::: ");
-                        reject(new Error("Ocurrio un Error con el servicio de Alta RENAPO 360"));
+                        logger.error(" ::: Ocurrio un Error con el servicio de consulta RENAPO 360 ::: ");
+                        reject(new Error("Ocurrio un Error con el servicio de consulta RENAPO 360"));
                     }
 
                     resolve(respuesta.data);
                 });
             }).on("error", err => {
-                logger.error(" ::: Ocurrio un Error con el servicio alta renapo 360 ::: ");
-                reject(new Error("Ocurrio un Error con el consumo del servicio de consultaRenapoCU 360 "));
+                logger.error(" ::: Ocurrio un Error con el servicio consulta renapo 360 ::: ");
+                reject(new Error("Ocurrio un Error con el consumo del servicio de consulta Renapo 360 "));
             });
             reques.write(objeto);
             reques.end();
@@ -121,8 +121,8 @@ class Renapo360 {
                     }
                 });
             }).on("error", err => {
-                logger.error(" ::: Ocurrio un Error con el servicio alta renapo 360 ::: ");
-                reject(new Error("Ocurrio un Error con el consumo del servicio de consultaRenapoCU 360 "));
+                logger.error(" ::: Ocurrio un Error con el servicio borrar renapo 360 ::: ");
+                reject(new Error("Ocurrio un Error con el consumo del servicio de borrar Renapo 360 "));
             });
             reques.write(objeto);
             reques.end();
