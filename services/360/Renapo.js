@@ -1,33 +1,33 @@
 const logger = require('log4js').getLogger("Renapo360");
 const querystring = require('querystring');
-const http = require('http');
+const https = require("https");
+const Utils = require("../../helpers/Utils");
 
 class Renapo360 {
 
-    constructor() {
-    }
+    constructor() {}
 
     alta(bean) {
         logger.info(" ::: se consulta servicio rest de 360 para alta renapo :::");
-
+        let fecha = bean.fechaNac.split('/')[2] + "-" + bean.fechaNac.split('/')[1] + "-" + bean.fechaNac.split('/')[0]
         var objeto = querystring.stringify({
             nombre: bean.nombre,
             apellido_paterno: bean.apellidoP,
             apellido_materno: bean.apellidoM,
-            fecha_nacimiento: bean.fechaNac,
+            fecha_nacimiento: fecha,
             sexo: bean.genero,
             numero_entidad_registro: bean.idEntidadFederativa,
             curp: bean.curp,
         }, null, null, { encodeURIComponent: querystring.unescape });
-    
-        logger.info("POST: " + objeto);
-    
+
+
         var servicio = new Promise((resolve, reject) => {
-            var reques = http.request({
+            var reques = https.request({
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/renapo/alta/1',
@@ -35,8 +35,7 @@ class Renapo360 {
             }, resp => {
                 resp.on("data", datos => {
                     var respuesta = JSON.parse(datos);
-                    logger.info("Respuesta: " + JSON.stringify(respuesta));
-                    if (respuesta && respuesta.estatus !== 0 && respuesta.respuesta.registrado === true) {
+                    if (respuesta && respuesta.estatus == 0) {
                         resolve(bean);
                     } else {
                         logger.error(" ::: Ocurrio un Error con el servicio de Alta RENAPO 360 ::: ");
@@ -44,66 +43,69 @@ class Renapo360 {
                     }
                 });
             }).on("error", err => {
-                logger.error(" ::: Ocurrio un Error con el servicio alta renapo 360 ::: ");
+                logger.error(" ::: Ocurrio un Error con el servicio alta renapo 360 ::: " + err);
                 reject(new Error("Ocurrio un Error con el servicio alta renapo 360 "));
             });
             reques.write(objeto);
             reques.end();
         });
-    
+
         return servicio;
     }
 
     consulta(bean) {
         logger.info(" ::: Ise consulta servicio rest de 360 para consulta renapo :::");
- 
+
         var objeto = querystring.stringify({
             curp: bean.curp
         }, null, null, { encodeURIComponent: querystring.unescape });
-    
+
+
         var servicio = new Promise((resolve, reject) => {
-            var reques = http.request({
+            var reques = https.request({
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/renapo/consulta/1',
                 method: 'POST'
             }, resp => {
                 resp.on("data", datos => {
-                    var respuesta = JSON.parse(datos);
-                    if (respuesta && respuesta.estatus !== 0 && respuesta.respuesta) {
+                    let respuesta = JSON.parse(datos);
+                    if (respuesta && respuesta.estatus == 0 && respuesta.respuesta) {
                         resolve(true);
                     } else {
                         resolve(false);
                     }
                 });
             }).on("error", err => {
-                logger.error(" ::: Ocurrio un Error con el servicio consulta renapo 360 ::: ");
+                logger.error(" ::: Ocurrio un Error con el servicio consulta renapo 360 ::: " + err);
                 reject(new Error("Ocurrio un Error con el consumo del servicio de consulta Renapo 360 "));
             });
             reques.write(objeto);
             reques.end();
         });
-    
+
         return servicio;
     }
 
     borrar(bean) {
-        logger.info(" ::: Ise consulta servicio rest de 360 para consulta renapo :::");
- 
+        logger.info(" ::: Ise borrar servicio rest de 360 para consulta renapo :::");
+
         var objeto = querystring.stringify({
             curp: bean.curp
         }, null, null, { encodeURIComponent: querystring.unescape });
-    
+
         var servicio = new Promise((resolve, reject) => {
-            var reques = http.request({
+            var reques = https.request({
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Authorization": "Bearer " + process.env.token
                 },
+                rejectUnauthorized: Utils.parseBool(process.env.passCertificate),
                 hostname: '10.50.108.59',
                 port: 443,
                 path: '/melian/renapo/borrar/1',
@@ -114,7 +116,7 @@ class Renapo360 {
                     if (respuesta && respuesta.estatus === 0 && respuesta.respuesta.borrado == true) {
                         resolve(bean);
                     } else {
-                        logger.error(" ::: Ocurrio un Error con el servicio borrar renapo 360 ::: ");
+                        logger.error(" ::: Ocurrio un Error con el servicio borrar renapo 360 ::: " + err);
                         reject(new Error("Ocurrio un Error con el consumo del servicio de borrar Renapo 360 "));
                     }
                 });
@@ -125,7 +127,7 @@ class Renapo360 {
             reques.write(objeto);
             reques.end();
         });
-    
+
         return servicio;
     }
 
