@@ -20,7 +20,7 @@ class Renapo360 {
             curp: bean.curp,
         }, null, null, { encodeURIComponent: querystring.unescape });
 
-
+        logger.info("POST: " + objeto);
         var servicio = new Promise((resolve, reject) => {
             var reques = https.request({
                 headers: {
@@ -35,6 +35,7 @@ class Renapo360 {
             }, resp => {
                 resp.on("data", datos => {
                     var respuesta = JSON.parse(datos);
+                    logger.info("POST: " + JSON.stringify(respuesta));
                     if (respuesta && respuesta.estatus == 0) {
                         resolve(bean);
                     } else {
@@ -60,7 +61,7 @@ class Renapo360 {
             curp: bean.curp
         }, null, null, { encodeURIComponent: querystring.unescape });
 
-
+        logger.info("POST: " + objeto);
         var servicio = new Promise((resolve, reject) => {
             var reques = https.request({
                 headers: {
@@ -75,6 +76,7 @@ class Renapo360 {
             }, resp => {
                 resp.on("data", datos => {
                     let respuesta = JSON.parse(datos);
+                    logger.info("Respuesta: " + JSON.stringify(respuesta));
                     if (respuesta && respuesta.estatus == 0 && respuesta.respuesta) {
                         resolve(true);
                     } else {
@@ -99,6 +101,7 @@ class Renapo360 {
             curp: bean.curp
         }, null, null, { encodeURIComponent: querystring.unescape });
 
+        logger.info("POST: " + objeto);
         var servicio = new Promise((resolve, reject) => {
             var reques = https.request({
                 headers: {
@@ -113,6 +116,7 @@ class Renapo360 {
             }, resp => {
                 resp.on("data", datos => {
                     var respuesta = JSON.parse(datos);
+                    logger.info("Respuesta: " + JSON.stringify(respuesta));
                     if (respuesta && respuesta.estatus === 0 && respuesta.respuesta.borrado == true) {
                         resolve(bean);
                     } else {
