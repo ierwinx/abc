@@ -10,12 +10,4 @@ router.get('/', function(req, res, next) {
     res.render('home', { url:process.env.frontend });
 });
 
-router.get('/Encriptar', function(req, res, next) {
-    res.send(Encriptar.aes256(req.body));
-});
-
-router.get('/Desencriptar', function(req, res, next) {
-    res.send(Desencriptar.aes256(req.body));
-});
-
 module.exports = router;
