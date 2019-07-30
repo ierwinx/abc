@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("PersonaDAO");
-const Persona = require('../models/persona');
+const Persona = require('../models/Persona');
 const Curp = require("../services/CU/Curp");
 
 class PersonaDAO {
