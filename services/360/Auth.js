@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("Auth");
-const DatosPersonales = require('../../helpers/datosPersonales');
+const DatosPersonales = require('../../helpers/DatosPersonales');
 const Encriptar = require('../../helpers/Encriptar');
 const querystring = require('querystring');
 const https = require("https");
