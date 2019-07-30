@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("Utils");
-const UsuarioDAO = require('../daos/UsuarioDAO');
+const UsuarioDAO = require('../daos/UUsuarioDAO');
 const DSI = require("../services/OAUTH/DSI");
 
 var verifyToken = (req, res, next) => {
