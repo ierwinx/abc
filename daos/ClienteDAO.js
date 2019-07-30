@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("ClienteDAO");
-const Cliente = require('../models/cliente');
+const Cliente = require('../models/Cliente');
 
 class ClienteDAO {
 
