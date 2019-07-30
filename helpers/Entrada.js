@@ -1,6 +1,6 @@
 const logger = require('log4js').getLogger("Entrada");
 const Peticion = require('../models/Peticion');
-const FlujoDAO = require("../daos/FflujoDAO");
+const FlujoDAO = require("../daos/FlujoDAO");
 const CaracteristicaDAO = require("../daos/CaracteristicaDAO");
 const InfoCliente = require("../models/InfoCliente");
 const PersonaDAO = require("../daos/PersonaDAO");

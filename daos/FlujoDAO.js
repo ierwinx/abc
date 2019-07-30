@@ -1,5 +1,5 @@
 const logger = require('log4js').getLogger("FlujoDAO");
-const Flujo = require('../models/flujo');
+const Flujo = require('../models/Flujo');
 
 class FlujoDAO {
 
