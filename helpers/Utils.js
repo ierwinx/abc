@@ -1,6 +1,6 @@
 const logger = require('log4js').getLogger("Utils");
 const uuidv1 = require('uuid/v1');
-const Encriptar = require("../helpers/Encriptar");
+const Encriptar = require("./Encriptar");
 
 class Utils {
 
