@@ -123,6 +123,43 @@ class FlujoINE {
         if (respuesta3.estatus == 0) {
             if (respuesta3.respuesta.Alta == true) {
                 logger.info(" ::: Se dio la alta de INE correctamente :::");
+
+                var objeto2 = new Object();
+        
+                if (respuesta3.cic && respuesta3.ocr) {
+                    objeto2 = {
+                        cic: respuesta3.cic,
+                        ocr: respuesta3.ocr,
+                        numero_emision: respuesta3.numeroEmision,
+                        clave_elector: respuesta3.claveElector
+                    };
+                } else {
+                    if (respuesta3.cic) {
+                        objeto2 = {
+                            cic: respuesta3.cic
+                        };
+                    } else {
+                        objeto2 = {
+                            ocr: respuesta3.ocr,
+                            numero_emision: respuesta3.numeroEmision,
+                            clave_elector: respuesta3.claveElector
+                        };
+                    }
+                }
+                
+                
+                var ine = new Ine();
+                var respuesta4 = await ine.consulta(objeto2).then().catch(err => {
+                    throw err;
+                });
+
+                if (respuesta4.estatus == 0) {
+                    logger.info(" ::: Se consulto INE correctamente :::");
+                } else {
+                    logger.error(" ::: Ocurrio un Error en el servicio de consulta 360 INE :::");
+                    throw new Error('Error en la consulta de datos INE en 360');
+                }
+
             } else {
                 logger.error(" ::: Ocurrio un Error en el servicio de alta 360 INE :::");
                 throw new Error('Error en la alta de datos INE en 360');
