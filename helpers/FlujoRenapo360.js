@@ -25,6 +25,15 @@ class FlujoRenapo360 {
             throw error;
         });
 
+        var resp = await renapo.consulta(body).then().catch(error => {
+            throw error;
+        });
+
+        if (!resp) {
+            logger.error(" ::: Ocurrio un Error con el servicio alta renapo 360 ::: ");
+            reject(new Error("Ocurrio un Error con el consumo del servicio de alta Renapo 360 "));
+        }
+
         return body;
 
     }
