@@ -15,7 +15,7 @@ class Renapo360 {
             apellido_paterno: bean.apellidoP,
             apellido_materno: bean.apellidoM,
             fecha_nacimiento: fecha,
-            sexo: bean.genero,
+            sexo: bean.genero == "F" ? "M" : "H",
             numero_entidad_registro: bean.idEntidadFederativa,
             curp: bean.curp,
         }, null, null, { encodeURIComponent: querystring.unescape });
