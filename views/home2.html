@@ -1,0 +1,27 @@
+{% extends "templates/main.html" %}
+
+{% block contenido %}
+<div id="header">
+    <h1>Sistema ABC</h1>
+</div>
+<div>
+    <h1>NOMBRE: {{nombre}}</h1>
+    <h1>NUMEROS: {{numeros}}</h1>
+    {% for i in numeros %}
+    <ul>
+        <li>{{i}}</li>
+    </ul>
+    {% endfor %}
+    {% if valida %}
+        <h1>{{perro}}</h1>
+    {% else %}
+        <h1>No hay perro</h1>
+    {% endif %}
+
+    {% for i in personas %}
+    <ul>
+        <li>{{i.nombre}} || {{i.edad}}</li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}

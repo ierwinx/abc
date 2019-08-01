@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const handlebars = require('express-handlebars');
+const nunjucks = require('express-nunjucks');
 const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
@@ -12,8 +12,8 @@ const homeRouter = require('./routes/home');
 const ambientes = require('./routes/ambientes');
 const auth = require('./routes/auth');
 
-app.engine('hbs', handlebars({defaultLayout: 'main'}));
-app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, '/views'));
+nunjucks(app);
 
 app.use(cors());
 

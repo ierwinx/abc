@@ -7,7 +7,7 @@ const UsuariosDAO = require("../daos/UsuarioDAO");
 
 router.get('/', function(req, res, next) {
     logger.info(" ::: Peticion inicio para aceptar certificado ::: ");
-    res.render('home', { url: req.query.url });
+    res.render('home', { url: process.env.frontend });
 });
 
 router.get('/Encriptar', function(req, res, next) {

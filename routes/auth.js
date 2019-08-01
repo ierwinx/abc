@@ -8,7 +8,7 @@ const Mail = require('../config/Mail');
 const Desencriptar = require('../helpers/Desencripta');
 const Encriptar = require('../helpers/Encriptar');
 const DSI = require("../services/OAUTH/DSI");
-const Handlebars = require("Handlebars");
+const nunjucks = require('express-nunjucks');
 const peticion = require("../models/peticion");
 const BloqueoDAO = require("../daos/BloqueoDAO");
 const Fechas = require("../helpers/Fechas");
@@ -116,8 +116,7 @@ router.post('/registro', function(req, res, next) {
 
     var usuariodao  = new UsuarioDAO();
     usuariodao.guardar(user).then(data => {
-        fs.readFile("./views/Emails/email.hbs", 'utf8', function(err, html) {
-            var template = Handlebars.compile(html);
+        fs.readFile("./views/Emails/email.html", 'utf8', function(err, html) {
             var datos = {
                 usuario: Desencriptar.aes256(user.usuario),
                 correo: user.correo,
@@ -125,7 +124,7 @@ router.post('/registro', function(req, res, next) {
                 dominio: process.env.backend + ':' + process.env.PORT,
                 id: Encriptar.aes256(data.id)
             }
-            html = template(datos);
+            html = nunjucks.render(html, datos);
             let email = new Mail();
             email.enviar(email.informacion(html, process.env.MAIL)).then(resp2 => {
                 Utils.printJson(res, 200, process.env.e200, null);
@@ -146,14 +145,13 @@ router.get('/acepta/usuario/:id', function(req, res, next) {
         id: id,
         status: true
     }).then(resp => {
-        fs.readFile("./views/Emails/aceptado.hbs", 'utf8', function(err, html) {
-            var template = Handlebars.compile(html);
+        fs.readFile("./views/Emails/aceptado.html", 'utf8', function(err, html) {
             var datos = {
                 contenido: 'A partir de ahora ya tendras acceso al sistema',
                 ambiente: process.env.ambiente,
                 color : 'green'
             }
-            html = template(datos);
+            html = nunjucks.render(html, datos);
             let email = new Mail();
             email.enviar(email.informacion(html, resp.correo));
         });
@@ -169,14 +167,13 @@ router.get('/declina/usuario/:id', function(req, res, next) {
         id: id,
         status: false
     }).then(resp => {
-        fs.readFile("./views/Emails/aceptado.hbs", 'utf8', function(err, html) {
-            var template = Handlebars.compile(html);
+        fs.readFile("./views/Emails/aceptado.html", 'utf8', function(err, html) {
             var datos = {
                 contenido: 'Se denego el acceso al sistema',
                 ambiente: process.env.ambiente,
                 color : 'red'
             } 
-            html = template(datos);
+            html = nunjucks.render(html, datos);
             let email = new Mail();
             email.enviar(email.informacion(html, resp.correo));
         });
