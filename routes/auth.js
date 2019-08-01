@@ -9,7 +9,7 @@ const Desencriptar = require('../helpers/Desencripta');
 const Encriptar = require('../helpers/Encriptar');
 const DSI = require("../services/OAUTH/DSI");
 const nunjucks = require('express-nunjucks');
-const peticion = require("../models/peticion");
+const peticion = require("../models/Peticion");
 const BloqueoDAO = require("../daos/BloqueoDAO");
 const Fechas = require("../helpers/Fechas");
 
