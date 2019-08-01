@@ -6,12 +6,12 @@ const logger = require('log4js').getLogger("config");
  ****************************/
 process.env.ambiente = 'Desarrollo';
 process.env.frontend = 'https://10.50.109.50:443/abc'
-process.env.backend = 'https://10.50.109.50'
+process.env.backend = 'https://10.51.58.240'
 
 /****************************
  *      Puerto escucha      *
  ****************************/
-process.env.PORT = 444;
+process.env.PORT = 443;
 
 /****************************
  *      ubicacion Mongo     *
