@@ -149,18 +149,18 @@ class Cuentas {
                     if (err2 == null) {
                         var respuesta = Cuentas.creaObjeto(result.MTEjecutaTransaccionResult);
                         logger.info("Respuesta: " + JSON.stringify(respuesta));
-                        if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
+                        /*if (result.MTEjecutaTransaccionResult.indexOf("Error") > -1) {
                             logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
                             reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
-                        } else {
-                            if (respuesta.ACC) {
+                        } else {*/
+                            if (respuesta.ACC && respuesta.ACC != '') {
                                 objeto.cuentaCliente = respuesta.ACC;
                                 resolve(objeto);
                             } else {
                                 logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
                                 reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
                             }
-                        }
+                        //}
                     } else {
                         logger.error(" ::: Ocurrio un Error con el consumo del servicio de MB02 de Alnova ::: ");
                         reject(new Error("Ocurrio un Error con el consumo del servicio de MB02 de Alnova"));
